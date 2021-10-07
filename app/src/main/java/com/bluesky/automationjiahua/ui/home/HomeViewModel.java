@@ -1,13 +1,6 @@
 package com.bluesky.automationjiahua.ui.home;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.bluesky.automationjiahua.database.Device;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeViewModel extends ViewModel {
     //todo 每次返回fragment都会调用oncreate方法的解决
@@ -18,8 +11,11 @@ public class HomeViewModel extends ViewModel {
     private int mRange = 0;
     //当前搜索范围
     private int mSearch = 0;
+    //关键字
+    private String mKeyWord = "";
     //过滤后的列表数据
 //    private LiveData<List<Device>> mFilteredDevices = new MutableLiveData<>();
+
 
     public HomeViewModel() {
 
@@ -55,5 +51,13 @@ public class HomeViewModel extends ViewModel {
 
     public void setmSearch(int mSearch) {
         this.mSearch = mSearch;
+    }
+
+    public String getKeyWord() {
+        return mKeyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        mKeyWord = keyWord;
     }
 }

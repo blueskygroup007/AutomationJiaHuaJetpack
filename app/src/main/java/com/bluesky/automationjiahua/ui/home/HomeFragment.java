@@ -64,6 +64,9 @@ public class HomeFragment extends Fragment {
         //初始化界面
         binding.spinnerQuerySearch.setSelection(homeViewModel.getmSearch());
         binding.spinnerQueryDomain.setSelection(homeViewModel.getmDomain());
+        //TODO 这里如何将keyword写到activity的toolbar上。
+        //TODO ViewModel不应该是能保存数据么？为什么返回后，数据就空了呢？另外查一下Navigation中Fragment的回退，是否重建Fragment。
+        mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmDomain()], AppConstant.SEARCH[homeViewModel.getmSearch()], homeViewModel.getKeyWord());
         binding.rvList.scrollToPosition(homeViewModel.getmCurrentItem());
     }
 
@@ -86,13 +89,13 @@ public class HomeFragment extends Fragment {
         mAdapter = new DeviceRecyclerViewAdapter(binding.rvList);
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvList.setAdapter(mAdapter);
-/*        mViewModel.getLiveDataDevices().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
+        mViewModel.getLiveDataDevices().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
             @Override
             public void onChanged(List<Device> devices) {
                 mAdapter.setData(devices);
                 mAdapter.notifyDataSetChanged();
             }
-        });*/
+        });
 
         //区域下拉列表
         binding.spinnerQueryDomain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -139,6 +142,7 @@ public class HomeFragment extends Fragment {
             public boolean onQueryTextChange(String s) {
                 //每当搜索内容变化，更新HomeViewModel，并更新列表
                 String pattern = s.trim();
+                homeViewModel.setKeyWord(pattern);
                 mViewModel.findDevicesWithPattern(
                         AppConstant.DOMAIN[homeViewModel.getmDomain()],
                         AppConstant.SEARCH[homeViewModel.getmSearch()],

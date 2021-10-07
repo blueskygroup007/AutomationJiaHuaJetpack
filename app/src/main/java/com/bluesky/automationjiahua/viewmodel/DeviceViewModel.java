@@ -25,23 +25,17 @@ public class DeviceViewModel extends AndroidViewModel {
     public DeviceViewModel(@NonNull @NotNull Application application) {
         super(application);
         mDeviceRepository = new DeviceRepository(application);
-        mLiveDataDevices = new MutableLiveData<>();
+        mLiveDataDevices = DeviceRepository.getmLiveData();
     }
 
     public MutableLiveData<List<Device>> getLiveDataDevices() {
-        if (mLiveDataDevices.getValue() == null) {
-            mLiveDataDevices.postValue(mDeviceRepository.getAllDevices().getValue());
-        }
+        mDeviceRepository.getAllDevices();
         return mLiveDataDevices;
     }
 
-    private MutableLiveData<List<Device>> trans(List<Device> data) {
-        mLiveDataDevices.setValue(data);
-        return mLiveDataDevices;
-    }
 
     public MutableLiveData<List<Device>> findDevicesWithPattern(String domain, String column, String keyWords) {
-        mLiveDataDevices.postValue(mDeviceRepository.findDeviceByPattern(domain, column, keyWords).getValue());
+        mDeviceRepository.findDeviceByPattern(domain, column, keyWords);
         return mLiveDataDevices;
     }
 

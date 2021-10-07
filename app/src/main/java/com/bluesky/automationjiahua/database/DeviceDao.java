@@ -37,7 +37,7 @@ public interface DeviceDao {
     void deleteDevices(Device... devices);
 
     @Query("SELECT * FROM device")
-    LiveData<List<Device>> getAllDevices();
+    List<Device> getAllDevices();
 
     @Query("SELECT * FROM device")
     List<Device> getAllDevicesNoLivedata();
@@ -76,7 +76,7 @@ public interface DeviceDao {
      * @return
      */
     @RawQuery(observedEntities = Device.class)
-    LiveData<List<Device>> rawQueryDevicesByPattern(SupportSQLiteQuery query);
+    List<Device> rawQueryDevicesByPattern(SupportSQLiteQuery query);
 
 
 /*    @Query("pragma table_info(device)")
