@@ -87,14 +87,18 @@ public class HomeFragment extends Fragment {
         //TODO ViewModel不应该是能保存数据么？为什么返回后，数据就空了呢？另外查一下Navigation中Fragment的回退，是否重建Fragment。
         //TODO 是不是因为数据库查询是异步的。所以，刚查询后，就获取livedata就是空！！！
         //mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmRange().getValue()], AppConstant.SEARCH[homeViewModel.getmSearch().getValue()], homeViewModel.getmKeyWord().getValue());
-        Log.e(HomeFragment.class.getSimpleName(), "DeviceViewModel.LiveData=" + mViewModel.getLiveDataDevices().getValue().size());
+        //Log.e(HomeFragment.class.getSimpleName(), "DeviceViewModel.LiveData=" + mViewModel.getLiveDataDevices().getValue().size());
 
 
         //区域下拉列表
         binding.spinnerQueryDomain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                homeViewModel.getmRange().postValue(i);
+                homeViewModel.getmRange().setValue(i);
+                mViewModel.findDevicesWithPattern(
+                        AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
+                        AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
+                        homeViewModel.getmKeyWord().getValue());
             }
 
             @Override
@@ -106,7 +110,11 @@ public class HomeFragment extends Fragment {
         binding.spinnerQuerySearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                homeViewModel.getmSearch().postValue(i);
+                homeViewModel.getmSearch().setValue(i);
+                mViewModel.findDevicesWithPattern(
+                        AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
+                        AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
+                        homeViewModel.getmKeyWord().getValue());
             }
 
             @Override

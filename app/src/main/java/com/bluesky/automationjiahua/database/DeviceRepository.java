@@ -80,17 +80,14 @@ public class DeviceRepository {
         StringBuilder pattern = new StringBuilder();
         if (!domain.isEmpty()) {
             pattern.append("domain='" + domain);
-        } else {
-            return;
-        }
-        if (!keyWords.isEmpty()) {
-            pattern.append("' and " + column + " like ");
-            pattern.append("'%" + keyWords + "%'");
-        } else {
-            pattern.append("'");
-        }
+            pattern.append("' and ");
 
-        Log.d(Tag, "查询语句:  " + "select * from device where " + pattern.toString());
+        }
+            pattern.append(column + " like ");
+            pattern.append("'%" + keyWords + "%'");
+
+
+        Log.e(Tag, "查询语句:  " + "select * from device where " + pattern.toString());
         SimpleSQLiteQuery query = new SimpleSQLiteQuery("select * from device where " + pattern);
         new QueryTask(mDeviceDao).execute(query);
 
