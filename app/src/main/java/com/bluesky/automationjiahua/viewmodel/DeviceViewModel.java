@@ -29,6 +29,10 @@ public class DeviceViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<Device>> getLiveDataDevices() {
+        return mLiveDataDevices;
+    }
+
+    public MutableLiveData<List<Device>> getAllLiveDataDevices() {
         mDeviceRepository.getAllDevices();
         return mLiveDataDevices;
     }

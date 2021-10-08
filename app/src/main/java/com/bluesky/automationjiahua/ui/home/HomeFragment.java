@@ -2,6 +2,7 @@ package com.bluesky.automationjiahua.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,12 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bluesky.atuomationjiahua.R;
 import com.bluesky.atuomationjiahua.databinding.FragmentHomeBinding;
 import com.bluesky.automationjiahua.base.AppConstant;
-import com.bluesky.automationjiahua.database.Device;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -38,8 +36,7 @@ public class HomeFragment extends Fragment {
     //    private LiveData<List<Device>> mFilteredDevices;
     //TODO DeviceViewModel用于整个数据的存取
     private DeviceViewModel mViewModel;
-//    private String mDomainPattern;
-//    private String mColumnPattern;
+    private SearchView mSearchView;
 
 
     @Override
@@ -48,8 +45,7 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         //TODO 这里使用的不是DataBinding，而是ViewBinding
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        return root;
+        return binding.getRoot();
     }
 
     @Override
@@ -57,19 +53,6 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //初始化界面
-        binding.spinnerQuerySearch.setSelection(homeViewModel.getmSearch());
-        binding.spinnerQueryDomain.setSelection(homeViewModel.getmDomain());
-        //TODO 这里如何将keyword写到activity的toolbar上。
-        //TODO ViewModel不应该是能保存数据么？为什么返回后，数据就空了呢？另外查一下Navigation中Fragment的回退，是否重建Fragment。
-        mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmDomain()], AppConstant.SEARCH[homeViewModel.getmSearch()], homeViewModel.getKeyWord());
-        binding.rvList.scrollToPosition(homeViewModel.getmCurrentItem());
-    }
-
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -89,19 +72,29 @@ public class HomeFragment extends Fragment {
         mAdapter = new DeviceRecyclerViewAdapter(binding.rvList);
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvList.setAdapter(mAdapter);
-        mViewModel.getLiveDataDevices().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
-            @Override
-            public void onChanged(List<Device> devices) {
-                mAdapter.setData(devices);
-                mAdapter.notifyDataSetChanged();
-            }
-        });
+        mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
+                AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
+                homeViewModel.getmKeyWord().getValue()).observe(getViewLifecycleOwner(),
+                devices -> {
+                    mAdapter.setData(devices);
+                    mAdapter.notifyDataSetChanged();
+                });
+        //恢复界面元素
+        binding.rvList.scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+        binding.spinnerQuerySearch.setSelection(homeViewModel.getmSearch().getValue());
+        binding.spinnerQueryDomain.setSelection(homeViewModel.getmRange().getValue());
+        //TODO 这里如何将keyword写到activity的toolbar上。
+        //TODO ViewModel不应该是能保存数据么？为什么返回后，数据就空了呢？另外查一下Navigation中Fragment的回退，是否重建Fragment。
+        //TODO 是不是因为数据库查询是异步的。所以，刚查询后，就获取livedata就是空！！！
+        //mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmRange().getValue()], AppConstant.SEARCH[homeViewModel.getmSearch().getValue()], homeViewModel.getmKeyWord().getValue());
+        Log.e(HomeFragment.class.getSimpleName(), "DeviceViewModel.LiveData=" + mViewModel.getLiveDataDevices().getValue().size());
+
 
         //区域下拉列表
         binding.spinnerQueryDomain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                homeViewModel.setmDomain(i);
+                homeViewModel.getmRange().postValue(i);
             }
 
             @Override
@@ -113,7 +106,7 @@ public class HomeFragment extends Fragment {
         binding.spinnerQuerySearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                homeViewModel.setmSearch(i);
+                homeViewModel.getmSearch().postValue(i);
             }
 
             @Override
@@ -130,9 +123,10 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_fragment_home_search, menu);
         MenuItem item = menu.findItem(R.id.menu_item_search);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setMaxWidth(1000);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView = (SearchView) item.getActionView();
+        mSearchView.setQuery(homeViewModel.getmKeyWord().getValue(), false);
+        mSearchView.setMaxWidth(1000);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -142,14 +136,21 @@ public class HomeFragment extends Fragment {
             public boolean onQueryTextChange(String s) {
                 //每当搜索内容变化，更新HomeViewModel，并更新列表
                 String pattern = s.trim();
-                homeViewModel.setKeyWord(pattern);
+                homeViewModel.getmKeyWord().postValue(pattern);
                 mViewModel.findDevicesWithPattern(
-                        AppConstant.DOMAIN[homeViewModel.getmDomain()],
-                        AppConstant.SEARCH[homeViewModel.getmSearch()],
+                        AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
+                        AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
                         pattern);
                 return true;
             }
         });
+/*        //给关键字设置观察者，以改变searchView的显示文本
+        homeViewModel.getmKeyWord().observe(requireParentFragment(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                searchView.setQuery(homeViewModel.getmKeyWord().getValue(), false);
+            }
+        });*/
     }
 
     @Override

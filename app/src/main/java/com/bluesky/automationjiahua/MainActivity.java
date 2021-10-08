@@ -196,19 +196,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(binding.getRoot(), "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                //createDatabase();
-                                fixDeviceFormat();
-                            }
-                        }).show();
-            }
-        });
+        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(binding.getRoot(), "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", view1 -> {
+                    //createDatabase();
+                    fixDeviceFormat();
+                }).show());
 
 
         DrawerLayout drawer = binding.drawerLayout;
