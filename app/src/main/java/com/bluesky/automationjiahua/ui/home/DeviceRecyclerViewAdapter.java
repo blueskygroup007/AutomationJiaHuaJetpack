@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,8 +54,6 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
         holder.tvNumber.setText(String.valueOf(position + 1));
         holder.tvTag.setText(device.getTag());
         holder.tvAffect.setText(device.getAffect());
-        holder.tvStandard.setText(device.getStandard());
-        holder.tvRange.setText(device.getRange());
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,17 +71,15 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
     }
 
     class DeviceViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNumber, tvTag, tvAffect, tvStandard, tvRange;
-        LinearLayout root;
+        TextView tvNumber, tvTag, tvAffect;
+        CardView root;
 
         public DeviceViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            root = itemView.findViewById(R.id.ll_item_rv_list);
+            root = itemView.findViewById(R.id.card_item);
             tvNumber = itemView.findViewById(R.id.tv_number);
             tvTag = itemView.findViewById(R.id.tv_tag);
             tvAffect = itemView.findViewById(R.id.tv_affect);
-            tvStandard = itemView.findViewById(R.id.tv_standard);
-            tvRange = itemView.findViewById(R.id.tv_range);
         }
     }
 }

@@ -36,6 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
+                android:textAppearance="?android:textAppearanceLarge"
                 android:text="设备位号"
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_tag"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
@@ -48,6 +49,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 android:text="用途"
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_affect"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
@@ -60,6 +63,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 android:text="参数"
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_parameter"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
@@ -72,6 +77,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 android:text="仪表名称"
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_name"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
@@ -83,6 +90,8 @@
                 android:id="@+id/tv_detail_column_range"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 android:background="@drawable/rectangle"
                 android:text="测量范围"
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_range"
@@ -97,6 +106,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="信号及规格"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_standard"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +118,8 @@
                 android:id="@+id/tv_detail_column_mode"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 android:background="@drawable/rectangle"
                 android:text="连接方式及标准"
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_mode"
@@ -121,6 +134,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="保护管"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_pipe"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,6 +148,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="型号"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_type"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,6 +162,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="数量"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_count"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +176,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="安装地点"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_install"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -169,6 +190,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="制造厂"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_factory"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +204,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="备注"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_remark"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -193,6 +218,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="供货商"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_brand"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -205,6 +232,8 @@
                 android:layout_height="0dp"
                 android:background="@drawable/rectangle"
                 android:text="日期"
+                android:textAppearance="?android:textAppearanceLarge"
+
                 app:layout_constraintBottom_toBottomOf="@id/tv_detail_content_date"
                 app:layout_constraintEnd_toStartOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="parent"

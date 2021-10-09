@@ -9,17 +9,21 @@
     <!--TODO 加大Item视图，（因为搜索结果不会太多）-->
     <!--TODO -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackground"
-        app:cardPreventCornerOverlap="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="8dp"
-
             android:paddingBottom="8dp">
 
             <androidx.constraintlayout.widget.Guideline
@@ -37,10 +41,10 @@
                 app:layout_constraintGuide_percent="0.8" />
 
             <TextView
-
                 android:id="@+id/tv_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="?android:textAppearanceLarge"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +58,8 @@
                 android:gravity="start"
                 android:lines="1"
                 android:maxLines="1"
-                android:textSize="20sp"
+
+                android:textAppearance="?android:textAppearanceLarge"
                 app:layout_constraintBottom_toTopOf="@+id/guideline5"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -67,36 +72,36 @@
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:maxLines="1"
-                android:textSize="20sp"
+                android:textAppearance="?android:textAppearanceLarge"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_tag"
                 tools:text="xxx蒸汽温度记录、调节" />
 
-            <TextView
-                android:id="@+id/tv_standard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center_horizontal"
-                android:maxLines="2"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="C:Pt100" />
+            <!--            <TextView
+                            android:id="@+id/tv_standard"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:gravity="center_horizontal"
+                            android:maxLines="2"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+                            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                            app:layout_constraintStart_toStartOf="@+id/guideline4"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="C:Pt100" />
 
-            <TextView
-                android:id="@+id/tv_range"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center_horizontal"
-                android:maxLines="2"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="0~100℃" />
+                        <TextView
+                            android:id="@+id/tv_range"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:gravity="center_horizontal"
+                            android:maxLines="2"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/guideline3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="0~100℃" />-->
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"

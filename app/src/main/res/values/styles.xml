@@ -9,11 +9,17 @@
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
-    <!--这里继承了仅仅具有textview的spinner的item样式,将该样式放入theme里，最后在spinner布局中引用theme-->
-    <style name="spinner" parent="Widget.AppCompat.TextView.SpinnerItem">
-        <item name="android:textSize">24sp</item>
+    <!--这里继承spinner的item样式,在spinner布局中引用,将该style定义在theme的话，是替换所有该类控件？？？-->
+    <style name="large_spinner" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:textColor">@color/light_blue_A400</item>
     </style>
 
 
+    <style name="detail_text_style">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black_overlay</item>
+        <item name="background">@color/white</item>
+    </style>
 </resources>
