@@ -2,7 +2,6 @@ package com.bluesky.automationjiahua.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -122,8 +121,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-
     }
 
     @Override
@@ -132,7 +129,13 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu_fragment_home_search, menu);
         MenuItem item = menu.findItem(R.id.menu_item_search);
         mSearchView = (SearchView) item.getActionView();
-        mSearchView.setQuery(homeViewModel.getmKeyWord().getValue(), false);
+        //搜索框展开
+        mSearchView.setIconified(false);
+        //获取搜索框的编辑框,并填入关键字,并全选
+        int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText etSearch = mSearchView.findViewById(id);
+        etSearch.setText(homeViewModel.getmKeyWord().getValue());
+        etSearch.selectAll();
         mSearchView.setMaxWidth(1000);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -152,13 +155,6 @@ public class HomeFragment extends Fragment {
                 return true;
             }
         });
-/*        //给关键字设置观察者，以改变searchView的显示文本
-        homeViewModel.getmKeyWord().observe(requireParentFragment(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                searchView.setQuery(homeViewModel.getmKeyWord().getValue(), false);
-            }
-        });*/
     }
 
     @Override

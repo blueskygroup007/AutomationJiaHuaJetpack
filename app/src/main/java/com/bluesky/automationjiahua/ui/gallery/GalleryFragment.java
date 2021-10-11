@@ -4,20 +4,47 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bluesky.atuomationjiahua.R;
 import com.bluesky.atuomationjiahua.databinding.FragmentGalleryBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
     private FragmentGalleryBinding binding;
+    private List<BeanPicture> mListPicture = new ArrayList<>();
+    private GridPictureAdapter mGridAdapter;
+
+    {
+        int drawable = R.drawable.chuleng;
+
+        mListPicture.add(new BeanPicture("chuleng", "初冷", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("dianbu", "电捕", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("gufengji", "鼓风机", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("jiaoyouanshui1", "焦油氨水1", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("jiaoyouanshui2", "焦油氨水2", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("liuan1", "硫铵1", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("liuan2", "硫铵2", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("tuoliu1", "脱硫1", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("tuoliu2", "脱硫2", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("xiaofangshui", "消防水", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("xidita", "洗涤塔", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("youku", "油库", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("zhengan", "蒸氨", R.drawable.chuleng));
+        mListPicture.add(new BeanPicture("zhonglengxiben", "终冷洗苯", R.drawable.chuleng));
+        mGridAdapter = new GridPictureAdapter(mListPicture);
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -28,13 +55,6 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 
@@ -42,5 +62,14 @@ public class GalleryFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.rvPicture.setLayoutManager(new GridLayoutManager(requireContext(), 5));
+        binding.rvPicture.setAdapter(mGridAdapter);
+        binding.rvPicture.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
+        //TODO 点击事件:使用图片浏览程序打开.
     }
 }

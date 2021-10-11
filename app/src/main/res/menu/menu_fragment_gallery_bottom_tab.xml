@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_item_tab_monitor"
+        android:icon="@drawable/ic_baseline_computer_24"
+        android:title="@string/str_menu_tab_monitor"
+        app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_item_tab_interlock"
+        android:icon="@drawable/ic_baseline_lock_24"
+        android:title="@string/str_menu_tab_interlock"
+        app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"
+        app:showAsAction="always" />
+</menu>
