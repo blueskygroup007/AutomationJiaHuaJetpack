@@ -135,7 +135,6 @@ public class HomeFragment extends Fragment {
         int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText etSearch = mSearchView.findViewById(id);
         etSearch.setText(homeViewModel.getmKeyWord().getValue());
-        etSearch.selectAll();
         mSearchView.setMaxWidth(1000);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
