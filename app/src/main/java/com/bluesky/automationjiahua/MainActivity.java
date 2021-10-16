@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +25,9 @@ import com.bluesky.automationjiahua.database.DeviceDataBase;
 import com.bluesky.automationjiahua.database.DeviceRepository;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 权限申请框架
      */
-/*    private void requestPermissions() {
+    private void requestPermissions() {
         XXPermissions.with(this)
                 // 申请安装包权限
                 //.permission(Permission.REQUEST_INSTALL_PACKAGES)
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }*/
+    }
 
     private void toast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();

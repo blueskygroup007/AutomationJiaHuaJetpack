@@ -1,11 +1,9 @@
 package com.bluesky.automationjiahua.ui.gallery;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -21,8 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bluesky.atuomationjiahua.R;
 
 import java.util.List;
-
-import permissions.dispatcher.NeedsPermission;
 
 /**
  * @author BlueSky

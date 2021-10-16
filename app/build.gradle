@@ -51,10 +51,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
     /*权限申请框架*/
-    dependencies {
-        implementation "com.github.permissions-dispatcher:permissionsdispatcher:4.9.1"
-        annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:4.9.1"
-    }
+    implementation 'com.github.getActivity:XXPermissions:12.5'
+    //implementation "com.github.permissions-dispatcher:permissionsdispatcher:4.9.1"
+    //annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:4.9.1"
 
 //    implementation 'com.github.getActivity:XXPermissions:11.6'
     testImplementation 'junit:junit:4.+'
