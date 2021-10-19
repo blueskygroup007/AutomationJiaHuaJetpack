@@ -22,7 +22,9 @@
     <string name="str_btn_splash_enter">进入</string>
     <string name="str_tv_header_serial">序号</string>
     <string name="menu_detail">详情</string>
-    <string name="str_menu_tab_monitor">监控画面</string>
+    <string name="str_menu_tab_monitor">化产主体</string>
     <string name="str_menu_tab_interlock">联锁</string>
     <string name="menu_special">特殊仪表</string>
+    <string name="str_menu_tab_monitor_huachan_zhisuan">制酸</string>
+    <string name="str_menu_tab_monitor_huachan_gongfu">公辅</string>
 </resources>

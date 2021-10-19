@@ -2,13 +2,37 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_item_tab_monitor"
+        android:id="@+id/menu_item_tab_monitor_huachan"
         android:icon="@drawable/ic_baseline_computer_24"
         android:title="@string/str_menu_tab_monitor"
+        app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_tab_monitor_huachan_zhisuan"
+        android:icon="@drawable/ic_baseline_computer_24"
+        android:title="@string/str_menu_tab_monitor_huachan_zhisuan"
+        app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_tab_monitor_huachan_gongfu"
+        android:icon="@drawable/ic_baseline_computer_24"
+        android:title="@string/str_menu_tab_monitor_huachan_gongfu"
         app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_item_tab_interlock"
+        android:icon="@drawable/ic_baseline_lock_24"
+        android:title="@string/str_menu_tab_interlock"
+        app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_item_tab_interlock_ganxijiao"
+        android:icon="@drawable/ic_baseline_lock_24"
+        android:title="@string/str_menu_tab_interlock"
+        app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_item_tab_interlock_jiaolu"
         android:icon="@drawable/ic_baseline_lock_24"
         android:title="@string/str_menu_tab_interlock"
         app:actionViewClass="com.google.android.material.bottomnavigation.BottomNavigationView"

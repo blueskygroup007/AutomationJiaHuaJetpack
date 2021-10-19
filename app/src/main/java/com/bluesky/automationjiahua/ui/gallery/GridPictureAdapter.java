@@ -26,7 +26,7 @@ import java.util.List;
  * Description:
  */
 public class GridPictureAdapter extends RecyclerView.Adapter<GridPictureAdapter.ViewHolder> {
-    private final List<BeanPicture> mData;
+    private List<BeanPicture> mData;
     private Context mContext;
 
     public GridPictureAdapter(List<BeanPicture> data) {
@@ -73,6 +73,11 @@ public class GridPictureAdapter extends RecyclerView.Adapter<GridPictureAdapter.
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public void setData(List<BeanPicture> data) {
+        mData = data;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

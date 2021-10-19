@@ -17,13 +17,49 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <RadioGroup
+        android:id="@+id/rd_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu_fragment_gallery_bottom_tab">
+        app:layout_constraintRight_toRightOf="parent">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        <RadioButton
+            android:id="@+id/rb_main"
+            style="@style/style_tabhost_menu_radiobutton"
+            android:drawableTop="@drawable/ic_baseline_computer_24"
+            android:text="@string/str_menu_tab_monitor" />
+
+        <RadioButton
+            android:id="@+id/rb_zhisuan"
+            style="@style/style_tabhost_menu_radiobutton"
+            android:drawableTop="@drawable/ic_baseline_computer_24"
+            android:text="@string/str_menu_tab_monitor_huachan_zhisuan" />
+
+        <RadioButton
+            android:id="@+id/rb_gongfu"
+            style="@style/style_tabhost_menu_radiobutton"
+            android:drawableTop="@drawable/ic_baseline_computer_24"
+            android:text="@string/str_menu_tab_monitor_huachan_gongfu" />
+
+        <RadioButton
+            android:id="@+id/rb_liansuo"
+            style="@style/style_tabhost_menu_radiobutton"
+            android:drawableTop="@drawable/ic_baseline_lock_24"
+            android:text="@string/str_menu_tab_interlock" />
+    </RadioGroup>
+
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/menu_fragment_gallery_bottom_tab">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

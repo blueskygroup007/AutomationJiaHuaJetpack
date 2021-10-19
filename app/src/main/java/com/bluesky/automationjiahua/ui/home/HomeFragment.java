@@ -26,6 +26,8 @@ import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class HomeFragment extends Fragment {
 
     //TODO HomeViewModel用于保存当前fragment的状态和数据
@@ -35,7 +37,6 @@ public class HomeFragment extends Fragment {
     //    private LiveData<List<Device>> mFilteredDevices;
     //TODO DeviceViewModel用于整个数据的存取
     private DeviceViewModel mViewModel;
-    private SearchView mSearchView;
 
 
     @Override
@@ -128,13 +129,17 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_fragment_home_search, menu);
         MenuItem item = menu.findItem(R.id.menu_item_search);
-        mSearchView = (SearchView) item.getActionView();
-        //搜索框展开
-        mSearchView.setIconified(false);
-        //获取搜索框的编辑框,并填入关键字,并全选
-        int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        EditText etSearch = mSearchView.findViewById(id);
-        etSearch.setText(homeViewModel.getmKeyWord().getValue());
+        SearchView mSearchView = (SearchView) item.getActionView();
+        if (!Objects.requireNonNull(homeViewModel.getmKeyWord().getValue()).isEmpty()) {
+            //搜索框展开
+            mSearchView.setIconified(false);
+            //获取搜索框的编辑框,并填入关键字,并全选
+            int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            EditText etSearch = mSearchView.findViewById(id);
+            etSearch.setText(homeViewModel.getmKeyWord().getValue());
+            etSearch.selectAll();
+        }
+
         mSearchView.setMaxWidth(1000);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
