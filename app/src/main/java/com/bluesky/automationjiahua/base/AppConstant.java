@@ -11,7 +11,9 @@ public class AppConstant {
     //public static final String[] DOMAIN = App.getContext().getResources().getStringArray(R.array.spinner_query_domain_database);
     //public static final String[] COLUMN = App.getContext().getResources().getStringArray(R.array.spinner_query_column_database);
 
-    public static final String[] DOMAIN = new String[]{"", "chuleng", "dianbujiaoyou", "gufengji", "jiaoyouanshui", "liuan", "tuoliu", "youku", "zhengan", "zhonglengxiben"};
+    public static final String[] DOMAIN = new String[]{"", "chuleng", "dianbujiaoyou", "gufengji",
+            "jiaoyouanshui", "liuan", "tuoliu", "youku", "zhengan", "zhonglengxiben", "yuchuli",
+            "fenshao", "jinghua", "zhuanhua", "ganxiweixi"};
     public static final String[] SEARCH = new String[]{"tag", "affect", "name", "standard", "type"};
 
 

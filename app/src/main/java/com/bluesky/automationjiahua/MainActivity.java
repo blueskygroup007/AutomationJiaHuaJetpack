@@ -31,6 +31,8 @@ import com.hjq.permissions.XXPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //TODO 1.部分条目的位号中有回车，会造成位号显示不全
 public class MainActivity extends AppCompatActivity {
@@ -45,18 +47,18 @@ public class MainActivity extends AppCompatActivity {
      */
     public void createDatabase() {
         List<String> columns = new ArrayList<>();
-        columns.add("chuleng");
-        columns.add("dianbujiaoyou");
-        columns.add("gufengji");
-        columns.add("jiaoyouanshui");
-        columns.add("liuan");
-        columns.add("tuoliu");
-        columns.add("youku");
-        columns.add("zhengan");
-        columns.add("zhonglengxiben");
+        columns.add("fenshao");
+        columns.add("ganxiweixi");
+        columns.add("jinghua");
+        columns.add("yuchuli");
+        columns.add("zhuanhua");
+//        columns.add("tuoliu");
+//        columns.add("youku");
+//        columns.add("zhengan");
+//        columns.add("zhonglengxiben");
 
         //依靠DatabaseHelper带全部参数的构造函数创建数据库
-        DBHelper dbHelper = new DBHelper(MainActivity.this, "total.db", null, 1);
+        DBHelper dbHelper = new DBHelper(MainActivity.this, "zhisuan.db", null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         for (String str :
@@ -123,15 +125,40 @@ public class MainActivity extends AppCompatActivity {
             mDeviceList = devices;
             DeviceRepository repository = new DeviceRepository(mContext);
             //todo 应该包涵换行，再更新该项,但是，如果更改了tag。那么更新就无意义。因为主键已经变化了。
-            //这里采用了删除旧行delete,增加新行,insert
+            //这里应采用删除旧行,增加新行。增加事务应该后处理。
+
+            List<Device> delDevices = new ArrayList<>();//需要删除的条目
+            List<Device> modDevices = new ArrayList<>();//需要插入的条目
             for (Device device :
                     devices) {
+                delDevices.add(device);
                 String tag = device.getTag();
                 String affect = device.getAffect();
                 //如果tag包含回车,换行,删除旧条目,增加新条目
                 if (tag.contains("\r") || tag.contains("\n") || tag.contains("/t")) {
+                    //repository.deleteDevices(device);
+                    Log.d("修改前的tag:  ", device.getTag());
+                    Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
+                    Matcher m = pattern.matcher(tag);
+                    Device temp = device;
+                    temp.setTag(m.replaceAll(""));
+                    modDevices.add(temp);
+                    //device.setTag(device.getTag().replaceAll("\r|\n|\t", ""));
+                    //device.setTag(device.getTag().replaceAll("[\\t\\n\\r]",""));
+                    Log.d("修改后的tag:  ", device.getTag());
+                    //repository.insertDevices(device);
+
+                }
+            }
+            for (Device device : delDevices
+            ) {
+                synchronized (repository) {
                     repository.deleteDevices(device);
-                    Log.d("delete****running:", device.getTag());
+                }
+            }
+            for (Device device : modDevices
+            ) {
+                synchronized (repository) {
                     repository.insertDevices(device);
                 }
             }
@@ -199,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(binding.getRoot(), "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", view1 -> {
-                    //createDatabase();
+//                    createDatabase();
                     fixDeviceFormat();
                 }).show());
 

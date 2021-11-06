@@ -11,6 +11,11 @@
         <item>油库</item>
         <item>蒸氨</item>
         <item>终冷洗苯</item>
+        <item>预处理</item>
+        <item>焚烧</item>
+        <item>净化</item>
+        <item>转化</item>
+        <item>干吸尾吸</item>
     </string-array>
 
     <string-array name="spinner_query_column">
@@ -33,6 +38,11 @@
         <item>youku</item>
         <item>zhengan</item>
         <item>zhonglengxiben</item>
+        <item>yuchuli</item>
+        <item>fenshao</item>
+        <item>jinghua</item>
+        <item>zhuanhua</item>
+        <item>ganxiweixi</item>
     </string-array>
 
     <string-array name="spinner_query_column_database">

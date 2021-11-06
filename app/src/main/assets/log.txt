@@ -44,3 +44,25 @@
 问题:
 1.某些条目的用途,参数,制造厂,都是用的组合框,所以没有标注到每一条上.(可临时靠后期解决:当某条目的以上某项为空时,自动查找相同数字位号(包括后面的字母ABC等)的条目的该项值填充)
 2.
+
+
+
+
+数据库转换步骤：
+1.excel中，删除序号列，删除合并列，删除合并行。
+2.更改excel表名，
+3.更改列名
+4.删除空行和空列，可用隐藏。
+
+5.导入到sqlite数据库中。
+6.查看是否有无效的TAG出现。
+
+7.保存数据库，拷贝到模拟器或真机中。如有另外两个辅助文件，则删除。
+8.修改db数据库读写权限
+    adb shell
+    su
+    chmod 777 /data/data/com.bluesky.atuomationjiahua/databases/huachan.db
+    chmod 777 /data/data/com.bluesky.atuomationjiahua/databases/huachan.db-shm
+    chmod 777 /data/data/com.bluesky.atuomationjiahua/databases/huachan.db-wal
+
+9.将insert方法加了@Insert(onConflict = OnConflictStrategy.REPLACE)，以保证主键重复时，强制覆盖
