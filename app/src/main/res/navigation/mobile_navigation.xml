@@ -9,32 +9,40 @@
         android:id="@+id/nav_home"
         android:name="com.bluesky.automationjiahua.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-<!--        <argument
-            android:name="arg_device"
-            app:argType="com.bluesky.atuomationjiahua.database.Device"
-            />-->
+        tools:layout="@layout/fragment_home">
+        <!--        <argument
+                    android:name="arg_device"
+                    app:argType="com.bluesky.automationjiahua.database.Device"
+                    />-->
         <action
             android:id="@+id/action_nav_home_to_detailFragment"
-            app:destination="@id/detailFragment"
+            app:destination="@id/nav_detail"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
-
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.bluesky.automationjiahua.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_monitor"
+        android:name="com.bluesky.automationjiahua.ui.monitor.MonitorFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        tools:layout="@layout/fragment_monitor" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.bluesky.automationjiahua.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_special"
+        android:name="com.bluesky.automationjiahua.ui.special.SpecialFragment"
+        android:label="@string/menu_special"
+        tools:layout="@layout/fragment_special" />
+    <fragment
+        android:id="@+id/nav_setup"
+        android:name="com.bluesky.automationjiahua.ui.setup.SetupFragment"
         android:label="@string/menu_setup"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_setup" />
     <fragment
-        android:id="@+id/detailFragment"
+        android:id="@+id/nav_detail"
         android:name="com.bluesky.automationjiahua.ui.detail.DetailFragment"
         android:label="@string/menu_detail"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/nav_database"
+        android:name="com.bluesky.automationjiahua.ui.database.DatabaseFragment"
+        android:label="@string/menu_database"
+        tools:layout="@layout/fragment_database" />
 </navigation>

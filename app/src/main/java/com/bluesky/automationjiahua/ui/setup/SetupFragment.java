@@ -1,4 +1,4 @@
-package com.bluesky.automationjiahua.ui.slideshow;
+package com.bluesky.automationjiahua.ui.setup;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,24 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bluesky.atuomationjiahua.databinding.FragmentSlideshowBinding;
+import com.bluesky.automationjiahua.databinding.FragmentSetupBinding;
 
-public class SlideshowFragment extends Fragment {
+public class SetupFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
-    private FragmentSlideshowBinding binding;
+    private SetupViewModel mSetupViewModel;
+    private FragmentSetupBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        mSetupViewModel =
+                new ViewModelProvider(this).get(SetupViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentSetupBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mSetupViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

@@ -1,4 +1,4 @@
-package com.bluesky.automationjiahua.ui.gallery;
+package com.bluesky.automationjiahua.ui.monitor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +14,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.bluesky.atuomationjiahua.databinding.FragmentGalleryBinding;
+import com.bluesky.automationjiahua.databinding.FragmentMonitorBinding;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 
 
-public class GalleryFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
+public class MonitorFragment extends Fragment implements RadioGroup.OnCheckedChangeListener {
 
-    private GalleryViewModel galleryViewModel;
-    private FragmentGalleryBinding binding;
+    private MonitorViewModel mMonitorViewModel;
+    private FragmentMonitorBinding binding;
     private GridPictureAdapter mGridAdapter;
 /*    private List<BeanPicture> mListPictureHuaChanMain = new ArrayList<>();
     private List<BeanPicture> mListPictureHuaChanZhiSuan = new ArrayList<>();
@@ -58,10 +58,10 @@ public class GalleryFragment extends Fragment implements RadioGroup.OnCheckedCha
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        mMonitorViewModel =
+                new ViewModelProvider(this).get(MonitorViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentMonitorBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;
@@ -76,7 +76,7 @@ public class GalleryFragment extends Fragment implements RadioGroup.OnCheckedCha
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGridAdapter = new GridPictureAdapter(galleryViewModel.getPictureHuaChanMain().getValue());
+        mGridAdapter = new GridPictureAdapter(mMonitorViewModel.getPictureHuaChanMain().getValue());
         binding.rvPicture.setLayoutManager(new GridLayoutManager(requireContext(), 5));
         binding.rvPicture.setAdapter(mGridAdapter);
         binding.rdGroup.check(binding.rbMain.getId());
@@ -104,9 +104,9 @@ public class GalleryFragment extends Fragment implements RadioGroup.OnCheckedCha
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         if (i == binding.rbMain.getId()) {
-            mGridAdapter.setData(galleryViewModel.getPictureHuaChanMain().getValue());
+            mGridAdapter.setData(mMonitorViewModel.getPictureHuaChanMain().getValue());
         } else if (i == binding.rbZhisuan.getId()) {
-            mGridAdapter.setData(galleryViewModel.getPictureHuaChanZhiSuan().getValue());
+            mGridAdapter.setData(mMonitorViewModel.getPictureHuaChanZhiSuan().getValue());
         } else if (i == binding.rbGongfu.getId()) {
 
         } else if (i == binding.rbLiansuo.getId()) {

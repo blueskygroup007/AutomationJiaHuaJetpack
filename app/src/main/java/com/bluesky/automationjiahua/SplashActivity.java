@@ -7,8 +7,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bluesky.automationjiahua.databinding.ActivitySplashBinding;
 import com.bluesky.automationjiahua.base.App;
-import com.bluesky.atuomationjiahua.databinding.ActivitySplashBinding;
 import com.bluesky.automationjiahua.utils.AssetsCopyUtils;
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.Permission;
@@ -51,6 +51,7 @@ public class SplashActivity extends AppCompatActivity {
         AssetsCopyUtils.copyAssetsFile2Phone(this, App.DATA_BASE_NAME, path);
         binding.btnEnter.setVisibility(View.VISIBLE);
     }
+
     private void requestPermissions() {
         XXPermissions.with(this)
                 // 申请安装包权限
@@ -66,6 +67,7 @@ public class SplashActivity extends AppCompatActivity {
                 // 申请多个权限
                 //.permission(Permission.Group.CALENDAR)
                 .permission(Permission.Group.STORAGE)
+                //.permission(Permission.MANAGE_EXTERNAL_STORAGE)
                 .request(new OnPermissionCallback() {
 
                     @Override

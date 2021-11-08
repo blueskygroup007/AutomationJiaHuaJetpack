@@ -3,6 +3,7 @@
     <string-array name="spinner_query_domain">
         <item>全部</item>
         <item>初冷</item>
+        <item>粗苯蒸馏</item>
         <item>电捕焦油</item>
         <item>鼓风机</item>
         <item>焦油氨水</item>
@@ -30,6 +31,7 @@
     <string-array name="spinner_query_domain_database">
         <item>all</item>
         <item>chuleng</item>
+        <item>cubenzhengliu</item>
         <item>dianbujiaoyou</item>
         <item>gufengji</item>
         <item>jiaoyouanshui</item>

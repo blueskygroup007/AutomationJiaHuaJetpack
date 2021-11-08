@@ -19,8 +19,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bluesky.atuomationjiahua.R;
-import com.bluesky.atuomationjiahua.databinding.FragmentHomeBinding;
+import com.bluesky.automationjiahua.R;
+import com.bluesky.automationjiahua.databinding.FragmentHomeBinding;
 import com.bluesky.automationjiahua.base.AppConstant;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
@@ -72,6 +72,8 @@ public class HomeFragment extends Fragment {
         mAdapter = new DeviceRecyclerViewAdapter(binding.rvList);
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvList.setAdapter(mAdapter);
+
+        //TODO 也不一定起作用.mDeviceRepository.findDeviceByPattern()方法可能根本没起作用
         mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
                 AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
                 homeViewModel.getmKeyWord().getValue()).observe(getViewLifecycleOwner(),

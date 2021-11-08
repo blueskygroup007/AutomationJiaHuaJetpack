@@ -1,4 +1,4 @@
-package com.bluesky.automationjiahua.ui.gallery;
+package com.bluesky.automationjiahua.ui.monitor;
 
 /**
  * @author BlueSky

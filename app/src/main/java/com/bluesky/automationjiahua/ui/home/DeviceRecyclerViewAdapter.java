@@ -13,7 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bluesky.atuomationjiahua.R;
+import com.bluesky.automationjiahua.R;
 import com.bluesky.automationjiahua.database.Device;
 
 import org.jetbrains.annotations.NotNull;

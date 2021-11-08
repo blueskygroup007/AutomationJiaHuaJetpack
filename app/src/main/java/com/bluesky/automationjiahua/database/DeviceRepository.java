@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteQuery;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +28,11 @@ public class DeviceRepository {
         DeviceDataBase db = DeviceDataBase.getDatabase(context);
         mDeviceDao = db.getDeviceDao();
         mLiveData = new MutableLiveData<>();
-        mLiveData.setValue(new LinkedList<>());
+        mLiveData.setValue(new ArrayList<>());
+    }
+
+    public DeviceDao getDeviceDao() {
+        return mDeviceDao;
     }
 
     public static MutableLiveData<List<Device>> getmLiveData() {
@@ -52,27 +56,38 @@ public class DeviceRepository {
     }
 
     public void getAllDevices() {
-        new QueryAllTask(mDeviceDao);
+        new QueryAllTask(mDeviceDao).execute();
     }
 
-    public LiveData<List<Device>> findDeviceByTag(String pattern) {
-        return mDeviceDao.queryDevicesByTag("%" + pattern + "%");
+    /*返回List(要去监听mLiveData)*/
+    public void findListDeviceByDomain(String domain) {
+        SimpleSQLiteQuery query = new SimpleSQLiteQuery("select * from device where domain='" + domain + "'");
+        new QueryTask(mDeviceDao).execute(query);
     }
 
-    public LiveData<List<Device>> findDeviceByAffect(String pattern) {
-        return mDeviceDao.queryDevicesByAffect("%" + pattern + "%");
+    /*返回LiveData*/
+    public LiveData<List<Device>> findLiveDataDeviceByDomain(String domain) {
+        return mDeviceDao.queryLiveDataDevicesByDomain("%" + domain + "%");
     }
 
-    public LiveData<List<Device>> findDeviceByName(String pattern) {
-        return mDeviceDao.queryDevicesByName("%" + pattern + "%");
+    public LiveData<List<Device>> findDeviceByTag(String tag) {
+        return mDeviceDao.queryDevicesByTag("%" + tag + "%");
     }
 
-    public LiveData<List<Device>> findDeviceByStandard(String pattern) {
-        return mDeviceDao.queryDevicesByStandard("%" + pattern + "%");
+    public LiveData<List<Device>> findDeviceByAffect(String affect) {
+        return mDeviceDao.queryDevicesByAffect("%" + affect + "%");
     }
 
-    public LiveData<List<Device>> findDeviceByType(String pattern) {
-        return mDeviceDao.queryDevicesByType("%" + pattern + "%");
+    public LiveData<List<Device>> findDeviceByName(String name) {
+        return mDeviceDao.queryDevicesByName("%" + name + "%");
+    }
+
+    public LiveData<List<Device>> findDeviceByStandard(String standard) {
+        return mDeviceDao.queryDevicesByStandard("%" + standard + "%");
+    }
+
+    public LiveData<List<Device>> findDeviceByType(String type) {
+        return mDeviceDao.queryDevicesByType("%" + type + "%");
 
     }
 
@@ -83,8 +98,8 @@ public class DeviceRepository {
             pattern.append("' and ");
 
         }
-            pattern.append(column + " like ");
-            pattern.append("'%" + keyWords + "%'");
+        pattern.append(column + " like ");
+        pattern.append("'%" + keyWords + "%'");
 
 
         Log.e(Tag, "查询语句:  " + "select * from device where " + pattern.toString());
@@ -129,7 +144,9 @@ public class DeviceRepository {
         @Override
         protected void onPostExecute(List<Device> devices) {
             super.onPostExecute(devices);
-            mLiveData.setValue(devices);
+            Log.e(this.getClass().getSimpleName(), "rawQueryDevicesByPattern获取的记录个数:" + devices.size());
+            //mLiveData.setValue(devices);
+            mLiveData.postValue(devices);
         }
     }
 

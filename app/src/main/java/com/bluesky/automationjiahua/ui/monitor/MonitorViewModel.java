@@ -1,14 +1,14 @@
-package com.bluesky.automationjiahua.ui.gallery;
+package com.bluesky.automationjiahua.ui.monitor;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.bluesky.atuomationjiahua.R;
+import com.bluesky.automationjiahua.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryViewModel extends ViewModel {
+public class MonitorViewModel extends ViewModel {
 
     private MutableLiveData<List<BeanPicture>> mPictureHuaChanMain = new MutableLiveData<>();
     ;
@@ -46,7 +46,7 @@ public class GalleryViewModel extends ViewModel {
         mListPicHuaChanZhiSuan.add(new BeanPicture("ganxi2", "干吸二", R.drawable.ganxi2));
     }
 
-    public GalleryViewModel() {
+    public MonitorViewModel() {
     }
 
 

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bluesky.automationjiahua.database.Device;
-import com.bluesky.atuomationjiahua.databinding.FragmentDetailBinding;
+import com.bluesky.automationjiahua.databinding.FragmentDetailBinding;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
 import org.jetbrains.annotations.NotNull;

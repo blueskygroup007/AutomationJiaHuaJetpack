@@ -199,4 +199,26 @@ public class Device implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "tag='" + tag + '\'' +
+                ", affect='" + affect + '\'' +
+                ", parameter='" + parameter + '\'' +
+                ", name='" + name + '\'' +
+                ", range='" + range + '\'' +
+                ", standard='" + standard + '\'' +
+                ", mode='" + mode + '\'' +
+                ", pipe='" + pipe + '\'' +
+                ", type='" + type + '\'' +
+                ", count='" + count + '\'' +
+                ", install='" + install + '\'' +
+                ", factory='" + factory + '\'' +
+                ", remark='" + remark + '\'' +
+                ", brand='" + brand + '\'' +
+                ", date='" + date + '\'' +
+                ", domain='" + domain + '\'' +
+                '}';
+    }
 }

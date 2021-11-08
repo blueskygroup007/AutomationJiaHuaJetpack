@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.RawQuery;
+import androidx.room.Transaction;
 import androidx.room.Update;
 import androidx.sqlite.db.SupportSQLiteQuery;
 
@@ -27,45 +28,54 @@ import java.util.List;
 @Dao
 public interface DeviceDao {
 
-
+    /*插入*/
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Device... devices);
 
+    /*删除所有*/
     @Query("DELETE FROM DEVICE")
     void deleteAll();
 
+    /*删除指定*/
     @Delete
     void deleteDevices(Device... devices);
 
+    /*查询所有记录(List)*/
     @Query("SELECT * FROM device")
     List<Device> getAllDevices();
 
-    @Query("SELECT * FROM device")
-    List<Device> getAllDevicesNoLivedata();
+    /*根据domain过滤查询*/
+    @Query("SELECT * FROM DEVICE WHERE domain LIKE :domain")
+    List<Device> queryListDevicesByDomain(String domain);
 
+    /*根据domain过滤查询*/
+    @Query("SELECT * FROM DEVICE WHERE domain LIKE :domain")
+    LiveData<List<Device>> queryLiveDataDevicesByDomain(String domain);
 
-    @Query("SELECT * FROM DEVICE WHERE TAG LIKE :pattern")
-    LiveData<List<Device>> queryDevicesByTag(String pattern);
+    /*根据tag过滤查询*/
+    @Query("SELECT * FROM DEVICE WHERE TAG LIKE :tag")
+    LiveData<List<Device>> queryDevicesByTag(String tag);
 
-    @Query("SELECT * FROM DEVICE WHERE AFFECT LIKE :pattern")
-    LiveData<List<Device>> queryDevicesByAffect(String pattern);
+    /*根据affect过滤查询*/
+    @Query("SELECT * FROM DEVICE WHERE AFFECT LIKE :affect")
+    LiveData<List<Device>> queryDevicesByAffect(String affect);
 
-    @Query("SELECT * FROM DEVICE WHERE NAME LIKE :pattern")
-    LiveData<List<Device>> queryDevicesByName(String pattern);
+    /*根据name过滤查询*/
+    @Query("SELECT * FROM DEVICE WHERE NAME LIKE :name")
+    LiveData<List<Device>> queryDevicesByName(String name);
 
+    /*更新数据*/
     @Update
     void updateDevices(Device... devices);
 
-    @Query("SELECT * FROM DEVICE WHERE STANDARD LIKE :pattern")
-    LiveData<List<Device>> queryDevicesByStandard(String pattern);
+    /*根据standard过滤查询*/
+    @Query("SELECT * FROM DEVICE WHERE standard LIKE :standard")
+    LiveData<List<Device>> queryDevicesByStandard(String standard);
 
-    @Query("SELECT * FROM DEVICE WHERE TYPE LIKE :pattern")
-    LiveData<List<Device>> queryDevicesByType(String pattern);
+    /*根据type过滤查询*/
+    @Query("SELECT * FROM DEVICE WHERE TYPE LIKE :type")
+    LiveData<List<Device>> queryDevicesByType(String type);
 
-    //todo 这里的query写法不能直接是字符串拼接
-    //改为采用下面的RawQuery
-    @Query("SELECT * FROM DEVICE where domain=:pattern")
-    LiveData<List<Device>> queryDevicesByPattern(String pattern);
 
     /**
      * bservable query return type (LiveData, Flowable, DataSource, DataSourceFactory etc)
@@ -78,6 +88,8 @@ public interface DeviceDao {
      */
     @RawQuery(observedEntities = Device.class)
     List<Device> rawQueryDevicesByPattern(SupportSQLiteQuery query);
+
+
 
 
 /*    @Query("pragma table_info(device)")
