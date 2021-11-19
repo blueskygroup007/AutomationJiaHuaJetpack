@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,9 +29,11 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
 
     List<Device> mData = new ArrayList<>();
     private RecyclerView mRecyclerView;
+    private OnItemClickListener mListener;
 
     public DeviceRecyclerViewAdapter(RecyclerView recyclerView) {
         this.mRecyclerView = recyclerView;
+        this.mListener = new OnItemClickListener();
     }
 
     public void setData(List<Device> data) {
@@ -44,7 +45,6 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
     @Override
     public DeviceViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
         return new DeviceViewHolder(inflater.inflate(R.layout.recyclerview_item_device, parent, false));
     }
 
@@ -54,15 +54,22 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
         holder.tvNumber.setText(String.valueOf(position + 1));
         holder.tvTag.setText(device.getTag());
         holder.tvAffect.setText(device.getAffect());
-        holder.root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavController controller = Navigation.findNavController(mRecyclerView);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("device", device);
-                controller.navigate(R.id.action_nav_home_to_detailFragment, bundle);
-            }
-        });
+        //将position放到tag中,用于传递给Listener
+        holder.root.setTag(position);
+        //(优化)避免重复创建Listener
+        holder.root.setOnClickListener(mListener);
+    }
+
+    class OnItemClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Device device = mData.get((Integer) v.getTag());
+            NavController controller = Navigation.findNavController(mRecyclerView);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("device", device);
+            controller.navigate(R.id.action_nav_home_to_detailFragment, bundle);
+        }
     }
 
     @Override

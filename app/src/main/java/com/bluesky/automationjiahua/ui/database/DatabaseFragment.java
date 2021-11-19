@@ -2,10 +2,9 @@ package com.bluesky.automationjiahua.ui.database;
 
 import static java.util.regex.Pattern.compile;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,16 +21,13 @@ import com.bluesky.automationjiahua.R;
 import com.bluesky.automationjiahua.base.AppConstant;
 import com.bluesky.automationjiahua.database.DBHelper;
 import com.bluesky.automationjiahua.database.Device;
-import com.bluesky.automationjiahua.database.DeviceDao;
-import com.bluesky.automationjiahua.database.DeviceDataBase;
 import com.bluesky.automationjiahua.database.DeviceRepository;
 import com.bluesky.automationjiahua.databinding.FragmentDatabaseBinding;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DatabaseFragment extends Fragment implements View.OnClickListener {
 
@@ -53,11 +49,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         //return inflater.inflate(R.layout.fragment_database, container, false);
 
         binding.button1.setOnClickListener(this);
-        binding.button2.setOnClickListener(this);
-        binding.button3.setOnClickListener(this);
         binding.button4.setOnClickListener(this);
-        binding.button5.setOnClickListener(this);
-        binding.button6.setOnClickListener(this);
         binding.button7.setOnClickListener(this);
         binding.button8.setOnClickListener(this);
         binding.button9.setOnClickListener(this);
@@ -91,48 +83,50 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button1://检查sqlite数据库
+            case R.id.button1:
+                //检查整个sqlite数据库,并列出所有表包含的记录数量
                 checkSqlite();
                 break;
-            case R.id.button2://转化某表到room
-                translateToRoom();
+            case R.id.button4:
+                //格式化sqlite某表所有记录
+                formatSqliteTableToRoom();
                 break;
-            case R.id.button3://检查room数据库
-                checkRoom();
-                break;
-            case R.id.button4://格式化sqlite某表
-                formatSqlite();
-                break;
-            case R.id.button5://格式化room某表
-                formatRoom();
-                break;
-            case R.id.button6://全部删除sqlite
-                deleteSqlite();
-                break;
-            case R.id.button7://删除room某表
+            case R.id.button7:
+                //删除room某表
                 deleteRoom();
                 break;
-            case R.id.button8://检查sqlite某表
+            case R.id.button8:
+                //查询sqlite某表
                 listSqlite();
                 break;
-            case R.id.button9://检查room某表
-                listRoom();
+            case R.id.button9:
+                //查询room某表
+                listRoomFromTable();
                 break;
             default:
         }
     }
 
-    private void listRoom() {
+    private void listRoomFromTable() {
         String table = binding.etTableName.getText().toString();
-        mDeviceRepository.findLiveDataDeviceByDomain(table).observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
+        ExecutorService es = Executors.newSingleThreadExecutor();
+        es.execute(new Runnable() {
             @Override
-            public void onChanged(List<Device> devices) {
+            public void run() {
+                List<Device> devices = mDeviceRepository.getDeviceDao().queryListDevicesByDomain(table);
+                int count = 0;
                 for (Device device :
                         devices) {
-                    Log.e("checkRoom:", device.toString() + "\n");
+                    count++;
+                    Log.e("ListRoom:", device.toString() + "\n");
+                    if (count >= 10) {
+                        Log.e("列出room某个表(前10条):", table + "表一共" + devices.size() + "条.");
+                        break;
+                    }
                 }
             }
         });
@@ -170,54 +164,51 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
 
     private void deleteRoom() {
         String table = binding.etTableName.getText().toString();
-        mDeviceRepository.findLiveDataDeviceByDomain(table).observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
+        ExecutorService es = Executors.newSingleThreadExecutor();
+        es.execute(new Runnable() {
             @Override
-            public void onChanged(List<Device> devices) {
+            public void run() {
+                List<Device> devices = mDeviceRepository.getDeviceDao().queryListDevicesByDomain(table);
                 mDeviceRepository.deleteDevices(devices.toArray(new Device[0]));
             }
         });
     }
 
-    /*慎用*/
-    private void deleteSqlite() {
+
+    private void formatSqliteTableToRoom() {
         String table = binding.etTableName.getText().toString();
         DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        //Cursor cursor = db.rawQuery("select * from " + table, null);
-
-        //cursor.close();
+        Cursor cursor = db.query(table, null, null, null, null, null, null);
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                Device device = new Device(cursor.getString(0)
+                        , cursor.getString(1)
+                        , cursor.getString(2)
+                        , cursor.getString(3)
+                        , cursor.getString(4)
+                        , cursor.getString(5)
+                        , cursor.getString(6)
+                        , cursor.getString(7)
+                        , cursor.getString(8)
+                        , cursor.getString(9)
+                        , cursor.getString(10)
+                        , cursor.getString(11)
+                        , cursor.getString(12)
+                        , cursor.getString(13)
+                        , cursor.getString(14)
+                        , table);
+                if (device.getTag() != null && !device.getTag().isEmpty()) {
+                    String formated_tag = compile("\\s*|\t|\r|\n").matcher(device.getTag()).replaceAll("");
+                    Log.e("listSqlite_formated:", device.getTag() + "   to   " + formated_tag);
+                    //添加到room中,调试时,先检查格式化是否正确再执行下面两行代码做插入.
+                    device.setTag(formated_tag);
+                    mDeviceRepository.insertDevices(device);
+                }
+            }
+        }
+        cursor.close();
         db.close();
-    }
-
-    private void formatRoom() {
-        mDeviceRepository.findLiveDataDeviceByDomain(binding.etTableName.getText().toString()).observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
-            @Override
-            public void onChanged(List<Device> devices) {
-                for (Device device :
-                        devices) {
-                    //TODO 格式化每个记录的tag,去除\r\t\n
-                    Log.e("formatRoom:", device.toString() + "\n");
-                }
-            }
-        });
-    }
-
-    private void formatSqlite() {
-
-    }
-
-    private void checkRoom() {
-        String table = binding.etTableName.getText().toString();
-        mDeviceRepository.findLiveDataDeviceByDomain(table).observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
-            @Override
-            public void onChanged(List<Device> devices) {
-                for (Device device : devices
-                ) {
-                    Log.e("checkRoom:", device.toString() + "\n");
-                }
-            }
-        });
     }
 
     private void translateToRoom() {
@@ -252,6 +243,9 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         db.close();
     }
 
+    /**
+     * 检查整个sqlite数据库,显示出所有表包含的记录数量.
+     */
     private void checkSqlite() {
         DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -271,149 +265,11 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         db.close();
     }
 
-/*    class QueryTask extends AsyncTask<SupportSQLiteQuery, Void, List<Device>> {
-
-        DeviceDao mDeviceDao;
-
-        public QueryTask(DeviceDao deviceDao) {
-            mDeviceDao = deviceDao;
-        }
-
-        @Override
-        protected List<Device> doInBackground(SupportSQLiteQuery... query) {
-            return mDeviceDao.rawQueryDevicesByPattern(query[0]);
-        }
-
-        @Override
-        protected void onPostExecute(List<Device> devices) {
-            super.onPostExecute(devices);
-            StringBuilder builder = new StringBuilder();
-            Log.e(this.getClass().getSimpleName(), "rawQueryDevicesByPattern获取的记录个数:" + devices.size());
-
-            builder.append(devices.get(0).getDomain()).append(":").append(devices.size()).append("\n");
-            binding.tvOutput.setText(builder);
-        }
-    }*/
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
         // TODO: Use the ViewModel
-    }
-
-    /**
-     * 从sqlite数据库生成room新数据库
-     */
-    public void createDatabase() {
-
-
-        //依靠DatabaseHelper带全部参数的构造函数创建数据库
-        DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        for (String domain :
-                AppConstant.TABLE_NAME) {
-
-            Cursor cursor = db.rawQuery("select * from " + domain, null);
-            if (cursor.getCount() != 0) {
-                while (cursor.moveToNext()) {
-                    Log.d("test_TAG", "tag=" + cursor.getString(0) + "--affect=" + cursor.getString(1));
-                    Device device = new Device(cursor.getString(0)
-                            , cursor.getString(1)
-                            , cursor.getString(2)
-                            , cursor.getString(3)
-                            , cursor.getString(4)
-                            , cursor.getString(5)
-                            , cursor.getString(6)
-                            , cursor.getString(7)
-                            , cursor.getString(8)
-                            , cursor.getString(9)
-                            , cursor.getString(10)
-                            , cursor.getString(11)
-                            , cursor.getString(12)
-                            , cursor.getString(13)
-                            , cursor.getString(14)
-                            , domain);
-                    DeviceRepository repository = new DeviceRepository(requireActivity().getApplicationContext());
-                    repository.insertDevices(device);
-                }
-                cursor.close();
-            }
-        }
-        db.close();
-    }
-
-    /**
-     * 修复新数据库中，tag和affect中含有回车,换行,制表符的问题
-     */
-    public void fixDeviceFormat() {
-        DeviceDataBase db = DeviceDataBase.getDatabase(requireContext());
-        DeviceDao mDeviceDao = db.getDeviceDao();
-        new getAllDevicesNoLivedataTask(mDeviceDao, requireContext()).execute();
-    }
-
-
-    /**
-     * 多表合一线程
-     */
-    static class getAllDevicesNoLivedataTask extends AsyncTask<Void, Void, List<Device>> {
-        DeviceDao mDeviceDao;
-        Context mContext;
-
-        public getAllDevicesNoLivedataTask(DeviceDao dao, Context context) {
-            mDeviceDao = dao;
-            mContext = context;
-        }
-
-        @Override
-        protected List<Device> doInBackground(Void... voids) {
-            return mDeviceDao.getAllDevices();
-        }
-
-        @Override
-        protected void onPostExecute(List<Device> devices) {
-            super.onPostExecute(devices);
-            DeviceRepository repository = new DeviceRepository(mContext);
-            //todo 应该包涵换行，再更新该项,但是，如果更改了tag。那么更新就无意义。因为主键已经变化了。
-            //这里应采用删除旧行,增加新行。增加事务应该后处理。
-
-            List<Device> delDevices = new ArrayList<>();//需要删除的条目
-            List<Device> modDevices = new ArrayList<>();//需要插入的条目
-            for (Device device :
-                    devices) {
-                delDevices.add(device);
-                String tag = device.getTag();
-                String affect = device.getAffect();
-                //如果tag包含回车,换行,删除旧条目,增加新条目
-                if (tag.contains("\r") || tag.contains("\n") || tag.contains("/t")) {
-                    //repository.deleteDevices(device);
-                    Log.d("修改前的tag:  ", device.getTag());
-                    Pattern pattern = compile("\\s*|\t|\r|\n");
-                    Matcher m = pattern.matcher(tag);
-                    Device temp = device;
-                    temp.setTag(m.replaceAll(""));
-                    modDevices.add(temp);
-                    //device.setTag(device.getTag().replaceAll("\r|\n|\t", ""));
-                    //device.setTag(device.getTag().replaceAll("[\\t\\n\\r]",""));
-                    Log.d("修改后的tag:  ", device.getTag());
-                    //repository.insertDevices(device);
-
-                }
-            }
-            for (Device device : delDevices
-            ) {
-                synchronized (repository) {
-                    repository.deleteDevices(device);
-                }
-            }
-            for (Device device : modDevices
-            ) {
-                synchronized (repository) {
-                    repository.insertDevices(device);
-                }
-            }
-        }
     }
 
 }

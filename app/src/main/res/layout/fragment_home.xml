@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:entries="@array/spinner_query_domain"
             android:labelFor="@id/spinner_query_domain"
-            android:theme="@style/large_spinner" />
+            android:theme="@style/medium_spinner" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:entries="@array/spinner_query_column"
-            android:theme="@style/large_spinner" />
+            android:theme="@style/medium_spinner" />
     </LinearLayout>
 
     <LinearLayout

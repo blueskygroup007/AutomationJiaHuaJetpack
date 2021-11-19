@@ -20,8 +20,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bluesky.automationjiahua.R;
-import com.bluesky.automationjiahua.databinding.FragmentHomeBinding;
 import com.bluesky.automationjiahua.base.AppConstant;
+import com.bluesky.automationjiahua.databinding.FragmentHomeBinding;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -71,6 +71,8 @@ public class HomeFragment extends Fragment {
 
         mAdapter = new DeviceRecyclerViewAdapter(binding.rvList);
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
+        //(优化)确定Item的改变不会影响RecyclerView的宽高
+        binding.rvList.setHasFixedSize(true);
         binding.rvList.setAdapter(mAdapter);
 
         //TODO 也不一定起作用.mDeviceRepository.findDeviceByPattern()方法可能根本没起作用

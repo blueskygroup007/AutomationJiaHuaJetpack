@@ -79,6 +79,7 @@ public class MonitorFragment extends Fragment implements RadioGroup.OnCheckedCha
         mGridAdapter = new GridPictureAdapter(mMonitorViewModel.getPictureHuaChanMain().getValue());
         binding.rvPicture.setLayoutManager(new GridLayoutManager(requireContext(), 5));
         binding.rvPicture.setAdapter(mGridAdapter);
+        //RadioGroup的默认选中,设置监听
         binding.rdGroup.check(binding.rbMain.getId());
         binding.rdGroup.setOnCheckedChangeListener(this);
     }
@@ -103,6 +104,7 @@ public class MonitorFragment extends Fragment implements RadioGroup.OnCheckedCha
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        //返回对应的数组(id,name,drawableId),设置给adapter
         if (i == binding.rbMain.getId()) {
             mGridAdapter.setData(mMonitorViewModel.getPictureHuaChanMain().getValue());
         } else if (i == binding.rbZhisuan.getId()) {

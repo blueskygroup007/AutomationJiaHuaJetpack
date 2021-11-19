@@ -31,12 +31,9 @@ public class DatabaseViewModel extends ViewModel {
 
     public MutableLiveData<List<Device>> getDevices() {
         if (devices == null) {
-            devices = DeviceRepository.getmLiveData();
+            devices = new MutableLiveData<>();
         }
         return devices;
     }
 
-    public void setDevices(LiveData<List<Device>> devices) {
-        this.devices.postValue(devices.getValue());
-    }
 }

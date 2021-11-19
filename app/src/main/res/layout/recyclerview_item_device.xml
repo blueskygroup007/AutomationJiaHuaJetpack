@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            >
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -70,9 +70,9 @@
                 android:id="@+id/tv_affect"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:lines="1"
-                android:maxLines="1"
-                android:textAppearance="?android:textAppearanceLarge"
+                android:lines="2"
+                android:maxLines="2"
+                android:textAppearance="?android:textAppearanceSmall"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -28,9 +27,11 @@ import java.util.List;
 public class GridPictureAdapter extends RecyclerView.Adapter<GridPictureAdapter.ViewHolder> {
     private List<BeanPicture> mData;
     private Context mContext;
+    private OnThumbClickListener mListener;
 
     public GridPictureAdapter(List<BeanPicture> data) {
         mData = data;
+        mListener = new OnThumbClickListener();
     }
 
     @NonNull
@@ -47,28 +48,33 @@ public class GridPictureAdapter extends RecyclerView.Adapter<GridPictureAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //TODO 这里应该取缩略图,查看内存占用，并优化
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mData.get(position).getPicture());
-        Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, 150, 150);
-        holder.ivPicture.setImageBitmap(thumbnail);
+        //Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mData.get(position).getPicture());
+        //Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, 150, 150);
+        //换成统一的默认图标
+        holder.ivPicture.setImageResource(R.drawable.ic_baseline_picture_in_picture_24);
         holder.tvName.setText(mData.get(position).getName());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mData.get(holder.getAdapterPosition()).getPicture());
-
-                String uriString = MediaStore.Images.Media.insertImage(mContext.getContentResolver(), bitmap, null, null);
-                Uri uri = Uri.parse(uriString);
-                intent.setDataAndType(uri, "image/*");
-                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                mContext.startActivity(intent);
-            }
-        });
+        holder.root.setTag(position);
+        holder.itemView.setOnClickListener(mListener);
     }
 
+    class OnThumbClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mData.get(position).getPicture());
+
+            String uriString = MediaStore.Images.Media.insertImage(mContext.getContentResolver(), bitmap, null, null);
+            Uri uri = Uri.parse(uriString);
+            intent.setDataAndType(uri, "image/*");
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            mContext.startActivity(intent);
+        }
+    }
 
     @Override
     public int getItemCount() {

@@ -59,12 +59,6 @@ public class DeviceRepository {
         new QueryAllTask(mDeviceDao).execute();
     }
 
-    /*返回List(要去监听mLiveData)*/
-    public void findListDeviceByDomain(String domain) {
-        SimpleSQLiteQuery query = new SimpleSQLiteQuery("select * from device where domain='" + domain + "'");
-        new QueryTask(mDeviceDao).execute(query);
-    }
-
     /*返回LiveData*/
     public LiveData<List<Device>> findLiveDataDeviceByDomain(String domain) {
         return mDeviceDao.queryLiveDataDevicesByDomain("%" + domain + "%");
@@ -208,6 +202,22 @@ public class DeviceRepository {
         protected Void doInBackground(Void... voids) {
             mDeviceDao.deleteAll();
             return null;
+        }
+    }
+
+    /**
+     * 通过表名查询
+    */
+    private static class QueryListByDomainTask extends AsyncTask<String, Void, List<Device>> {
+        DeviceDao mDeviceDao;
+
+        public QueryListByDomainTask(DeviceDao deviceDao) {
+            mDeviceDao = deviceDao;
+        }
+
+        @Override
+        protected List<Device> doInBackground(String... strings) {
+            return mDeviceDao.queryListDevicesByDomain(strings[0]);
         }
     }
 }

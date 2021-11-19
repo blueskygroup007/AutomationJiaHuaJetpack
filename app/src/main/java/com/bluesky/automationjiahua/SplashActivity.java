@@ -66,8 +66,8 @@ public class SplashActivity extends AppCompatActivity {
                 //.permission(Permission.RECORD_AUDIO)
                 // 申请多个权限
                 //.permission(Permission.Group.CALENDAR)
-                .permission(Permission.Group.STORAGE)
-                //.permission(Permission.MANAGE_EXTERNAL_STORAGE)
+                //.permission(Permission.Group.STORAGE)
+                .permission(Permission.MANAGE_EXTERNAL_STORAGE)
                 .request(new OnPermissionCallback() {
 
                     @Override
