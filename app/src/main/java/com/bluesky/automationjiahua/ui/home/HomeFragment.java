@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.room.util.StringUtil;
 
 import com.bluesky.automationjiahua.R;
 import com.bluesky.automationjiahua.base.AppConstant;
@@ -134,13 +135,21 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu_fragment_home_search, menu);
         MenuItem item = menu.findItem(R.id.menu_item_search);
         SearchView mSearchView = (SearchView) item.getActionView();
-        if (!Objects.requireNonNull(homeViewModel.getmKeyWord().getValue()).isEmpty()) {
+        if (homeViewModel.getmKeyWord().getValue() != null) {
             //搜索框展开
             mSearchView.setIconified(false);
             //获取搜索框的编辑框,并填入关键字,并全选
             int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
             EditText etSearch = mSearchView.findViewById(id);
-            etSearch.setText(homeViewModel.getmKeyWord().getValue());
+            String[] keyWords = homeViewModel.getmKeyWord().getValue();
+            StringBuilder keyWord = new StringBuilder();
+            for (String str :
+                    keyWords) {
+                keyWord.append(str);
+                keyWord.append(" ");
+            }
+
+            etSearch.setText(keyWord.toString().trim());
             etSearch.selectAll();
         }
 
@@ -154,12 +163,15 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 //每当搜索内容变化，更新HomeViewModel，并更新列表
-                String pattern = s.trim();
-                homeViewModel.getmKeyWord().postValue(pattern);
+                String keyWord = s.trim();
+                String[] keyWords = keyWord.split(" ");
+                homeViewModel.getmKeyWord().postValue(keyWords);
+
+
                 mViewModel.findDevicesWithPattern(
                         AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
                         AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
-                        pattern);
+                        keyWords);
                 return true;
             }
         });

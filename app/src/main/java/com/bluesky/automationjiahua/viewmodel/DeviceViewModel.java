@@ -38,7 +38,7 @@ public class DeviceViewModel extends AndroidViewModel {
     }
 
 
-    public MutableLiveData<List<Device>> findDevicesWithPattern(String domain, String column, String keyWords) {
+    public MutableLiveData<List<Device>> findDevicesWithPattern(String domain, String column, String[] keyWords) {
         mDeviceRepository.findDeviceByPattern(domain, column, keyWords);
         return mLiveDataDevices;
     }

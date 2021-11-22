@@ -68,6 +68,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
                 binding.tvOutput.setText(s);
             }
         });
+        /*应该也可以改为直接监听Repository的内部LiveData*/
         mViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
             @Override
             public void onChanged(List<Device> devices) {

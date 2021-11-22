@@ -85,16 +85,23 @@ public class DeviceRepository {
 
     }
 
-    public void findDeviceByPattern(String domain, String column, String keyWords) {
+    public void findDeviceByPattern(String domain, String column, String[] keyWords) {
         StringBuilder pattern = new StringBuilder();
         if (!domain.isEmpty()) {
             pattern.append("domain='" + domain);
             pattern.append("' and ");
 
         }
-        pattern.append(column + " like ");
-        pattern.append("'%" + keyWords + "%'");
-
+        if (keyWords != null && keyWords.length > 0) {
+            pattern.append(column + " like '");
+            for (String keyWord : keyWords
+            ) {
+                pattern.append("%" + keyWord);
+            }
+            pattern.append("%'");
+        } else {
+            pattern.append(column + " like " + "'%'");
+        }
 
         Log.e(Tag, "查询语句:  " + "select * from device where " + pattern.toString());
         SimpleSQLiteQuery query = new SimpleSQLiteQuery("select * from device where " + pattern);
@@ -207,7 +214,7 @@ public class DeviceRepository {
 
     /**
      * 通过表名查询
-    */
+     */
     private static class QueryListByDomainTask extends AsyncTask<String, Void, List<Device>> {
         DeviceDao mDeviceDao;
 

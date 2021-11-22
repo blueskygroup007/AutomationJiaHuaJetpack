@@ -13,7 +13,7 @@ public class HomeViewModel extends ViewModel {
     //当前搜索范围
     private MutableLiveData<Integer> mSearch;
     //关键字
-    private MutableLiveData<String> mKeyWord;
+    private MutableLiveData<String[]> mKeyWord;
     //过滤后的列表数据
 //    private LiveData<List<Device>> mFilteredDevices = new MutableLiveData<>();
 
@@ -43,9 +43,9 @@ public class HomeViewModel extends ViewModel {
         return mSearch;
     }
 
-    public MutableLiveData<String> getmKeyWord() {
+    public MutableLiveData<String[]> getmKeyWord() {
         if (mKeyWord == null) {
-            mKeyWord = new MutableLiveData<>("");
+            mKeyWord = new MutableLiveData<>();
         }
         return mKeyWord;
     }

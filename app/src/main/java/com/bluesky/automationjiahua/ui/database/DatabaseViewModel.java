@@ -29,6 +29,7 @@ public class DatabaseViewModel extends ViewModel {
         this.content = content;
     }
 
+    /*让ViewModel的devices等于Repository的内部Livedata。使得在调用无返回值的查询数据库方法时，能被监听*/
     public MutableLiveData<List<Device>> getDevices() {
         if (devices == null) {
             devices = new MutableLiveData<>();
