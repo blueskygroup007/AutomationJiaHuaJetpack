@@ -26,18 +26,22 @@ import java.util.List;
  * Description:
  */
 public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecyclerViewAdapter.DeviceViewHolder> {
-
+    private HomeViewModel mHomeViewModel;
     List<Device> mData = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private OnItemClickListener mListener;
 
-    public DeviceRecyclerViewAdapter(RecyclerView recyclerView) {
+    public DeviceRecyclerViewAdapter(RecyclerView recyclerView, HomeViewModel mViewModel) {
         this.mRecyclerView = recyclerView;
         this.mListener = new OnItemClickListener();
+        mHomeViewModel = mViewModel;
     }
 
     public void setData(List<Device> data) {
         mData = data;
+        notifyDataSetChanged();
+        //恢复上次列表位置
+        mRecyclerView.getLayoutManager().scrollToPosition(mHomeViewModel.getmCurrentItem().getValue());
     }
 
     @NonNull
@@ -77,6 +81,7 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
         return mData.size();
     }
 
+
     class DeviceViewHolder extends RecyclerView.ViewHolder {
         TextView tvNumber, tvTag, tvAffect;
         CardView root;
@@ -89,4 +94,5 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
             tvAffect = itemView.findViewById(R.id.tv_affect);
         }
     }
+
 }

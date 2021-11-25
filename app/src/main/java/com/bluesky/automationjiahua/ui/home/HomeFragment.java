@@ -2,6 +2,7 @@ package com.bluesky.automationjiahua.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.util.StringUtil;
 
 import com.bluesky.automationjiahua.R;
@@ -70,22 +72,44 @@ public class HomeFragment extends Fragment {
         //初始化DeviceViewModel
         mViewModel = new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()).create(DeviceViewModel.class);
 
-        mAdapter = new DeviceRecyclerViewAdapter(binding.rvList);
+        mAdapter = new DeviceRecyclerViewAdapter(binding.rvList, homeViewModel);
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         //(优化)确定Item的改变不会影响RecyclerView的宽高
         binding.rvList.setHasFixedSize(true);
         binding.rvList.setAdapter(mAdapter);
-
+        //设置列表的监听,以获取当前第一项的item的计数
+        binding.rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (recyclerView.getLayoutManager() != null) {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) binding.rvList.getLayoutManager();
+                    View topView = layoutManager.getChildAt(0);
+                    if (topView != null) {
+                        //获取与该view的顶部的偏移量
+                        //lastOffset=topView.getTop();
+                        //得到该view的数组位置
+                        int lastPosition = layoutManager.getPosition(topView);
+                        homeViewModel.getmCurrentItem().setValue(lastPosition);
+                    }
+                }
+            }
+        });
         //TODO 也不一定起作用.mDeviceRepository.findDeviceByPattern()方法可能根本没起作用
         mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
                 AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
                 homeViewModel.getmKeyWord().getValue()).observe(getViewLifecycleOwner(),
                 devices -> {
                     mAdapter.setData(devices);
-                    mAdapter.notifyDataSetChanged();
                 });
-        //恢复界面元素
-        binding.rvList.scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+        //---恢复界面元素---
+        //恢复列表位置
+/*        Log.e("begin onViewCreage:", "当前列表项保存值=" + homeViewModel.getmCurrentItem().getValue());
+
+        if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() >= 0) {
+            ((LinearLayoutManager) binding.rvList.getLayoutManager()).scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+        }*/
+        //恢复下拉列表框选择项
         binding.spinnerQuerySearch.setSelection(homeViewModel.getmSearch().getValue());
         binding.spinnerQueryDomain.setSelection(homeViewModel.getmRange().getValue());
         //TODO 这里如何将keyword写到activity的toolbar上。
@@ -130,12 +154,23 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+/*        Log.e("begin onResume:", "当前列表项保存值=" + homeViewModel.getmCurrentItem().getValue());
+        binding.rvList.scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+        if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() >= 0) {
+            ((LinearLayoutManager) binding.rvList.getLayoutManager()).scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+        }*/
+    }
+
+    @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_fragment_home_search, menu);
         MenuItem item = menu.findItem(R.id.menu_item_search);
         SearchView mSearchView = (SearchView) item.getActionView();
-        if (homeViewModel.getmKeyWord().getValue() != null) {
+        //用上次的关键字填充搜索栏,并全选,并给与焦点.
+        /*if (homeViewModel.getmKeyWord().getValue() != null) {
             //搜索框展开
             mSearchView.setIconified(false);
             //获取搜索框的编辑框,并填入关键字,并全选
@@ -151,7 +186,7 @@ public class HomeFragment extends Fragment {
 
             etSearch.setText(keyWord.toString().trim());
             etSearch.selectAll();
-        }
+        }*/
 
         mSearchView.setMaxWidth(1000);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

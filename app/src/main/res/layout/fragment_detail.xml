@@ -246,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/line"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.2" />
+                app:layout_constraintGuide_percent="0.25" />
 
 
             <!--    <TextView
@@ -328,7 +328,6 @@
                 android:id="@+id/tv_detail_content_standard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:background="@drawable/rectangle"
                 android:paddingStart="8dp"
                 android:textSize="24sp"
@@ -342,7 +341,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
-
+                android:minLines="2"
                 android:paddingStart="8dp"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
