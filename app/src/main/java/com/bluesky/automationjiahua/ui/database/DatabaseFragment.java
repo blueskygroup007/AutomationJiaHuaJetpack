@@ -118,6 +118,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         es.execute(new Runnable() {
             @Override
             public void run() {
+                Log.e("begin list Room::", "开始查询room表。。。");
                 List<Device> devices = mDeviceRepository.getDeviceDao().queryListDevicesByDomain(table);
                 int count = 0;
                 for (Device device :
@@ -134,6 +135,8 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
     }
 
     private void listSqlite() {
+        Log.e("begin list Room::", "开始列出sqlite表。。。");
+
         String table = binding.etTableName.getText().toString();
         DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -164,11 +167,14 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
     }
 
     private void deleteRoom() {
+
         String table = binding.etTableName.getText().toString();
         ExecutorService es = Executors.newSingleThreadExecutor();
         es.execute(new Runnable() {
             @Override
             public void run() {
+                Log.e("begin delete Room:", "开始删除room表。。。");
+
                 List<Device> devices = mDeviceRepository.getDeviceDao().queryListDevicesByDomain(table);
                 mDeviceRepository.deleteDevices(devices.toArray(new Device[0]));
             }
@@ -177,6 +183,8 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
 
 
     private void formatSqliteTableToRoom() {
+        Log.e("begin format to Room:", "开始格式化并转换到room表。。。");
+
         String table = binding.etTableName.getText().toString();
         DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -213,6 +221,8 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
     }
 
     private void translateToRoom() {
+        Log.e("begin translate Room:", "开始转换至room表。。。");
+
         String table = binding.etTableName.getText().toString();
         DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -248,6 +258,8 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
      * 检查整个sqlite数据库,显示出所有表包含的记录数量.
      */
     private void checkSqlite() {
+        Log.e("begin check sqlite:", "开始检查sqlite。。。");
+
         DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 

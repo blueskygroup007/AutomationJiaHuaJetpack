@@ -20,11 +20,11 @@
     </string-array>
 
     <string-array name="spinner_query_column">
-        <item>设备位号</item>
-        <item>用途</item>
-        <item>仪表名称</item>
-        <item>信号及规格</item>
-        <item>型号</item>
+        <item>设备位号(TE-44201)</item>
+        <item>用途(xx出口温度)</item>
+        <item>仪表名称(铠装热电阻)</item>
+        <item>信号及规格(PT100)</item>
+        <item>型号(WZPK-2481)</item>
 
     </string-array>
 
