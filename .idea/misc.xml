@@ -9,6 +9,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_baseline_picture_in_picture_24.xml" value="0.8601851851851852" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/rectangle.xml" value="0.8583333333333333" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/tab_menu_bg.xml" value="0.8731481481481481" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/tab_menu_text.xml" value="0.8731481481481481" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/activity_main.xml" value="0.5567708333333333" />
@@ -21,7 +22,7 @@
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_slideshow.xml" value="0.5567708333333333" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_special.xml" value="0.7993659420289855" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/nav_header_main.xml" value="0.5541666666666667" />
-        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/recyclerview_item_device.xml" value="0.5213541666666667" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/recyclerview_item_device.xml" value="0.7442455242966752" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/rv_item_picture.xml" value="0.43592330978809285" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/menu/main.xml" value="0.9" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/menu/menu_fragment_gallery_bottom_tab.xml" value="0.8231481481481482" />

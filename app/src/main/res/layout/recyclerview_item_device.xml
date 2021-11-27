@@ -22,9 +22,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            >
+            android:background="@color/material_color_grey_50"
+
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -42,8 +42,10 @@
 
             <TextView
                 android:id="@+id/tv_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/material_color_grey_300"
+                android:gravity="center"
                 android:textAppearance="?android:textAppearanceLarge"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -55,10 +57,10 @@
                 android:id="@+id/tv_tag"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:gravity="start"
                 android:lines="1"
                 android:maxLines="1"
-
                 android:textAppearance="?android:textAppearanceLarge"
                 app:layout_constraintBottom_toTopOf="@+id/guideline5"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -70,11 +72,12 @@
                 android:id="@+id/tv_affect"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:lines="2"
                 android:maxLines="2"
                 android:textAppearance="?android:textAppearanceSmall"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_tag"
                 tools:text="xxx蒸汽温度记录、调节" />
@@ -116,6 +119,52 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.5" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/material_color_grey_200"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/tv_alert_separate"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_battery_alert_24" />
+
+                <ImageView
+                    android:id="@+id/tv_alert_electric"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/tv_alert_separate"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_battery_charging_full_24" />
+
+                <ImageView
+                    android:id="@+id/tv_alert_calculate"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@id/tv_alert_separate"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_battery_unknown_24" />
+
+                <ImageView
+                    android:id="@+id/tv_alert_high_voltage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@id/tv_alert_electric"
+                    android:layout_toRightOf="@id/tv_alert_calculate"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_flash_on_24" />
+            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

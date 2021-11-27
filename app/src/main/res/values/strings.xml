@@ -28,4 +28,6 @@
     <string name="str_menu_tab_monitor_huachan_zhisuan">制酸</string>
     <string name="str_menu_tab_monitor_huachan_gongfu">公辅</string>
     <string name="menu_database">数据库</string>
+    <string name="str_tv_result_tag">搜索结果:</string>
+    <string name="str_tv_result_display">空</string>
 </resources>

@@ -11,9 +11,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.bluesky.automationjiahua.R;
-import com.bluesky.automationjiahua.databinding.ActivityMainBinding;
 import com.bluesky.automationjiahua.database.Device;
+import com.bluesky.automationjiahua.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -40,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+        //禁用侧滑打开DrawerLayout
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(binding.getRoot(), "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", view1 -> {
 //                    createDatabase();

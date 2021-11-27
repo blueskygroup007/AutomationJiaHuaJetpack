@@ -2,7 +2,6 @@ package com.bluesky.automationjiahua.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.util.StringUtil;
 
 import com.bluesky.automationjiahua.R;
 import com.bluesky.automationjiahua.base.AppConstant;
@@ -28,8 +25,6 @@ import com.bluesky.automationjiahua.databinding.FragmentHomeBinding;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -100,6 +95,7 @@ public class HomeFragment extends Fragment {
                 AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
                 homeViewModel.getmKeyWord().getValue()).observe(getViewLifecycleOwner(),
                 devices -> {
+                    binding.tvColumnTipDisplay.setText(String.valueOf(devices.size()));
                     mAdapter.setData(devices);
                 });
         //---恢复界面元素---
