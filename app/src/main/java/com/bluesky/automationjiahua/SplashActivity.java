@@ -31,7 +31,6 @@ public class SplashActivity extends AppCompatActivity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
-        initData();
         requestPermissions();
     }
 
@@ -74,6 +73,8 @@ public class SplashActivity extends AppCompatActivity {
                     public void onGranted(List<String> permissions, boolean all) {
                         if (all) {
                             toast("获取外置存储卡读写权限成功");
+                            initData();
+
                         } else {
                             toast("获取部分权限成功，但部分权限未正常授予");
                         }
