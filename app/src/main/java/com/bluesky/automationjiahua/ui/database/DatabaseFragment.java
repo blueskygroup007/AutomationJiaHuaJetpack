@@ -53,6 +53,11 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         binding.button7.setOnClickListener(this);
         binding.button8.setOnClickListener(this);
         binding.button9.setOnClickListener(this);
+
+        binding.btnDeleteRoomInterlock.setOnClickListener(this);
+        binding.btnFormatAndInsert.setOnClickListener(this);
+        binding.btnQueryRoomInterlock.setOnClickListener(this);
+        binding.btnQuerySqliteInterlock.setOnClickListener(this);
         return binding.getRoot();
     }
 
@@ -108,8 +113,48 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
                 //查询room某表
                 listRoomFromTable();
                 break;
+            case R.id.btn_delete_room_interlock:
+                deleteRoomInterlock();
+                break;
+            case R.id.btn_format_and_insert:
+                formatInterlockAndInsert();
+                break;
+            case R.id.btn_query_room_interlock:
+                queryRoomInterLock();
+                break;
+            case R.id.btn_query_sqlite_interlock:
+                querySqliteInterLock();
+                break;
             default:
         }
+    }
+
+    /**
+     * 查询sqlite联锁表
+     */
+    private void querySqliteInterLock() {
+
+    }
+
+    /**
+     * 格式化sqlite联锁表并插入room
+     */
+    private void formatInterlockAndInsert() {
+
+    }
+
+    /**
+     * 查询room联锁表
+     */
+    private void queryRoomInterLock() {
+
+    }
+
+    /**
+     * 删除room所有联锁
+     */
+    private void deleteRoomInterlock() {
+
     }
 
     private void listRoomFromTable() {

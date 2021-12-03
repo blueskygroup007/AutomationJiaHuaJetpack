@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <TextView
         android:id="@+id/tv_output"
@@ -58,6 +58,47 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+    <Button
+        android:id="@+id/btn_format_and_insert"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text="格式化sqlite联锁表"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <Button
+        android:id="@+id/btn_query_sqlite_interlock"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="查询sqlite联锁表"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_format_and_insert"
+        app:layout_constraintTop_toTopOf="@+id/btn_format_and_insert" />
+
+    <Button
+        android:id="@+id/btn_query_room_interlock"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:text="查询room联锁表"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_format_and_insert"
+        app:layout_constraintTop_toBottomOf="@+id/btn_query_sqlite_interlock" />
+
+    <Button
+        android:id="@+id/btn_delete_room_interlock"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="删除room所有联锁"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_format_and_insert" />
 
     <Button
         android:id="@+id/button7"

@@ -46,8 +46,11 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        String path = getDatabasePath(App.DATA_BASE_NAME).getAbsolutePath();
-        AssetsCopyUtils.copyAssetsFile2Phone(this, App.DATA_BASE_NAME, path);
+        String path_huachan = getDatabasePath(App.HUACHAN_DEVICE_DATA_BASE_NAME).getAbsolutePath();
+        String path_interlock = getDatabasePath(App.INTER_LOCK_DATA_BASE_NAME).getAbsolutePath();
+        AssetsCopyUtils.copyAssetsFile2Phone(this, App.HUACHAN_DEVICE_DATA_BASE_NAME, path_huachan);
+        AssetsCopyUtils.copyAssetsFile2Phone(this, App.INTER_LOCK_DATA_BASE_NAME, path_interlock);
+
         binding.btnEnter.setVisibility(View.VISIBLE);
     }
 

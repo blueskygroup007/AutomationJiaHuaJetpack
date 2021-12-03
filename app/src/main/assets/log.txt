@@ -72,8 +72,6 @@
 
 
 
-
-
 数据库转换步骤：
 1.excel中，删除序号列，删除合并列，删除合并行。
 2.更改excel表名，
@@ -92,3 +90,13 @@
     chmod 777 /data/data/com.bluesky.atuomationjiahua/databases/huachan.db-wal
 
 9.将insert方法加了@Insert(onConflict = OnConflictStrategy.REPLACE)，以保证主键重复时，强制覆盖
+
+
+git代理设置与取消:
+git config --global https.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy

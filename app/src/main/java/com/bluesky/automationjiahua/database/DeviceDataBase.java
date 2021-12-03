@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
  * Description:设备数据库
  */
 //将exportSchema设为false了。默认应该为true
-@Database(entities = {Device.class}, version = 1, exportSchema = false)
+@Database(entities = {Device.class, InterLock.class}, version = 1, exportSchema = false)
 public abstract class DeviceDataBase extends RoomDatabase {
     private static DeviceDataBase INSTANCE;
 
@@ -33,7 +33,7 @@ public abstract class DeviceDataBase extends RoomDatabase {
                 }
             };
 
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), DeviceDataBase.class, App.DATA_BASE_NAME)
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), DeviceDataBase.class, App.HUACHAN_DEVICE_DATA_BASE_NAME)
                     //.createFromAsset(DATABASE_ASSETS_PATH)
                     //.addMigrations(migration_1_2)
                     .fallbackToDestructiveMigration()
@@ -45,4 +45,6 @@ public abstract class DeviceDataBase extends RoomDatabase {
     }
 
     public abstract DeviceDao getDeviceDao();
+
+    public abstract InterLockDao getInterLockDao();
 }

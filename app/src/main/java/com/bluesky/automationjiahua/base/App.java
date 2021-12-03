@@ -10,7 +10,8 @@ import android.content.SharedPreferences;
  * Description:Application类,获取公共context
  */
 public class App extends Application {
-    public static final String DATA_BASE_NAME = "huachan.db";
+    public static final String HUACHAN_DEVICE_DATA_BASE_NAME = "huachan.db";
+    public static final String INTER_LOCK_DATA_BASE_NAME = "liansuo.db";
     private static Context mContext;
     private SharedPreferences mPreferences;
 
