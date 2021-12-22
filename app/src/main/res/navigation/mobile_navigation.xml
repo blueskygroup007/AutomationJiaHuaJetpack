@@ -29,7 +29,11 @@
         android:id="@+id/nav_special"
         android:name="com.bluesky.automationjiahua.ui.special.SpecialFragment"
         android:label="@string/menu_special"
-        tools:layout="@layout/fragment_special" />
+        tools:layout="@layout/fragment_special" >
+        <action
+            android:id="@+id/action_nav_special_to_specialMenuFragment"
+            app:destination="@id/specialMenuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_setup"
         android:name="com.bluesky.automationjiahua.ui.setup.SetupFragment"
@@ -45,4 +49,19 @@
         android:name="com.bluesky.automationjiahua.ui.database.DatabaseFragment"
         android:label="@string/menu_database"
         tools:layout="@layout/fragment_database" />
+    <fragment
+        android:id="@+id/specialMenuFragment"
+        android:name="com.bluesky.automationjiahua.ui.special.SpecialMenuFragment"
+        android:label="special_menu_fragment"
+        tools:layout="@layout/special_menu_fragment" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.bluesky.automationjiahua.MainActivity"
+        android:label="app_bar_main"
+        tools:layout="@layout/app_bar_main" />
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="com.bluesky.automationjiahua.SplashActivity"
+        android:label="activity_splash"
+        tools:layout="@layout/activity_splash" />
 </navigation>

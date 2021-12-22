@@ -7,7 +7,7 @@
     tools:context="com.bluesky.automationjiahua.ui.monitor.MonitorFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_picture"
+        android:id="@+id/rv_picture_monitor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -18,7 +18,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <RadioGroup
-        android:id="@+id/rd_group"
+        android:id="@+id/rd_group_monitor"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
@@ -29,25 +29,25 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <RadioButton
-            android:id="@+id/rb_main"
+            android:id="@+id/rb_huachan_monitor"
             style="@style/style_tabhost_menu_radiobutton"
             android:drawableTop="@drawable/ic_baseline_computer_24"
             android:text="@string/str_menu_tab_monitor" />
 
         <RadioButton
-            android:id="@+id/rb_zhisuan"
+            android:id="@+id/rb_zhisuan_monitor"
             style="@style/style_tabhost_menu_radiobutton"
             android:drawableTop="@drawable/ic_baseline_computer_24"
             android:text="@string/str_menu_tab_monitor_huachan_zhisuan" />
 
         <RadioButton
-            android:id="@+id/rb_gongfu"
+            android:id="@+id/rb_gongfu_monitor"
             style="@style/style_tabhost_menu_radiobutton"
             android:drawableTop="@drawable/ic_baseline_computer_24"
             android:text="@string/str_menu_tab_monitor_huachan_gongfu" />
 
         <RadioButton
-            android:id="@+id/rb_liansuo"
+            android:id="@+id/rb_liansuo_monitor"
             style="@style/style_tabhost_menu_radiobutton"
             android:drawableTop="@drawable/ic_baseline_lock_24"
             android:text="@string/str_menu_tab_interlock" />

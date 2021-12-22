@@ -1,6 +1,7 @@
 package com.bluesky.automationjiahua;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -73,5 +74,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //侧滑栏打开时,按返回键,关闭侧滑栏,而不是回退Fragment
+        DrawerLayout drawer = binding.drawerLayout;
+        if (drawer.isOpen()) {
+            drawer.closeDrawer(Gravity.LEFT);
+        }
     }
 }

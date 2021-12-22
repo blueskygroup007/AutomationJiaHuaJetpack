@@ -55,8 +55,12 @@ dependencies {
     //implementation "com.github.permissions-dispatcher:permissionsdispatcher:4.9.1"
     //annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:4.9.1"
 
+    //树形菜单
+    implementation 'com.github.bmelnychuk:atv:1.2.+'
+
 //    implementation 'com.github.getActivity:XXPermissions:11.6'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
 }

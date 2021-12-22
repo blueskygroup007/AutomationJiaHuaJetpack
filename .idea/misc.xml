@@ -14,16 +14,20 @@
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/tab_menu_text.xml" value="0.8731481481481481" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/activity_main.xml" value="0.5567708333333333" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/app_bar_main.xml" value="0.5567708333333333" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/content_main.xml" value="0.8963541666666667" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_database.xml" value="0.75" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_detail.xml" value="0.4003623188405797" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_gallery.xml" value="0.43592330978809285" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_home.xml" value="0.5567708333333333" />
-        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_monitor.xml" value="0.7898550724637681" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_monitor.xml" value="0.5187793427230047" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_slideshow.xml" value="0.5567708333333333" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/fragment_special.xml" value="0.7993659420289855" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/layout_menu_tree_node.xml" value="0.7740036231884058" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/nav_header_main.xml" value="0.5541666666666667" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/recyclerview_item_device.xml" value="0.7442455242966752" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/rv_item_picture.xml" value="0.43592330978809285" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/rv_item_special.xml" value="0.7740036231884058" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/layout/special_menu_fragment.xml" value="0.8963541666666667" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/menu/main.xml" value="0.9" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/menu/menu_fragment_gallery_bottom_tab.xml" value="0.8231481481481482" />
         <entry key="..\:/Users/Lee/AndroidStudioProjects/AutomationJiaHua-master/app/src/main/res/layout/fragment_home.xml" value="0.33" />

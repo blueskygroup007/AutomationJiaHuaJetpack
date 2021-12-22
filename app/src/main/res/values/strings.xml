@@ -30,4 +30,8 @@
     <string name="menu_database">数据库</string>
     <string name="str_tv_result_tag">搜索结果:</string>
     <string name="str_tv_result_display">空</string>
+    <string name="str_menu_tab_special_huachan">化产区域</string>
+    <string name="str_menu_tab_special_ganxijiao">干熄焦</string>
+    <string name="str_menu_tab_special_jiaolu">焦炉</string>
+    <string name="str_menu_tab_special_beimei">备煤</string>
 </resources>

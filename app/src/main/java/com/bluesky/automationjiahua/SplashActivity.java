@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bluesky.automationjiahua.databinding.ActivitySplashBinding;
 import com.bluesky.automationjiahua.base.App;
 import com.bluesky.automationjiahua.utils.AssetsCopyUtils;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
@@ -75,22 +77,29 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void onGranted(List<String> permissions, boolean all) {
                         if (all) {
-                            toast("获取外置存储卡读写权限成功");
+                            //toast("获取外置存储卡读写权限成功");
+                            Snackbar.make(binding.getRoot(), "获取外置存储卡读写权限成功", BaseTransientBottomBar.LENGTH_SHORT).show();
                             initData();
 
                         } else {
-                            toast("获取部分权限成功，但部分权限未正常授予");
+                            //toast("获取部分权限成功，但部分权限未正常授予");
+                            Snackbar.make(binding.getRoot(), "获取部分权限成功，但部分权限未正常授予", BaseTransientBottomBar.LENGTH_SHORT).show();
+
                         }
                     }
 
                     @Override
                     public void onDenied(List<String> permissions, boolean never) {
                         if (never) {
-                            toast("被永久拒绝授权，请手动授予外置存储卡读写权限");
+                            //toast("被永久拒绝授权，请手动授予外置存储卡读写权限");
+                            Snackbar.make(binding.getRoot(), "被永久拒绝授权，请手动授予外置存储卡读写权限", BaseTransientBottomBar.LENGTH_SHORT).show();
+
                             // 如果是被永久拒绝就跳转到应用权限系统设置页面
                             XXPermissions.startPermissionActivity(SplashActivity.this, permissions);
                         } else {
-                            toast("获取外置存储卡读写权限失败");
+                            //toast("获取外置存储卡读写权限失败");
+                            Snackbar.make(binding.getRoot(), "获取外置存储卡读写权限失败", BaseTransientBottomBar.LENGTH_SHORT).show();
+
                         }
                     }
                 });
