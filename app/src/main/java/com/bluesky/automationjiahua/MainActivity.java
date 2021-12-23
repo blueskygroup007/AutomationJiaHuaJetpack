@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         if (drawer.isOpen()) {
             drawer.closeDrawer(Gravity.LEFT);
+        } else {
+            super.onBackPressed();
         }
     }
 }

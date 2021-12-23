@@ -1,6 +1,7 @@
 package com.bluesky.automationjiahua.ui.special;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bluesky.automationjiahua.R;
@@ -17,13 +20,15 @@ import java.util.List;
 /**
  * @author BlueSky
  * @date 2021/12/22
- * Description:
+ * Description:特殊设备列表适配器
  */
 public class GridSpecialAdapter extends RecyclerView.Adapter<GridSpecialAdapter.ViewHolder> {
+    private RecyclerView mRecyclerView;
     private List<BeanSpecial> mData;
     private Context mContext;
 
-    public GridSpecialAdapter(List<BeanSpecial> data) {
+    public GridSpecialAdapter(RecyclerView recyclerView, List<BeanSpecial> data) {
+        mRecyclerView = recyclerView;
         mData = data;
     }
 
@@ -46,6 +51,17 @@ public class GridSpecialAdapter extends RecyclerView.Adapter<GridSpecialAdapter.
         BeanSpecial bean = mData.get(position);
         holder.ivPicture.setImageResource(bean.getPicture());
         holder.tvName.setText(bean.getName());
+        holder.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BeanSpecial beanSpecial = mData.get(holder.getAdapterPosition());
+
+                NavController controller = Navigation.findNavController(mRecyclerView);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("special", beanSpecial);
+                controller.navigate(R.id.action_nav_special_to_specialMenuFragment, bundle);
+            }
+        });
     }
 
     @Override

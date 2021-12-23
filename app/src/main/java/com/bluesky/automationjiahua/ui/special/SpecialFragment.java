@@ -44,9 +44,9 @@ public class SpecialFragment extends Fragment implements RadioGroup.OnCheckedCha
     }
 
     private void initView() {
-        mGridAdapter = new GridSpecialAdapter(mViewModel.getSpecialHuaChan().getValue());
-        mBinding.rvPictureSpecial.setLayoutManager(new GridLayoutManager(requireContext(), 3));
-        mBinding.rvPictureSpecial.setAdapter(mGridAdapter);
+        mGridAdapter = new GridSpecialAdapter(mBinding.rvSpecialDevices, mViewModel.getSpecialHuaChan().getValue());
+        mBinding.rvSpecialDevices.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+        mBinding.rvSpecialDevices.setAdapter(mGridAdapter);
         //RadioGroup的默认选中,设置监听
         mBinding.rdGroupSpecial.check(mBinding.rbHuachanSpecial.getId());
         mBinding.rdGroupSpecial.setOnCheckedChangeListener(this);
@@ -66,7 +66,7 @@ public class SpecialFragment extends Fragment implements RadioGroup.OnCheckedCha
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == mBinding.rbHuachanSpecial.getId()) {
             mGridAdapter.setData(mViewModel.getSpecialHuaChan().getValue());
-        }else if (checkedId==mBinding.rbGanxijiaoSpecial.getId()){
+        } else if (checkedId == mBinding.rbGanxijiaoSpecial.getId()) {
             mGridAdapter.setData(mViewModel.getSpecialGanXiJiao().getValue());
         }
     }

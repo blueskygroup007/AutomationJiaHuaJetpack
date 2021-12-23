@@ -1,11 +1,13 @@
 package com.bluesky.automationjiahua.ui.special;
 
+import java.io.Serializable;
+
 /**
  * @author BlueSky
  * @date 2021/12/22
  * Description:特殊仪表的item的Bean
  */
-public class BeanSpecial {
+public class BeanSpecial implements Serializable {
     private String id;
     private String name;
     private int picture;

@@ -98,25 +98,5 @@ public class DetailFragment extends Fragment {
         mBinding.tvDetailContentRemark.setText(mDevice.getRemark());
         mBinding.tvDetailContentBrand.setText(mDevice.getBrand());
         mBinding.tvDetailContentDate.setText(mDevice.getDate());
-
-/*        List<String> columns = new ArrayList<>();
-        columns.add("serial");
-        columns.add("tag");
-        columns.add("affect");
-        columns.add("parameter");
-        columns.add("name");
-        columns.add("range");
-        columns.add("standard");
-        columns.add("mode");
-        columns.add("pipe");
-        columns.add("type");
-        columns.add("count");
-        columns.add("install");
-        columns.add("factory");
-        columns.add("remark");
-        columns.add("brand");
-        columns.add("date");*/
-
-
     }
 }
