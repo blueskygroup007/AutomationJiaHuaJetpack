@@ -18,7 +18,7 @@ public class SpecialViewModel extends ViewModel {
 
 
     {
-        mListSpecialHuaChan.add(new BeanSpecial("yanghuagao", "氧化锆分析仪", R.drawable.ic_otx3000, "OTX3000"));
+        mListSpecialHuaChan.add(new BeanSpecial("yanghuagao", "氧化锆分析仪", R.drawable.ic_oxt3000, "OXT3000"));
         mListSpecialHuaChan.add(new BeanSpecial("dianbu", "电捕分析仪", R.drawable.ic_oxymat_61, "OXYMAT 61"));
         mListSpecialHuaChan.add(new BeanSpecial("SO2&O2", "SO2分析仪", R.drawable.ic_so2, "SO2分析仪:SERVOTOUGH  SpectraExact  2500 \n 分析仪:SERVOTOUGH OXY 1900"));
         mListSpecialHuaChan.add(new BeanSpecial("PH", "PH值分析仪", R.drawable.ic_cm442, "变送器:E+H CM442 \n 探头:CPS11D"));

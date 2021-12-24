@@ -10,19 +10,20 @@
     <LinearLayout
         android:id="@+id/ll_container_menu"
         android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:background="@drawable/bg_rect_corner"
         android:layout_height="0dp"
         android:layout_weight="0.8"
         android:orientation="vertical">
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black" />
+
 
     <TextView
         android:id="@+id/tv_info"
+        android:layout_margin="4dp"
+        android:background="@drawable/bg_rect_corner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
