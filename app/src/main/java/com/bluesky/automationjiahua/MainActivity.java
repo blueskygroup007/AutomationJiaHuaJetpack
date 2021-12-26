@@ -1,13 +1,17 @@
 package com.bluesky.automationjiahua;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -78,6 +82,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //TODO 两次返回退出.
+        //1.判断当前fragment是否为main
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment mainFragmen = fragmentManager.findFragmentById(R.id.nav_home);
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavDestination currentDestination = navController.getCurrentDestination();
+        int id = currentDestination.getId();
+        if (id == R.id.nav_home) {
+            Log.e("error,TAG要统一:", "当前fragment是main");
+        }
         //侧滑栏打开时,按返回键,关闭侧滑栏,而不是回退Fragment
         DrawerLayout drawer = binding.drawerLayout;
         if (drawer.isOpen()) {

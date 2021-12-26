@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/specialMenuFragment"
         android:name="com.bluesky.automationjiahua.ui.special.SpecialMenuFragment"
-        android:label="special_menu_fragment"
+        android:label="@string/menu_special"
         tools:layout="@layout/special_menu_fragment" />
     <activity
         android:id="@+id/mainActivity"
