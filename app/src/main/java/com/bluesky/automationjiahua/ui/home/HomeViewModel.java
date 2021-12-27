@@ -3,6 +3,9 @@ package com.bluesky.automationjiahua.ui.home;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeViewModel extends ViewModel {
     //todo 每次返回fragment都会调用oncreate方法的解决
     //todo 可能:不在viewmodel中保存本页面所需的数据,那么viewmodel,或者livedata,就会失效.那么就会重新create.甚至整个app重新启动
@@ -14,12 +17,27 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Integer> mSearch;
     //关键字
     private MutableLiveData<String[]> mKeyWord;
+    //历史关键字
+    private List<String> mHistory;
     //过滤后的列表数据
 //    private LiveData<List<Device>> mFilteredDevices = new MutableLiveData<>();
 
 
     public HomeViewModel() {
 
+    }
+
+
+
+    public List<String> getHistory() {
+        if (mHistory == null) {
+            mHistory = new ArrayList<>();
+        }
+        return mHistory;
+    }
+
+    public void setHistory(List<String> history) {
+        mHistory = history;
     }
 
     public MutableLiveData<Integer> getmCurrentItem() {

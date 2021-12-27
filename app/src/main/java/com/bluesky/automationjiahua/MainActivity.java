@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     public static List<Device> mDeviceList;
-
+    private long clickTime = 0; // 第一次点击的时间
 
     private void toast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
@@ -85,21 +85,33 @@ public class MainActivity extends AppCompatActivity {
         //TODO 两次返回退出.
         //1.判断当前fragment是否为main
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment mainFragmen = fragmentManager.findFragmentById(R.id.nav_home);
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.nav_host_fragment_content_main);
+        Fragment fragment=currentFragment.getChildFragmentManager().getPrimaryNavigationFragment();*/
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavDestination currentDestination = navController.getCurrentDestination();
-        int id = currentDestination.getId();
-        if (id == R.id.nav_home) {
-            Log.e("error,TAG要统一:", "当前fragment是main");
-        }
+
         //侧滑栏打开时,按返回键,关闭侧滑栏,而不是回退Fragment
         DrawerLayout drawer = binding.drawerLayout;
         if (drawer.isOpen()) {
             drawer.closeDrawer(Gravity.LEFT);
         } else {
-            super.onBackPressed();
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+            NavDestination currentDestination = navController.getCurrentDestination();
+            if (currentDestination != null) {
+                int id = currentDestination.getId();
+                if (id == R.id.nav_home) {
+                    Log.e("error,TAG要统一:", "当前fragment是main");
+
+                    if ((System.currentTimeMillis() - clickTime) > 2000) {
+                        Toast.makeText(this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
+                        clickTime = System.currentTimeMillis();
+                    } else {
+                        this.finish();
+                    }
+                } else {
+                    super.onBackPressed();
+                }
+            }
         }
     }
 }

@@ -55,4 +55,12 @@
         <item>type</item>
 
     </string-array>
+    <string-array name="array_history">
+        <item>all</item>
+        <item>chuleng</item>
+        <item>cubenzhengliu</item>
+        <item>dianbujiaoyou</item>
+        <item>gufengji</item>
+
+    </string-array>
 </resources>

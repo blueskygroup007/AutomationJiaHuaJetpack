@@ -1,6 +1,7 @@
 package com.bluesky.automationjiahua.ui.home;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,7 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +32,9 @@ import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     //TODO HomeViewModel用于保存当前fragment的状态和数据
@@ -35,6 +44,8 @@ public class HomeFragment extends Fragment {
     //    private LiveData<List<Device>> mFilteredDevices;
     //TODO DeviceViewModel用于整个数据的存取
     private DeviceViewModel mViewModel;
+    private ArrayAdapter<String> mHistoryAdapter;
+    private List<String> mFiveHistory = new ArrayList<>();
 
 
     @Override
@@ -184,10 +195,48 @@ public class HomeFragment extends Fragment {
             etSearch.selectAll();
         }*/
 
+        //TODO 搜索栏历史记录实现
+//        Resources resources = getResources();
+//        String[] history = resources.getStringArray(R.array.array_history);
+
+        int completeTextId = mSearchView.getResources().getIdentifier("android:id/search_src_text", null, null);
+        AutoCompleteTextView completeTextView = mSearchView.findViewById(completeTextId);
+
+        //历史数组只截取5个(或者不截取,历史数组只保存5个即可)
+        mFiveHistory = homeViewModel.getHistory().subList(0, Math.min(homeViewModel.getHistory().size(), 5));
+        mHistoryAdapter = new ArrayAdapter<>(requireContext(), R.layout.item_history, R.id.tv_item_history, mFiveHistory);
+        completeTextView.setAdapter(mHistoryAdapter);
+        completeTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //给搜索栏填充搜索关键字,并提交
+                mSearchView.setQuery(mFiveHistory.get(i), true);
+            }
+        });
+        //输入长度为0时显示提示列表
+        completeTextView.setThreshold(0);
+
         mSearchView.setMaxWidth(1000);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                //历史中是否已经包含
+                if (mFiveHistory.contains(s)) {
+                    return false;
+                }
+                //在头部加入关键字,如果超出,尾部去掉
+                mFiveHistory.add(0, s);
+                if (mFiveHistory.size() > 5) {
+                    mFiveHistory.remove(mFiveHistory.size() - 1);
+                }
+                //保存在ViewModel中
+                homeViewModel.setHistory(mFiveHistory);
+                //重新生成adapter,并刷新列表
+                mHistoryAdapter = new ArrayAdapter<>(requireContext(), R.layout.item_history, R.id.tv_item_history, mFiveHistory);
+                int completeTextId = mSearchView.getResources().getIdentifier("android:id/search_src_text", null, null);
+                AutoCompleteTextView completeTextView = mSearchView.findViewById(completeTextId);
+                completeTextView.setAdapter(mHistoryAdapter);
+                mHistoryAdapter.notifyDataSetChanged();
                 return false;
             }
 
@@ -198,7 +247,6 @@ public class HomeFragment extends Fragment {
                 String[] keyWords = keyWord.split(" ");
                 homeViewModel.getmKeyWord().postValue(keyWords);
 
-
                 mViewModel.findDevicesWithPattern(
                         AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
                         AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
@@ -208,6 +256,55 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+/*    public class HistoryArrayAdapter extends BaseAdapter {
+
+        private List<String> mData;
+
+        public HistoryArrayAdapter() {
+        }
+
+        public void setData(List<String> data) {
+            this.mData = data;
+        }
+
+        @Override
+        public int getCount() {
+            return mData.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return mData.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View convertView, ViewGroup viewGroup) {
+            //将布局文件转化为View对象
+
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_history, null, false);
+
+            *//**
+     * 找到item布局文件中对应的控件
+     *//*
+            TextView tvContent = view.findViewById(R.id.tv_item_history);
+
+            //获取相应索引的ItemBean对象
+
+            */
+
+    /**
+     * 设置控件的对应属性值
+     *//*
+
+            return view;
+        }
+    }*/
     @Override
     public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
         switch (item.getItemId()) {
