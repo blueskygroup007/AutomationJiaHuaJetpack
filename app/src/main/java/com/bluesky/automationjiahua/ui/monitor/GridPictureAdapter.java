@@ -51,7 +51,7 @@ public class GridPictureAdapter extends RecyclerView.Adapter<GridPictureAdapter.
         //Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mData.get(position).getPicture());
         //Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, 150, 150);
         //换成统一的默认图标
-        holder.ivPicture.setImageResource(R.drawable.ic_baseline_picture_in_picture_24);
+        holder.ivPicture.setImageResource(R.drawable.ic_monitor);
         holder.tvName.setText(mData.get(position).getName());
         holder.root.setTag(position);
         holder.itemView.setOnClickListener(mListener);
