@@ -9,13 +9,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.9166666666666666" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/bg_rect_corner.xml" value="0.5744791666666667" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/bg_rect_corner_4dp.xml" value="0.5744791666666667" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_baseline_developer_board_24.xml" value="0.6645833333333333" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_baseline_flash_on_24.xml" value="0.8277777777777777" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_baseline_format_indent_increase_24.xml" value="0.8277777777777777" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.8277777777777777" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_baseline_lock_grey_24.xml" value="0.8472222222222222" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_baseline_picture_in_picture_24.xml" value="0.8601851851851852" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_monitor.xml" value="0.6645833333333333" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_workbench.xml" value="0.6645833333333333" />
+        <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/ic_workbench_muti.xml" value="0.8277777777777777" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/rectangle.xml" value="0.8583333333333333" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/tab_menu_bg.xml" value="0.8731481481481481" />
         <entry key="..\:/AndroidStudioProjects/AutomationJiaHua-jetpack/app/src/main/res/drawable/tab_menu_text.xml" value="0.8731481481481481" />

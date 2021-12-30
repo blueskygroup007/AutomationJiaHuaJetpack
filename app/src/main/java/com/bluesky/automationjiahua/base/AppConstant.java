@@ -8,7 +8,7 @@ import java.util.Map;
  * @date 2021/7/3
  * Description:全局常量
  */
-public class AppConstant {
+public  class AppConstant {
     //sharedpreference常量
     public static final String SP_NAME = "device_sp";
     //详情页的简化参数:default="false" 和 "true"
@@ -17,7 +17,6 @@ public class AppConstant {
     //public static final String[] DOMAIN = App.getContext().getResources().getStringArray(R.array.spinner_query_domain_database);
     //public static final String[] COLUMN = App.getContext().getResources().getStringArray(R.array.spinner_query_column_database);
 
-    public static final Map<String, String> DOMAIN_DISPLAY = new HashMap<>();
 
     /*sqlite的表名,不要用下面的DOMAIN*/
     public static final String[] TABLE_NAME = new String[]{
@@ -63,7 +62,7 @@ public class AppConstant {
     public static final String[] SEARCH = new String[]{"tag", "affect", "name", "standard", "type"};
 
 
-    public AppConstant() {
+/*    public AppConstant() {
         DOMAIN_DISPLAY.put("chuleng", "初冷");
         DOMAIN_DISPLAY.put("cubenzhengliu", "粗苯蒸馏");
         DOMAIN_DISPLAY.put("dianbujiaoyou", "电捕焦油");
@@ -80,5 +79,5 @@ public class AppConstant {
         DOMAIN_DISPLAY.put("zhuanhua", "转化");
         DOMAIN_DISPLAY.put("ganxiweixi", "干吸尾吸");
 
-    }
+    }*/
 }

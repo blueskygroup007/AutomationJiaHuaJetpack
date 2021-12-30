@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_holder_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ll_holder_root"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -11,13 +12,17 @@
         android:id="@+id/iv_node_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerInside" />
+        android:scaleType="centerInside"
+        tools:src="@drawable/ic_baseline_arrow_right_24" />
 
     <TextView
         android:id="@+id/tv_node_text"
-        android:textStyle="bold"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rect_corner_4dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        android:paddingHorizontal="4dp"
+        tools:text="Main Menu" />
 
 </LinearLayout>

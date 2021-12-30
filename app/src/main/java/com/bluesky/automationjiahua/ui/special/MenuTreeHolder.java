@@ -48,10 +48,12 @@ public class MenuTreeHolder extends TreeNode.BaseNodeViewHolder<MenuTreeHolder.I
     public static class IconTreeItem {
         int icon;
         String text;
+        String info;
 
-        public IconTreeItem(int icon, String text) {
+        public IconTreeItem(int icon, String text, String info) {
             this.icon = icon;
             this.text = text;
+            this.info = info;
         }
     }
 

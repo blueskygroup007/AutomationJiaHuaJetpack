@@ -1,8 +1,10 @@
 package com.bluesky.automationjiahua.ui.detail;
 
 import static com.bluesky.automationjiahua.base.App.DETAIL_PAGE_SIMPLIFY;
+import static com.bluesky.automationjiahua.base.App.TAG;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -129,8 +131,9 @@ public class DetailFragment extends Fragment {
         mViewModel = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(DeviceViewModel.class);
-
-        mBinding.tvDetailContentDomain.setText(AppConstant.DOMAIN_DISPLAY.get(mDevice.getDomain()));
+        Log.e(TAG, "中文domain=" + App.DOMAIN_DISPLAY.get(mDevice.getDomain()));
+        Log.e(TAG, "getDomain=" + mDevice.getDomain());
+        mBinding.tvDetailContentDomain.setText(App.DOMAIN_DISPLAY.get(mDevice.getDomain()));
         mBinding.tvDetailContentTag.setText(mDevice.getTag());
         mBinding.tvDetailContentAffect.setText(mDevice.getAffect());
         mBinding.tvDetailContentParameter.setText(mDevice.getParameter());
