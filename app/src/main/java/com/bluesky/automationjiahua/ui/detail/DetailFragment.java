@@ -1,15 +1,25 @@
 package com.bluesky.automationjiahua.ui.detail;
 
+import static com.bluesky.automationjiahua.base.App.DETAIL_PAGE_SIMPLIFY;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bluesky.automationjiahua.R;
+import com.bluesky.automationjiahua.base.App;
+import com.bluesky.automationjiahua.base.AppConstant;
 import com.bluesky.automationjiahua.database.Device;
 import com.bluesky.automationjiahua.databinding.FragmentDetailBinding;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
@@ -69,6 +79,40 @@ public class DetailFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_fragment_detail, menu);
+
+        MenuItem itemSimple = menu.findItem(R.id.menu_item_detail_simple);
+        SwitchCompat aSwitch = (SwitchCompat) itemSimple.getActionView();
+        aSwitch.setTextOff("全");
+        aSwitch.setTextOn("简");
+        aSwitch.setShowText(true);
+
+        aSwitch.setChecked(DETAIL_PAGE_SIMPLIFY);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                App.instance.setSimply(isChecked);
+                showOrHideDetail(isChecked ? View.GONE : View.VISIBLE);
+            }
+        });
+
+    }
+
+    public void showOrHideDetail(int detail) {
+        mBinding.tvDetailContentStandard.setVisibility(detail);
+        mBinding.tvDetailContentMode.setVisibility(detail);
+        mBinding.tvDetailContentPipe.setVisibility(detail);
+        mBinding.tvDetailContentType.setVisibility(detail);
+        mBinding.tvDetailContentInstall.setVisibility(detail);
+        mBinding.tvDetailContentFactory.setVisibility(detail);
+        mBinding.tvDetailContentRemark.setVisibility(detail);
+        mBinding.tvDetailContentBrand.setVisibility(detail);
+        mBinding.tvDetailContentDate.setVisibility(detail);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -79,20 +123,28 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //必须加这一行代码才能有菜单
+        setHasOptionsMenu(true);
+
         mViewModel = ViewModelProvider.AndroidViewModelFactory
                 .getInstance(requireActivity().getApplication())
                 .create(DeviceViewModel.class);
 
+        mBinding.tvDetailContentDomain.setText(AppConstant.DOMAIN_DISPLAY.get(mDevice.getDomain()));
         mBinding.tvDetailContentTag.setText(mDevice.getTag());
         mBinding.tvDetailContentAffect.setText(mDevice.getAffect());
         mBinding.tvDetailContentParameter.setText(mDevice.getParameter());
         mBinding.tvDetailContentName.setText(mDevice.getName());
         mBinding.tvDetailContentRange.setText(mDevice.getRange());
+
+        mBinding.tvDetailContentCount.setText(mDevice.getCount());
+
+        showOrHideDetail(DETAIL_PAGE_SIMPLIFY ? View.GONE : View.VISIBLE);
+
         mBinding.tvDetailContentStandard.setText(mDevice.getStandard());
         mBinding.tvDetailContentMode.setText(mDevice.getMode());
         mBinding.tvDetailContentPipe.setText(mDevice.getPipe());
         mBinding.tvDetailContentType.setText(mDevice.getType());
-        mBinding.tvDetailContentCount.setText(mDevice.getCount());
         mBinding.tvDetailContentInstall.setText(mDevice.getInstall());
         mBinding.tvDetailContentFactory.setText(mDevice.getFactory());
         mBinding.tvDetailContentRemark.setText(mDevice.getRemark());

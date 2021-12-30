@@ -49,7 +49,7 @@
         <RadioButton
             android:id="@+id/rb_liansuo_monitor"
             style="@style/style_tabhost_menu_radiobutton"
-            android:drawableTop="@drawable/ic_baseline_lock_24"
+            android:drawableTop="@drawable/ic_baseline_lock_red_24"
             android:text="@string/str_menu_tab_interlock" />
     </RadioGroup>
 

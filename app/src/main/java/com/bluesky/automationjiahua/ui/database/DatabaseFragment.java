@@ -3,6 +3,7 @@ package com.bluesky.automationjiahua.ui.database;
 import static java.util.regex.Pattern.compile;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,9 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +27,7 @@ import com.bluesky.automationjiahua.database.DBHelper;
 import com.bluesky.automationjiahua.database.Device;
 import com.bluesky.automationjiahua.database.DeviceRepository;
 import com.bluesky.automationjiahua.databinding.FragmentDatabaseBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -85,6 +90,40 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
                     builder.append("Room 数据库为空!");
                 }
                 binding.tvOutput.setText(builder);
+            }
+        });
+
+        initDialog();
+    }
+
+    /**
+     * 初始化一个进入密码对话框,进入密码为121221
+     */
+    private void initDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_database_enter, null, false);
+        EditText etPassword = view.findViewById(R.id.et_dialog_database_password);
+        AlertDialog.Builder alertDialogBuilder = new MaterialAlertDialogBuilder(requireContext());
+        alertDialogBuilder.setTitle(getResources().getString(R.string.str_dialog_title_database_password));
+        alertDialogBuilder.setView(view);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("验证口令",null);
+
+        alertDialogBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (getActivity()!=null){
+                    getActivity().onBackPressed();
+                }
+            }
+        });
+        AlertDialog dialog = alertDialogBuilder.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String passwrod = etPassword.getText().toString().trim();
+                if ("121221".equals(passwrod)) {
+                    dialog.dismiss();
+                }
             }
         });
     }

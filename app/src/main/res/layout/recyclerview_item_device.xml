@@ -22,9 +22,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/material_color_grey_50"
+            android:layout_height="match_parent"
 
-            android:layout_height="match_parent">
+            android:background="@color/material_color_grey_50">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -120,51 +120,62 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.5" />
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/iv_lock"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@color/material_color_grey_200"
-                android:gravity="center"
+                android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/tv_alert_separate"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_battery_alert_24" />
+            <!--            <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@color/material_color_grey_200"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/guideline3"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/tv_alert_electric"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@id/tv_alert_separate"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_battery_charging_full_24" />
+                            <ImageView
+                                android:id="@+id/tv_alert_separate"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentTop="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_battery_alert_24" />
 
-                <ImageView
-                    android:id="@+id/tv_alert_calculate"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_below="@id/tv_alert_separate"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_battery_unknown_24" />
+                            <ImageView
+                                android:id="@+id/tv_alert_electric"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_toRightOf="@id/tv_alert_separate"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_battery_charging_full_24" />
 
-                <ImageView
-                    android:id="@+id/tv_alert_high_voltage"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_below="@id/tv_alert_electric"
-                    android:layout_toRightOf="@id/tv_alert_calculate"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_flash_on_24" />
-            </RelativeLayout>
+                            <ImageView
+                                android:id="@+id/tv_alert_calculate"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_below="@id/tv_alert_separate"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_battery_unknown_24" />
+
+                            <ImageView
+                                android:id="@+id/tv_alert_high_voltage"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_below="@id/tv_alert_electric"
+                                android:layout_toRightOf="@id/tv_alert_calculate"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_flash_on_24" />
+                        </RelativeLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

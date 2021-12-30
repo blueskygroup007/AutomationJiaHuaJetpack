@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,11 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
         holder.tvNumber.setText(String.valueOf(position + 1));
         holder.tvTag.setText(device.getTag());
         holder.tvAffect.setText(device.getAffect());
+        //TODO 最终实现应为：数据库中增加一项联锁字段，如果该字段为真，显示红色Lock，否则显示灰色Lock
+        //或者:无联锁不显示lock.显示仪表类型.
+
+        //holder.ivLock.setVisibility(View.VISIBLE);
+        holder.ivLock.setImageResource(R.drawable.ic_baseline_lock_grey_24);
         //将position放到tag中,用于传递给Listener
         holder.root.setTag(position);
         //(优化)避免重复创建Listener
@@ -85,6 +91,7 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
     class DeviceViewHolder extends RecyclerView.ViewHolder {
         TextView tvNumber, tvTag, tvAffect;
         CardView root;
+        ImageView ivLock;
 
         public DeviceViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -92,6 +99,7 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
             tvNumber = itemView.findViewById(R.id.tv_number);
             tvTag = itemView.findViewById(R.id.tv_tag);
             tvAffect = itemView.findViewById(R.id.tv_affect);
+            ivLock = itemView.findViewById(R.id.iv_lock);
         }
     }
 

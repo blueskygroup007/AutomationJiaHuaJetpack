@@ -10,7 +10,7 @@ import com.bluesky.automationjiahua.base.App;
 
 
 public final class PreferenceUtils {
-	private static final Context mApplication= App.getContext();
+	private static final Context mApplication= new App().getApplicationContext();
 	/** 清空数据 */
 	public static void reset(final Context ctx) {
 		Editor edit = PreferenceManager.getDefaultSharedPreferences(ctx).edit();

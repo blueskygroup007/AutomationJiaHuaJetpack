@@ -34,4 +34,7 @@
     <string name="str_menu_tab_special_ganxijiao">干熄焦</string>
     <string name="str_menu_tab_special_jiaolu">焦炉</string>
     <string name="str_menu_tab_special_beimei">备煤</string>
+    <string name="str_dialog_title_database_password">请输入数据库进入口令</string>
+    <string name="str_dialog_btn_database_enter">确认口令</string>
+    <string name="str_menu_detail_simple">简/全</string>
 </resources>

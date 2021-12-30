@@ -196,9 +196,6 @@ public class HomeFragment extends Fragment {
         }*/
 
         //TODO 搜索栏历史记录实现
-//        Resources resources = getResources();
-//        String[] history = resources.getStringArray(R.array.array_history);
-
         int completeTextId = mSearchView.getResources().getIdentifier("android:id/search_src_text", null, null);
         AutoCompleteTextView completeTextView = mSearchView.findViewById(completeTextId);
 

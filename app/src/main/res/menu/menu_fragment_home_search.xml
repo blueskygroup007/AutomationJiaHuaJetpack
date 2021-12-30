@@ -7,16 +7,6 @@
         android:title="@string/str_menu_search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
-<!--    <item
-        android:id="@+id/menu_item_select_tag"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="Tag"
-        app:actionViewClass="android.widget.ImageSwitcher"
 
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/menu_item_select_name"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Name"
-        app:showAsAction="always" />-->
+
 </menu>

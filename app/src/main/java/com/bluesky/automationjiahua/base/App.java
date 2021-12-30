@@ -1,7 +1,6 @@
 package com.bluesky.automationjiahua.base;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
@@ -10,30 +9,30 @@ import android.content.SharedPreferences;
  * Description:Application类,获取公共context
  */
 public class App extends Application {
+    public static App instance;
     public static final String HUACHAN_DEVICE_DATA_BASE_NAME = "huachan.db";
     public static final String INTER_LOCK_DATA_BASE_NAME = "liansuo.db";
-    private static Context mContext;
     private SharedPreferences mPreferences;
+    public static boolean DETAIL_PAGE_SIMPLIFY = false;
+    public static String TAG;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = getApplicationContext();
+        instance = this;
         mPreferences = getSharedPreferences(AppConstant.SP_NAME, MODE_PRIVATE);
-        //拷贝assets中的db到database目录
-        //AssetsDatabaseManager.initManager(mContext);
-        //AssetsDatabaseManager assetsDatabaseManager=AssetsDatabaseManager.getManager();
+        DETAIL_PAGE_SIMPLIFY = mPreferences.getBoolean("detail_page_simplify", false);
+
 
         //初始化LogUtils
         //全局TAG
-
-
+        TAG = getPackageName();
     }
 
+    public void setSimply(boolean value) {
+        DETAIL_PAGE_SIMPLIFY = value;
+        mPreferences.edit().putBoolean(AppConstant.SP_PARAM_SIMPLE, value).apply();
 
-
-    public static Context getContext() {
-        return mContext;
     }
 
     public SharedPreferences getPreferences() {
