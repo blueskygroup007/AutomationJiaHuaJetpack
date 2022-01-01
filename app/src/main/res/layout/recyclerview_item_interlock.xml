@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_item_rv_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--TODO 加大Item视图，（因为搜索结果不会太多）-->
+    <!--TODO -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@color/material_color_grey_50">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.8" />
+
+            <TextView
+                android:id="@+id/tv_interlock_number"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/material_color_grey_300"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/tv_interlock_tag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:gravity="start"
+                android:lines="1"
+                android:maxLines="1"
+                android:textAppearance="?android:textAppearanceLarge"
+                app:layout_constraintBottom_toTopOf="@+id/guideline5"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="TE-433000" />
+
+            <TextView
+                android:id="@+id/tv_interlock_device_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:lines="2"
+                android:maxLines="2"
+                android:gravity="center_vertical"
+                android:textAppearance="?android:textAppearanceSmall"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/guideline5"
+                tools:text="xxx蒸汽温度记录、调节" />
+
+            <TextView
+                android:id="@+id/tv_interlock_domain"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:maxLines="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="0~100℃" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <!--            <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@color/material_color_grey_200"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/guideline3"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/tv_alert_separate"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentTop="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_battery_alert_24" />
+
+                            <ImageView
+                                android:id="@+id/tv_alert_electric"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_toRightOf="@id/tv_alert_separate"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_battery_charging_full_24" />
+
+                            <ImageView
+                                android:id="@+id/tv_alert_calculate"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_below="@id/tv_alert_separate"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_battery_unknown_24" />
+
+                            <ImageView
+                                android:id="@+id/tv_alert_high_voltage"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_below="@id/tv_alert_electric"
+                                android:layout_toRightOf="@id/tv_alert_calculate"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_flash_on_24" />
+                        </RelativeLayout>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

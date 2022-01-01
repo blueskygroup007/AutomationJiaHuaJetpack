@@ -18,8 +18,8 @@
             android:title="@string/menu_gallery" />
         <item
             android:id="@+id/nav_setup"
-            android:icon="@drawable/ic_baseline_settings_24"
-            android:title="@string/menu_setup" />
+            android:icon="@drawable/ic_baseline_lock_24"
+            android:title="@string/menu_interlock" />
         <item
             android:id="@+id/nav_database"
             android:icon="@drawable/ic_baseline_data_usage_24"

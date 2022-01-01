@@ -15,7 +15,7 @@ public class DatabaseViewModel extends ViewModel {
     private MutableLiveData<List<Device>> devices;
 
     public DatabaseViewModel() {
-        devices = DeviceRepository.getmLiveData();
+        devices = DeviceRepository.getmLiveDataDevices();
     }
 
     public LiveData<String> getContent() {

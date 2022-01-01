@@ -1,6 +1,7 @@
 package com.bluesky.automationjiahua.database;
 
-import android.content.Context;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,6 +9,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteQuery;
+
+import com.bluesky.automationjiahua.base.App;
+import com.bluesky.automationjiahua.utils.AppExecutors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,25 +22,105 @@ import java.util.List;
  * Description:
  */
 public class DeviceRepository {
-    DeviceDao mDeviceDao;
-    Context mContext;
-    static MutableLiveData<List<Device>> mLiveData;
-    String Tag = DeviceRepository.class.getSimpleName();
+    private static DeviceRepository INSTANCE = null;
 
-    public DeviceRepository(Context context) {
-        mContext = context;
-        DeviceDataBase db = DeviceDataBase.getDatabase(context);
+    DeviceDao mDeviceDao;
+    InterLockDao mInterLockDao;
+    static MutableLiveData<List<Device>> mLiveDataDevices;
+    static MutableLiveData<List<InterLock>> mLiveDataInterLocks = new MutableLiveData<>();
+    String Tag = DeviceRepository.class.getSimpleName();
+    AppExecutors mExecutors = new AppExecutors();
+
+
+    public interface LoadDataCallback<T> {
+        void onDataLoaded(List<T> t);
+
+        void onDataNotAvailable();
+    }
+
+    /**
+     * 因为静态的Repository持有context的话,会造成泄露,所以使用getApplicationContext代替.
+     */
+    private DeviceRepository() {
+        DeviceDataBase db = DeviceDataBase.getDatabase(App.instance.getApplicationContext());
         mDeviceDao = db.getDeviceDao();
-        mLiveData = new MutableLiveData<>();
-        mLiveData.setValue(new ArrayList<>());
+        mInterLockDao = db.getInterLockDao();
+        mLiveDataDevices = new MutableLiveData<>();
+        mLiveDataDevices.setValue(new ArrayList<>());
+    }
+
+    /**
+     * 返回单例
+     *
+     * @return
+     */
+    public static DeviceRepository getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new DeviceRepository();
+        }
+        return INSTANCE;
+    }
+
+    public static void destroyInstance() {
+        INSTANCE = null;
+    }
+
+    public InterLockDao getInterLockDao() {
+        return mInterLockDao;
     }
 
     public DeviceDao getDeviceDao() {
         return mDeviceDao;
     }
 
-    public static MutableLiveData<List<Device>> getmLiveData() {
-        return mLiveData;
+    /*以下是Interlock的方法----------------------------------------------------------*/
+    public void insertInterLocks(InterLock... interLocks) {
+        mExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mInterLockDao.insertAllInterLock(interLocks);
+            }
+        });
+    }
+
+    public void deleteAllInterLocks() {
+        mExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mInterLockDao.deleteAllInterLock();
+            }
+        });
+    }
+
+    /**
+     * 使用LiveData获取所有联锁记录
+     */
+    public LiveData<List<InterLock>> loadAllInterLocks() {
+        return mInterLockDao.loadAllInterLocks();
+    }
+
+    /**
+     * 异步的返回所有联锁记录
+     */
+    public void getAllInterLocks(LoadDataCallback<InterLock> callback) {
+        mExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<InterLock> allInterLocks = mInterLockDao.getAllInterLocks();
+                mExecutors.getMainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onDataLoaded(allInterLocks);
+                    }
+                });
+            }
+        });
+    }
+
+
+    /*以下是Device的方法--------------------------------------------------------------*/
+    public static MutableLiveData<List<Device>> getmLiveDataDevices() {
+        return mLiveDataDevices;
     }
 
     public void insertDevices(Device... devices) {
@@ -64,7 +148,7 @@ public class DeviceRepository {
         return mDeviceDao.queryLiveDataDevicesByDomain("%" + domain + "%");
     }
 
-    public LiveData<List<Device>> findDeviceByTag(String tag) {
+/*    public LiveData<List<Device>> findDeviceByTag(String tag) {
         return mDeviceDao.queryDevicesByTag("%" + tag + "%");
     }
 
@@ -83,7 +167,7 @@ public class DeviceRepository {
     public LiveData<List<Device>> findDeviceByType(String type) {
         return mDeviceDao.queryDevicesByType("%" + type + "%");
 
-    }
+    }*/
 
     public void findDeviceByPattern(String domain, String column, String[] keyWords) {
         StringBuilder pattern = new StringBuilder();
@@ -125,7 +209,7 @@ public class DeviceRepository {
         @Override
         protected void onPostExecute(List<Device> devices) {
             super.onPostExecute(devices);
-            mLiveData.postValue(devices);
+            mLiveDataDevices.postValue(devices);
         }
     }
 
@@ -147,7 +231,7 @@ public class DeviceRepository {
             super.onPostExecute(devices);
             Log.e(this.getClass().getSimpleName(), "rawQueryDevicesByPattern获取的记录个数:" + devices.size());
             //mLiveData.setValue(devices);
-            mLiveData.postValue(devices);
+            mLiveDataDevices.postValue(devices);
         }
     }
 
@@ -215,7 +299,7 @@ public class DeviceRepository {
     /**
      * 通过表名查询
      */
-    private static class QueryListByDomainTask extends AsyncTask<String, Void, List<Device>> {
+/*    private static class QueryListByDomainTask extends AsyncTask<String, Void, List<Device>> {
         DeviceDao mDeviceDao;
 
         public QueryListByDomainTask(DeviceDao deviceDao) {
@@ -226,5 +310,5 @@ public class DeviceRepository {
         protected List<Device> doInBackground(String... strings) {
             return mDeviceDao.queryListDevicesByDomain(strings[0]);
         }
-    }
+    }*/
 }

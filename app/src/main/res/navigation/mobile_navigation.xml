@@ -32,16 +32,11 @@
         tools:layout="@layout/fragment_special" >
         <action
             android:id="@+id/action_nav_special_to_specialMenuFragment"
-            app:destination="@id/specialMenuFragment" />
+            app:destination="@id/nav_special_menu" />
     </fragment>
     <fragment
-        android:id="@+id/nav_setup"
-        android:name="com.bluesky.automationjiahua.ui.setup.SetupFragment"
-        android:label="@string/menu_setup"
-        tools:layout="@layout/fragment_setup" />
-    <fragment
         android:id="@+id/nav_detail"
-        android:name="com.bluesky.automationjiahua.ui.detail.DetailFragment"
+        android:name="com.bluesky.automationjiahua.ui.home.DetailFragment"
         android:label="@string/menu_detail"
         tools:layout="@layout/fragment_detail" />
     <fragment
@@ -50,7 +45,7 @@
         android:label="@string/menu_database"
         tools:layout="@layout/fragment_database" />
     <fragment
-        android:id="@+id/specialMenuFragment"
+        android:id="@+id/nav_special_menu"
         android:name="com.bluesky.automationjiahua.ui.special.SpecialMenuFragment"
         android:label="@string/menu_special"
         tools:layout="@layout/special_menu_fragment" />
@@ -64,4 +59,18 @@
         android:name="com.bluesky.automationjiahua.SplashActivity"
         android:label="activity_splash"
         tools:layout="@layout/activity_splash" />
+    <fragment
+        android:id="@+id/nav_interlock"
+        android:name="com.bluesky.automationjiahua.ui.interlock.InterLockFragment"
+        android:label="fragment_interlock"
+        tools:layout="@layout/fragment_interlock" >
+        <action
+            android:id="@+id/action_interLockFragment_to_interlockDetailFragment"
+            app:destination="@id/nav_interlock_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_interlock_detail"
+        android:name="com.bluesky.automationjiahua.ui.interlock.InterlockDetailFragment"
+        android:label="fragment_interlock_detail"
+        tools:layout="@layout/fragment_interlock_detail" />
 </navigation>

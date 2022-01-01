@@ -20,7 +20,7 @@ public interface InterLockDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllInterLock(InterLock... items);
 
-    @Query("DELETE FROM DEVICE")
+    @Query("DELETE FROM InterLock")
     void deleteAllInterLock();
 
     @Delete
@@ -30,6 +30,8 @@ public interface InterLockDao {
     @Query("SELECT * FROM interlock")
     List<InterLock> getAllInterLocks();
 
+    @Query("SELECT * FROM interlock")
+    LiveData<List<InterLock>> loadAllInterLocks();
     /*更新数据*/
     @Update
     void updateInterLock(InterLock... items);

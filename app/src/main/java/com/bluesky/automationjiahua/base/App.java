@@ -14,7 +14,7 @@ import java.util.Map;
 public class App extends Application {
     public static App instance;
     public static final String HUACHAN_DEVICE_DATA_BASE_NAME = "huachan.db";
-    public static final String INTER_LOCK_DATA_BASE_NAME = "liansuo.db";
+    public static final String INTER_LOCK_DATA_BASE_NAME = "interlock.db";
     private SharedPreferences mPreferences;
     public static boolean DETAIL_PAGE_SIMPLIFY = false;
     public static String TAG;

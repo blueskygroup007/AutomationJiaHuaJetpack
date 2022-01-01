@@ -1,4 +1,4 @@
-package com.bluesky.automationjiahua.ui.detail;
+package com.bluesky.automationjiahua.ui.home;
 
 import static com.bluesky.automationjiahua.base.App.DETAIL_PAGE_SIMPLIFY;
 import static com.bluesky.automationjiahua.base.App.TAG;
@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bluesky.automationjiahua.R;
 import com.bluesky.automationjiahua.base.App;
-import com.bluesky.automationjiahua.base.AppConstant;
 import com.bluesky.automationjiahua.database.Device;
 import com.bluesky.automationjiahua.databinding.FragmentDetailBinding;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;

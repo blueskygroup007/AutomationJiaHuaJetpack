@@ -24,8 +24,8 @@ public class DeviceViewModel extends AndroidViewModel {
 
     public DeviceViewModel(@NonNull @NotNull Application application) {
         super(application);
-        mDeviceRepository = new DeviceRepository(application);
-        mLiveDataDevices = DeviceRepository.getmLiveData();
+        mDeviceRepository = DeviceRepository.getInstance();
+        mLiveDataDevices = DeviceRepository.getmLiveDataDevices();
     }
 
     public MutableLiveData<List<Device>> getLiveDataDevices() {

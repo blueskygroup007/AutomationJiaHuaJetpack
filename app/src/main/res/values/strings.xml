@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">查询</string>
+    <string name="menu_home">仪表查询</string>
     <string name="menu_gallery">监控画面</string>
     <string name="menu_setup">设置</string>
 
@@ -37,4 +37,7 @@
     <string name="str_dialog_title_database_password">请输入数据库进入口令</string>
     <string name="str_dialog_btn_database_enter">确认口令</string>
     <string name="str_menu_detail_simple">简/全</string>
+    <string name="menu_interlock">联锁</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

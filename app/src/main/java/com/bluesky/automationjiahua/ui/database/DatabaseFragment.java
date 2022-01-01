@@ -22,10 +22,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bluesky.automationjiahua.R;
+import com.bluesky.automationjiahua.base.App;
 import com.bluesky.automationjiahua.base.AppConstant;
 import com.bluesky.automationjiahua.database.DBHelper;
 import com.bluesky.automationjiahua.database.Device;
 import com.bluesky.automationjiahua.database.DeviceRepository;
+import com.bluesky.automationjiahua.database.InterLock;
 import com.bluesky.automationjiahua.databinding.FragmentDatabaseBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -70,7 +72,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDeviceRepository = new DeviceRepository(requireContext());
+        mDeviceRepository = DeviceRepository.getInstance();
         mViewModel = new ViewModelProvider(requireActivity()).get(DatabaseViewModel.class);
         mViewModel.getContent().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -79,7 +81,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
             }
         });
         /*应该也可以改为直接监听Repository的内部LiveData*/
-        mViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
+/*        mViewModel.getDevices().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
             @Override
             public void onChanged(List<Device> devices) {
                 StringBuilder builder = new StringBuilder(binding.tvOutput.getText());
@@ -91,7 +93,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
                 }
                 binding.tvOutput.setText(builder);
             }
-        });
+        });*/
 
         initDialog();
     }
@@ -106,12 +108,12 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         alertDialogBuilder.setTitle(getResources().getString(R.string.str_dialog_title_database_password));
         alertDialogBuilder.setView(view);
         alertDialogBuilder.setCancelable(false);
-        alertDialogBuilder.setPositiveButton("验证口令",null);
+        alertDialogBuilder.setPositiveButton("验证口令", null);
 
         alertDialogBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (getActivity()!=null){
+                if (getActivity() != null) {
                     getActivity().onBackPressed();
                 }
             }
@@ -172,29 +174,102 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
      * 查询sqlite联锁表
      */
     private void querySqliteInterLock() {
-
+        String table = "interlock";
+        DBHelper dbHelper = new DBHelper(requireActivity(), "interlock.db", null, 1);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + table, null);
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                InterLock interLock = new InterLock(cursor.getInt(0)
+                        , cursor.getString(1)
+                        , cursor.getString(2)
+                        , cursor.getString(3)
+                        , cursor.getString(4)
+                        , cursor.getString(5)
+                        , cursor.getString(6)
+                        , cursor.getString(7)
+                        , cursor.getString(8));
+                Log.e(App.TAG, interLock.toString());
+            }
+        }
+        cursor.close();
+        db.close();
     }
 
     /**
      * 格式化sqlite联锁表并插入room
      */
     private void formatInterlockAndInsert() {
-
+        String table = "interlock";
+        DBHelper dbHelper = new DBHelper(requireActivity(), "interlock.db", null, 1);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + table, null);
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                InterLock interLock = new InterLock(cursor.getInt(0)
+                        , cursor.getString(1)
+                        , cursor.getString(2)
+                        , cursor.getString(3)
+                        , cursor.getString(4)
+                        , cursor.getString(5)
+                        , cursor.getString(6)
+                        , cursor.getString(7)
+                        , cursor.getString(8));
+                Log.e(App.TAG, interLock.toString());
+                //TODO 由于联锁表不完整,部分记录没有Tag,导致这里格式化TAG时,这部分被过滤掉了50个记录.
+                if (interLock.getTag() != null && !interLock.getTag().isEmpty()) {
+                    String formated_tag = compile("\\s*|\t|\r|\n").matcher(interLock.getTag()).replaceAll("");
+                    Log.e("listSqlite_formated:", interLock.getTag() + "   to   " + formated_tag);
+                    //添加到room中,调试时,先检查格式化是否正确再执行下面两行代码做插入.
+                    interLock.setTag(formated_tag);
+                }
+                mDeviceRepository.insertInterLocks(interLock);
+            }
+        }
+        cursor.close();
+        db.close();
     }
 
     /**
      * 查询room联锁表
      */
     private void queryRoomInterLock() {
+/*        ExecutorService es = Executors.newSingleThreadExecutor();
+        es.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("begin list Room::", "开始查询room表。。。");
+                List<InterLock> allInterLocks = mDeviceRepository.getInterLockDao().getAllInterLocks();
+                for (InterLock interLock :
+                        allInterLocks) {
+                    Log.e("ListRoom:", interLock.toString() + "\n");
+                }
+                Log.e("ListRoom:数量=", allInterLocks.size() + "个.");
+            }
+        });*/
+        mDeviceRepository.getAllInterLocks(new DeviceRepository.LoadDataCallback<InterLock>() {
 
+
+            @Override
+            public void onDataLoaded(List<InterLock> t) {
+                Log.e("callback测试interlock的数量=", t.size() + "个...");
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
     }
 
     /**
      * 删除room所有联锁
      */
     private void deleteRoomInterlock() {
-
+        mDeviceRepository.deleteAllInterLocks();
     }
+
+    /*--------------------------------以下为Device,以上为InterLock-------------------------------------------*/
 
     private void listRoomFromTable() {
         String table = binding.etTableName.getText().toString();
