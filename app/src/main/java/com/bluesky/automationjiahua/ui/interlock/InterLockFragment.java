@@ -3,12 +3,9 @@ package com.bluesky.automationjiahua.ui.interlock;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bluesky.automationjiahua.R;
-import com.bluesky.automationjiahua.base.App;
+import com.bluesky.automationjiahua.database.DeviceRepository;
 import com.bluesky.automationjiahua.database.InterLock;
 import com.bluesky.automationjiahua.databinding.FragmentInterlockBinding;
 
@@ -56,32 +53,33 @@ public class InterLockFragment extends Fragment {
         mViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<InterLock>>() {
             @Override
             public void onChanged(List<InterLock> interLocks) {
-                mAdapter.setData(interLocks);
-                Log.e("setData:", interLocks.size() + "个");
+                if (interLocks != null) {
+                    mAdapter.setData(interLocks);
+                    binding.tvInterlockColumnTipDisplay.setText(String.valueOf(interLocks.size()));
+                    //Log.e("setData:", interLocks.size() + "个");
+                }
+            }
+        });
+        //恢复界面元素
+        binding.spinnerInterlockQueryDomain.setSelection(mViewModel.getSpinnerDomainPosition());
+
+        //下拉列表点击监听
+        binding.spinnerInterlockQueryDomain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mViewModel.setSpinnerDomainPosition(position);
+                String strSearch = getResources().getStringArray(R.array.spinner_query_domain_interlock)[position];
+                Log.e("spinner search:", strSearch);
+                DeviceRepository.getInstance().getInterLocksByDomain("%" + strSearch + "%");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        //TODO 使用的是homefragment的search menu.
-        inflater.inflate(R.menu.menu_fragment_home_search, menu);
-        MenuItem item = menu.findItem(R.id.menu_item_search);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-                return true;
-            }
-        });
-    }
 
     @Override
     public void onDestroyView() {

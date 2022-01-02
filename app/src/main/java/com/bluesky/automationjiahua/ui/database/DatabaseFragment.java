@@ -175,7 +175,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
      */
     private void querySqliteInterLock() {
         String table = "interlock";
-        DBHelper dbHelper = new DBHelper(requireActivity(), "interlock.db", null, 1);
+        DBHelper dbHelper = new DBHelper(requireActivity(), "liansuo.db", null, 1);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + table, null);
         if (cursor.getCount() != 0) {
@@ -201,7 +201,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
      */
     private void formatInterlockAndInsert() {
         String table = "interlock";
-        DBHelper dbHelper = new DBHelper(requireActivity(), "interlock.db", null, 1);
+        DBHelper dbHelper = new DBHelper(requireActivity(), "liansuo.db", null, 1);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + table, null);
         if (cursor.getCount() != 0) {

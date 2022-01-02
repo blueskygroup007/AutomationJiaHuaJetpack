@@ -32,15 +32,10 @@ public class DeviceViewModel extends AndroidViewModel {
         return mLiveDataDevices;
     }
 
-    public MutableLiveData<List<Device>> getAllLiveDataDevices() {
-        mDeviceRepository.getAllDevices();
-        return mLiveDataDevices;
-    }
 
 
-    public MutableLiveData<List<Device>> findDevicesWithPattern(String domain, String column, String[] keyWords) {
+    public void findDevicesWithPattern(String domain, String column, String[] keyWords) {
         mDeviceRepository.findDeviceByPattern(domain, column, keyWords);
-        return mLiveDataDevices;
     }
 
 /*    public MutableLiveData<List<Device>> findDevicesWithPatternByTag(String pattern) {

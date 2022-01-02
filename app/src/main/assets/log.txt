@@ -89,9 +89,9 @@
 8.修改db数据库读写权限
     adb shell
     su
-    chmod 777 /data/data/com.bluesky.atuomationjiahua/databases/total_new_source.db
-    chmod 777 /data/data/com.bluesky.atuomationjiahua/databases/huachan.db-shm
-    chmod 777 /data/data/com.bluesky.atuomationjiahua/databases/huachan.db-wal
+    chmod 777 /data/data/com.bluesky.automationjiahua/databases/liansuo.db
+    chmod 777 /data/data/com.bluesky.automationjiahua/databases/huachan.db-shm
+    chmod 777 /data/data/com.bluesky.automationjiahua/databases/huachan.db-wal
 
 9.将insert方法加了@Insert(onConflict = OnConflictStrategy.REPLACE)，以保证主键重复时，强制覆盖
 

@@ -1,7 +1,5 @@
 package com.bluesky.automationjiahua.database;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -27,7 +25,7 @@ public class DeviceRepository {
     DeviceDao mDeviceDao;
     InterLockDao mInterLockDao;
     static MutableLiveData<List<Device>> mLiveDataDevices;
-    static MutableLiveData<List<InterLock>> mLiveDataInterLocks = new MutableLiveData<>();
+    static MutableLiveData<List<InterLock>> mLiveDataInterLocks;
     String Tag = DeviceRepository.class.getSimpleName();
     AppExecutors mExecutors = new AppExecutors();
 
@@ -45,8 +43,8 @@ public class DeviceRepository {
         DeviceDataBase db = DeviceDataBase.getDatabase(App.instance.getApplicationContext());
         mDeviceDao = db.getDeviceDao();
         mInterLockDao = db.getInterLockDao();
-        mLiveDataDevices = new MutableLiveData<>();
-        mLiveDataDevices.setValue(new ArrayList<>());
+        mLiveDataDevices = new MutableLiveData<>(new ArrayList<>());
+        mLiveDataInterLocks = new MutableLiveData<>(new ArrayList<>());
     }
 
     /**
@@ -74,6 +72,12 @@ public class DeviceRepository {
     }
 
     /*以下是Interlock的方法----------------------------------------------------------*/
+
+    public MutableLiveData<List<InterLock>> getmLiveDataInterLocks() {
+        return mLiveDataInterLocks;
+    }
+
+    /*-------只做数据库页面调试用*/
     public void insertInterLocks(InterLock... interLocks) {
         mExecutors.getDiskIO().execute(new Runnable() {
             @Override
@@ -93,14 +97,7 @@ public class DeviceRepository {
     }
 
     /**
-     * 使用LiveData获取所有联锁记录
-     */
-    public LiveData<List<InterLock>> loadAllInterLocks() {
-        return mInterLockDao.loadAllInterLocks();
-    }
-
-    /**
-     * 异步的返回所有联锁记录
+     * 异步的返回所有联锁记录,
      */
     public void getAllInterLocks(LoadDataCallback<InterLock> callback) {
         mExecutors.getDiskIO().execute(new Runnable() {
@@ -113,6 +110,31 @@ public class DeviceRepository {
                         callback.onDataLoaded(allInterLocks);
                     }
                 });
+            }
+        });
+    }
+    /*-------只做数据库页面调试用*/
+
+
+    /**
+     * 使用LiveData获取所有联锁记录
+     */
+
+    public void getAllInterlocks() {
+        mExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mLiveDataInterLocks.postValue(mInterLockDao.loadAllInterLocks());
+            }
+        });
+    }
+
+    public void getInterLocksByDomain(String domian) {
+        mExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mLiveDataInterLocks.postValue(mInterLockDao.queryInterLocksByDomain(domian));
+
             }
         });
     }
@@ -148,26 +170,6 @@ public class DeviceRepository {
         return mDeviceDao.queryLiveDataDevicesByDomain("%" + domain + "%");
     }
 
-/*    public LiveData<List<Device>> findDeviceByTag(String tag) {
-        return mDeviceDao.queryDevicesByTag("%" + tag + "%");
-    }
-
-    public LiveData<List<Device>> findDeviceByAffect(String affect) {
-        return mDeviceDao.queryDevicesByAffect("%" + affect + "%");
-    }
-
-    public LiveData<List<Device>> findDeviceByName(String name) {
-        return mDeviceDao.queryDevicesByName("%" + name + "%");
-    }
-
-    public LiveData<List<Device>> findDeviceByStandard(String standard) {
-        return mDeviceDao.queryDevicesByStandard("%" + standard + "%");
-    }
-
-    public LiveData<List<Device>> findDeviceByType(String type) {
-        return mDeviceDao.queryDevicesByType("%" + type + "%");
-
-    }*/
 
     public void findDeviceByPattern(String domain, String column, String[] keyWords) {
         StringBuilder pattern = new StringBuilder();

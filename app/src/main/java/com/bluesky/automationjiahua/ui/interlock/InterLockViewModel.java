@@ -7,18 +7,28 @@ import androidx.lifecycle.ViewModel;
 import com.bluesky.automationjiahua.database.DeviceRepository;
 import com.bluesky.automationjiahua.database.InterLock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InterLockViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
-    private LiveData<List<InterLock>> mData;
+    private MutableLiveData<List<InterLock>> mData;
+    private int spinnerDomainPosition = 0;
 
     public InterLockViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is slideshow fragment");
-        mData = new MutableLiveData<>();
-        mData = DeviceRepository.getInstance().loadAllInterLocks();
+        mData = new MutableLiveData<>(new ArrayList<>());
+        mData = DeviceRepository.getInstance().getmLiveDataInterLocks();
+    }
+
+    public int getSpinnerDomainPosition() {
+        return spinnerDomainPosition;
+    }
+
+    public void setSpinnerDomainPosition(int spinnerDomainPosition) {
+        this.spinnerDomainPosition = spinnerDomainPosition;
     }
 
     public LiveData<String> getText() {

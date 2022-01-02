@@ -19,6 +19,50 @@
         <item>干吸尾吸</item>
     </string-array>
 
+    <string-array name="spinner_domain_interlock">
+        <item>全部</item>
+        <item>煤气柜</item>
+        <item>干熄焦</item>
+        <item>鼓风机</item>
+        <item>电捕</item>
+        <item>SIS系统</item>
+        <item>初冷</item>
+        <item>油库</item>
+        <item>硫铵</item>
+        <item>脱硫</item>
+        <item>终冷洗苯</item>
+        <item>制酸</item>
+        <item>消防水</item>
+        <item>煤压站</item>
+        <item>汽轮机</item>
+        <item>备煤</item>
+        <item>筛焦</item>
+        <item>除尘</item>
+        <item>脱硫脱硝</item>
+    </string-array>
+
+    <string-array name="spinner_query_domain_interlock">
+        <item> </item>
+        <item>煤气柜</item>
+        <item>干熄焦</item>
+        <item>鼓风机</item>
+        <item>电捕</item>
+        <item>SIS系统</item>
+        <item>初冷</item>
+        <item>油库</item>
+        <item>硫铵</item>
+        <item>脱硫</item>
+        <item>终冷洗苯</item>
+        <item>制酸</item>
+        <item>消防水</item>
+        <item>煤压站</item>
+        <item>汽轮机</item>
+        <item>备煤</item>
+        <item>筛焦</item>
+        <item>除尘</item>
+        <item>脱硫脱硝</item>
+    </string-array>
+
     <string-array name="spinner_query_column">
         <item>设备位号(TE-44201)</item>
         <item>用途(xx出口温度)</item>
@@ -26,6 +70,10 @@
         <item>信号及规格(PT100)</item>
         <item>型号(WZPK-2481)</item>
 
+    </string-array>
+
+    <string-array name="spinner_query_column_interlock">
+        <item></item>
     </string-array>
 
     <string-array name="spinner_query_domain_database">

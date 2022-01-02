@@ -31,7 +31,8 @@ public interface InterLockDao {
     List<InterLock> getAllInterLocks();
 
     @Query("SELECT * FROM interlock")
-    LiveData<List<InterLock>> loadAllInterLocks();
+    List<InterLock> loadAllInterLocks();
+
     /*更新数据*/
     @Update
     void updateInterLock(InterLock... items);
@@ -39,4 +40,12 @@ public interface InterLockDao {
     /*根据tag过滤查询*/
     @Query("SELECT * FROM interlock WHERE TAG LIKE :tag")
     LiveData<List<InterLock>> queryInterLocksByTag(String tag);
+
+    /*    *//*根据domain过滤查询*//*
+    @Query("SELECT * FROM interlock WHERE domain LIKE :domain")
+    List<InterLock> queryInterLocksByDomain(String domain);*/
+
+    /*根据domain过滤查询*/
+    @Query("SELECT * FROM interlock WHERE domain LIKE :domain")
+    List<InterLock> queryInterLocksByDomain(String domain);
 }

@@ -29,7 +29,7 @@
         android:id="@+id/nav_special"
         android:name="com.bluesky.automationjiahua.ui.special.SpecialFragment"
         android:label="@string/menu_special"
-        tools:layout="@layout/fragment_special" >
+        tools:layout="@layout/fragment_special">
         <action
             android:id="@+id/action_nav_special_to_specialMenuFragment"
             app:destination="@id/nav_special_menu" />
@@ -52,18 +52,18 @@
     <activity
         android:id="@+id/mainActivity"
         android:name="com.bluesky.automationjiahua.MainActivity"
-        android:label="app_bar_main"
+        android:label="@string/label_activity_activity"
         tools:layout="@layout/app_bar_main" />
     <activity
         android:id="@+id/splashActivity"
         android:name="com.bluesky.automationjiahua.SplashActivity"
-        android:label="activity_splash"
+        android:label="@string/label_activity_splash"
         tools:layout="@layout/activity_splash" />
     <fragment
         android:id="@+id/nav_interlock"
         android:name="com.bluesky.automationjiahua.ui.interlock.InterLockFragment"
-        android:label="fragment_interlock"
-        tools:layout="@layout/fragment_interlock" >
+        android:label="@string/menu_interlock"
+        tools:layout="@layout/fragment_interlock">
         <action
             android:id="@+id/action_interLockFragment_to_interlockDetailFragment"
             app:destination="@id/nav_interlock_detail" />
@@ -71,6 +71,6 @@
     <fragment
         android:id="@+id/nav_interlock_detail"
         android:name="com.bluesky.automationjiahua.ui.interlock.InterlockDetailFragment"
-        android:label="fragment_interlock_detail"
+        android:label="@string/label_interlock_detail"
         tools:layout="@layout/fragment_interlock_detail" />
 </navigation>

@@ -2,6 +2,7 @@ package com.bluesky.automationjiahua.ui.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,18 +12,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bluesky.automationjiahua.R;
 import com.bluesky.automationjiahua.base.AppConstant;
+import com.bluesky.automationjiahua.database.Device;
 import com.bluesky.automationjiahua.databinding.FragmentHomeBinding;
 import com.bluesky.automationjiahua.viewmodel.DeviceViewModel;
 
@@ -97,30 +99,22 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-        //TODO 也不一定起作用.mDeviceRepository.findDeviceByPattern()方法可能根本没起作用
-        mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
-                AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
-                homeViewModel.getmKeyWord().getValue()).observe(getViewLifecycleOwner(),
-                devices -> {
-                    binding.tvColumnTipDisplay.setText(String.valueOf(devices.size()));
-                    mAdapter.setData(devices);
-                });
-        //---恢复界面元素---
-        //恢复列表位置
-/*        Log.e("begin onViewCreage:", "当前列表项保存值=" + homeViewModel.getmCurrentItem().getValue());
 
-        if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() >= 0) {
-            ((LinearLayoutManager) binding.rvList.getLayoutManager()).scrollToPosition(homeViewModel.getmCurrentItem().getValue());
-        }*/
+
+        mViewModel.getLiveDataDevices().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
+            @Override
+            public void onChanged(List<Device> devices) {
+                binding.tvColumnTipDisplay.setText(String.valueOf(devices.size()));
+                mAdapter.setData(devices);
+            }
+        });
+
+        //---恢复界面元素---
+
+
         //恢复下拉列表框选择项
         binding.spinnerQuerySearch.setSelection(homeViewModel.getmSearch().getValue());
         binding.spinnerQueryDomain.setSelection(homeViewModel.getmRange().getValue());
-        //TODO 这里如何将keyword写到activity的toolbar上。
-        //TODO ViewModel不应该是能保存数据么？为什么返回后，数据就空了呢？另外查一下Navigation中Fragment的回退，是否重建Fragment。
-        //TODO 是不是因为数据库查询是异步的。所以，刚查询后，就获取livedata就是空！！！
-        //mViewModel.findDevicesWithPattern(AppConstant.DOMAIN[homeViewModel.getmRange().getValue()], AppConstant.SEARCH[homeViewModel.getmSearch().getValue()], homeViewModel.getmKeyWord().getValue());
-        //Log.e(HomeFragment.class.getSimpleName(), "DeviceViewModel.LiveData=" + mViewModel.getLiveDataDevices().getValue().size());
-
 
         //区域下拉列表
         binding.spinnerQueryDomain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -159,11 +153,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-/*        Log.e("begin onResume:", "当前列表项保存值=" + homeViewModel.getmCurrentItem().getValue());
-        binding.rvList.scrollToPosition(homeViewModel.getmCurrentItem().getValue());
-        if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() >= 0) {
-            ((LinearLayoutManager) binding.rvList.getLayoutManager()).scrollToPosition(homeViewModel.getmCurrentItem().getValue());
-        }*/
+        Log.e("begin onResume:", "当前列表项保存值=" + homeViewModel.getmCurrentItem().getValue());
+
+        //TODO 恢复列表位置,只有用scrollToPositionWithOffset才能方便的将该位置置顶
+        if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() != null) {
+            ((LinearLayoutManager) binding.rvList.getLayoutManager()).scrollToPositionWithOffset(homeViewModel.getmCurrentItem().getValue(), 0);
+        }
+
     }
 
     @Override
@@ -191,29 +187,22 @@ public class HomeFragment extends Fragment {
             etSearch.selectAll();
         }*/
 
-        //TODO 搜索栏历史记录实现
-        int completeTextId = mSearchView.getResources().getIdentifier("android:id/search_src_text", null, null);
-        AutoCompleteTextView completeTextView = mSearchView.findViewById(completeTextId);
-
-        //历史数组只截取5个(或者不截取,历史数组只保存5个即可)
-        mFiveHistory = homeViewModel.getHistory().subList(0, Math.min(homeViewModel.getHistory().size(), 5));
-        mHistoryAdapter = new ArrayAdapter<>(requireContext(), R.layout.item_history, R.id.tv_item_history, mFiveHistory);
-        completeTextView.setAdapter(mHistoryAdapter);
-        completeTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //给搜索栏填充搜索关键字,并提交
-                mSearchView.setQuery(mFiveHistory.get(i), true);
-            }
-        });
-        //输入长度为0时显示提示列表
-        completeTextView.setThreshold(0);
-
+        //设置是否显示搜索框展开时的提交按钮
+        mSearchView.setSubmitButtonEnabled(true);
+        //键盘上显示放大镜图标(默认)
+        mSearchView.setImeOptions(3);
         mSearchView.setMaxWidth(1000);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                //历史中是否已经包含
+                //一旦查询,列表位置的记录便清零
+                homeViewModel.getmCurrentItem().setValue(0);
+                if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() != null) {
+                    binding.rvList.getLayoutManager().scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+                }
+
+                //------------------------历史搜索实现-------------------------------
+/*                //历史中是否已经包含
                 if (mFiveHistory.contains(s)) {
                     return false;
                 }
@@ -229,12 +218,9 @@ public class HomeFragment extends Fragment {
                 int completeTextId = mSearchView.getResources().getIdentifier("android:id/search_src_text", null, null);
                 AutoCompleteTextView completeTextView = mSearchView.findViewById(completeTextId);
                 completeTextView.setAdapter(mHistoryAdapter);
-                mHistoryAdapter.notifyDataSetChanged();
-                return false;
-            }
+                mHistoryAdapter.notifyDataSetChanged();*/
+                //-------------------------------------------------------
 
-            @Override
-            public boolean onQueryTextChange(String s) {
                 //每当搜索内容变化，更新HomeViewModel，并更新列表
                 String keyWord = s.trim();
                 String[] keyWords = keyWord.split(" ");
@@ -244,71 +230,40 @@ public class HomeFragment extends Fragment {
                         AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
                         AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
                         keyWords);
-                return true;
+
+                return false;
+            }
+
+            /*不采用即时输入即时搜索*/
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+
+        });
+
+/*        //TODO 搜索栏历史记录实现
+        int completeTextId = mSearchView.getResources().getIdentifier("android:id/search_src_text", null, null);
+        AutoCompleteTextView completeTextView = mSearchView.findViewById(completeTextId);
+
+        //历史数组只截取5个(或者不截取,历史数组只保存5个即可)
+        mFiveHistory = homeViewModel.getHistory().subList(0, Math.min(homeViewModel.getHistory().size(), 5));
+        mHistoryAdapter = new ArrayAdapter<>(requireContext(), R.layout.item_history, R.id.tv_item_history, mFiveHistory);
+        completeTextView.setAdapter(mHistoryAdapter);
+        completeTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //给搜索栏填充搜索关键字,并提交
+                //MenuItemCompat.expandActionView(item);
+                mSearchView.setQuery(mFiveHistory.get(i), true);
             }
         });
+        //输入长度为0时显示提示列表
+        completeTextView.setThreshold(0);*/
+
+
     }
 
-
-/*    public class HistoryArrayAdapter extends BaseAdapter {
-
-        private List<String> mData;
-
-        public HistoryArrayAdapter() {
-        }
-
-        public void setData(List<String> data) {
-            this.mData = data;
-        }
-
-        @Override
-        public int getCount() {
-            return mData.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return mData.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View convertView, ViewGroup viewGroup) {
-            //将布局文件转化为View对象
-
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_history, null, false);
-
-            *//**
-     * 找到item布局文件中对应的控件
-     *//*
-            TextView tvContent = view.findViewById(R.id.tv_item_history);
-
-            //获取相应索引的ItemBean对象
-
-            */
-
-    /**
-     * 设置控件的对应属性值
-     *//*
-
-            return view;
-        }
-    }*/
-    @Override
-    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_search:
-                //TODO 搜索按钮的实现，没有必要？？？
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onPause() {

@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <!--TODO 加大Item视图，（因为搜索结果不会太多）-->
-    <!--TODO -->
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_item"
+        android:id="@+id/card_interlock_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -73,9 +72,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:gravity="center_vertical"
                 android:lines="2"
                 android:maxLines="2"
-                android:gravity="center_vertical"
                 android:textAppearance="?android:textAppearanceSmall"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -87,8 +86,9 @@
                 android:id="@+id/tv_interlock_domain"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@color/material_color_grey_200"
                 android:gravity="center"
-                android:maxLines="2"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"

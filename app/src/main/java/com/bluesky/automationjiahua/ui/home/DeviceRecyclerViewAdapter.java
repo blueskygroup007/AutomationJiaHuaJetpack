@@ -41,8 +41,6 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
     public void setData(List<Device> data) {
         mData = data;
         notifyDataSetChanged();
-        //恢复上次列表位置
-        mRecyclerView.getLayoutManager().scrollToPosition(mHomeViewModel.getmCurrentItem().getValue());
     }
 
     @NonNull

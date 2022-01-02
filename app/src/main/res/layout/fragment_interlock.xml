@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.bluesky.automationjiahua.ui.interlock.InterLockFragment">
+   >
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_interlock_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -35,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="区域:"
+                    android:labelFor="@id/spinner_interlock_query_domain"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -44,12 +44,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:entries="@array/spinner_query_domain"
-                    android:labelFor="@id/spinner_interlock_query_domain"
+                    android:entries="@array/spinner_domain_interlock"
                     android:theme="@style/medium_spinner" />
             </LinearLayout>
 
-            <LinearLayout
+<!--            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
@@ -62,6 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="搜索:"
+                    android:labelFor="@id/spinner_interlock_query_search"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -73,7 +73,7 @@
                     android:layout_weight="1"
                     android:entries="@array/spinner_query_column"
                     android:theme="@style/medium_spinner" />
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
