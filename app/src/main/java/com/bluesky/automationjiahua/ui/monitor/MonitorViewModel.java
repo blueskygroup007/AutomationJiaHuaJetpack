@@ -1,6 +1,5 @@
 package com.bluesky.automationjiahua.ui.monitor;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.bluesky.automationjiahua.R;
@@ -10,13 +9,16 @@ import java.util.List;
 
 public class MonitorViewModel extends ViewModel {
 
-    private MutableLiveData<List<BeanPicture>> mPictureHuaChanMain = new MutableLiveData<>();
-    ;
-    private MutableLiveData<List<BeanPicture>> mPictureHuaChanZhiSuan = new MutableLiveData<>();
-    ;
+/*    private MutableLiveData<List<BeanPicture>> mPictureHuaChanMain = new MutableLiveData<>();
+
+    private MutableLiveData<List<BeanPicture>> mPictureHuaChanZhiSuan = new MutableLiveData<>();*/
+
 
     private List<BeanPicture> mListPicHuaChanMain = new ArrayList<>();
     private List<BeanPicture> mListPicHuaChanZhiSuan = new ArrayList<>();
+    private List<BeanPicture> mListPicGanXiJiao = new ArrayList<>();
+    private List<BeanPicture> mListPicJiaoLu = new ArrayList<>();
+
 
 
     {
@@ -49,8 +51,23 @@ public class MonitorViewModel extends ViewModel {
     public MonitorViewModel() {
     }
 
+    public List<BeanPicture> getListPicHuaChanMain() {
+        return mListPicHuaChanMain;
+    }
 
-    public MutableLiveData<List<BeanPicture>> getPictureHuaChanMain() {
+    public List<BeanPicture> getListPicHuaChanZhiSuan() {
+        return mListPicHuaChanZhiSuan;
+    }
+
+    public List<BeanPicture> getListPicGanXiJiao() {
+        return mListPicGanXiJiao;
+    }
+
+    public List<BeanPicture> getListPicJiaoLu() {
+        return mListPicJiaoLu;
+    }
+
+    /*    public MutableLiveData<List<BeanPicture>> getPictureHuaChanMain() {
         mPictureHuaChanMain.setValue(mListPicHuaChanMain);
         return mPictureHuaChanMain;
     }
@@ -59,5 +76,5 @@ public class MonitorViewModel extends ViewModel {
     public MutableLiveData<List<BeanPicture>> getPictureHuaChanZhiSuan() {
         mPictureHuaChanZhiSuan.setValue(mListPicHuaChanZhiSuan);
         return mPictureHuaChanZhiSuan;
-    }
+    }*/
 }

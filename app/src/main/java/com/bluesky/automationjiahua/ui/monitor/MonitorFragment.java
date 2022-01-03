@@ -46,7 +46,7 @@ public class MonitorFragment extends Fragment implements RadioGroup.OnCheckedCha
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mGridAdapter = new GridPictureAdapter(mMonitorViewModel.getPictureHuaChanMain().getValue());
+        mGridAdapter = new GridPictureAdapter(mMonitorViewModel.getListPicHuaChanMain());
         binding.rvPictureMonitor.setLayoutManager(new GridLayoutManager(requireContext(), 5));
         binding.rvPictureMonitor.setAdapter(mGridAdapter);
         //RadioGroup的默认选中,设置监听
@@ -76,13 +76,13 @@ public class MonitorFragment extends Fragment implements RadioGroup.OnCheckedCha
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         //返回对应的数组(id,name,drawableId),设置给adapter
         if (i == binding.rbHuachanMonitor.getId()) {
-            mGridAdapter.setData(mMonitorViewModel.getPictureHuaChanMain().getValue());
+            mGridAdapter.setData(mMonitorViewModel.getListPicHuaChanMain());
         } else if (i == binding.rbZhisuanMonitor.getId()) {
-            mGridAdapter.setData(mMonitorViewModel.getPictureHuaChanZhiSuan().getValue());
-        } else if (i == binding.rbGongfuMonitor.getId()) {
-
-        } else if (i == binding.rbLiansuoMonitor.getId()) {
-
+            mGridAdapter.setData(mMonitorViewModel.getListPicHuaChanZhiSuan());
+        } else if (i == binding.rbGanxijiaoMonitor.getId()) {
+            mGridAdapter.setData(mMonitorViewModel.getListPicGanXiJiao());
+        } else if (i == binding.rbJiaoluMonitor.getId()) {
+            mGridAdapter.setData(mMonitorViewModel.getListPicJiaoLu());
         }
     }
 }

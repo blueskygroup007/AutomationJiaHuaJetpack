@@ -41,16 +41,16 @@
             android:text="@string/str_menu_tab_monitor_huachan_zhisuan" />
 
         <RadioButton
-            android:id="@+id/rb_gongfu_monitor"
+            android:id="@+id/rb_ganxijiao_monitor"
             style="@style/style_tabhost_menu_radiobutton"
             android:drawableTop="@drawable/ic_baseline_computer_24"
-            android:text="@string/str_menu_tab_monitor_huachan_gongfu" />
+            android:text="@string/str_menu_tab_monitor_ganxijiao" />
 
         <RadioButton
-            android:id="@+id/rb_liansuo_monitor"
+            android:id="@+id/rb_jiaolu_monitor"
             style="@style/style_tabhost_menu_radiobutton"
-            android:drawableTop="@drawable/ic_baseline_lock_red_24"
-            android:text="@string/str_menu_tab_interlock" />
+            android:drawableTop="@drawable/ic_baseline_computer_24"
+            android:text="@string/str_menu_tab_jiaolu" />
     </RadioGroup>
 
     <!--    <com.google.android.material.bottomnavigation.BottomNavigationView
