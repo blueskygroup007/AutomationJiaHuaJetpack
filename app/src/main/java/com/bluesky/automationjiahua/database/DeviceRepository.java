@@ -40,9 +40,9 @@ public class DeviceRepository {
      * 因为静态的Repository持有context的话,会造成泄露,所以使用getApplicationContext代替.
      */
     private DeviceRepository() {
-        DeviceDataBase db = DeviceDataBase.getDatabase(App.instance.getApplicationContext());
-        mDeviceDao = db.getDeviceDao();
-        mInterLockDao = db.getInterLockDao();
+        DeviceDataBase database = DeviceDataBase.getDatabase(App.instance.getApplicationContext());
+        mDeviceDao = database.getDeviceDao();
+        mInterLockDao = database.getInterLockDao();
         mLiveDataDevices = new MutableLiveData<>(new ArrayList<>());
         mLiveDataInterLocks = new MutableLiveData<>(new ArrayList<>());
     }
@@ -57,6 +57,12 @@ public class DeviceRepository {
             INSTANCE = new DeviceRepository();
         }
         return INSTANCE;
+    }
+
+    public static void destroy() {
+        INSTANCE = null;
+        DeviceDataBase database = DeviceDataBase.getDatabase(App.instance.getApplicationContext());
+        database.close();
     }
 
     public static void destroyInstance() {

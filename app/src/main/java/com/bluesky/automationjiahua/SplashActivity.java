@@ -7,8 +7,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bluesky.automationjiahua.databinding.ActivitySplashBinding;
 import com.bluesky.automationjiahua.base.App;
+import com.bluesky.automationjiahua.databinding.ActivitySplashBinding;
 import com.bluesky.automationjiahua.utils.AssetsCopyUtils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
