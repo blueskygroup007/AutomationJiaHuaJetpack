@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -192,9 +193,25 @@ public class HomeFragment extends Fragment {
         //键盘上显示放大镜图标(默认)
         mSearchView.setImeOptions(3);
         mSearchView.setMaxWidth(1000);
+        //当展开搜索栏,准备输入关键字时,填入上次搜索内容
+        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int completeTextId = mSearchView.getResources().getIdentifier("android:id/search_src_text", null, null);
+                AutoCompleteTextView completeTextView = mSearchView.findViewById(completeTextId);
+                completeTextView.setText(homeViewModel.getSearchWords());
+                completeTextView.setSelection(homeViewModel.getSearchWords().length());
+            }
+        });
+
+
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                if (" ".equals(s)) {
+                    Log.e("onQueryTextSubmit:", "输入的是空格.");
+                }
+                homeViewModel.setSearchWords(s);
                 //一旦查询,列表位置的记录便清零
                 homeViewModel.getmCurrentItem().setValue(0);
                 if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() != null) {
@@ -237,6 +254,20 @@ public class HomeFragment extends Fragment {
             /*不采用即时输入即时搜索*/
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (mSearchView.getQuery().length() == 0) {
+                    homeViewModel.setSearchWords("");
+
+                    Log.e("onQueryTextChange:", "输入的是空格.");
+                    homeViewModel.getmCurrentItem().setValue(0);
+                    if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() != null) {
+                        binding.rvList.getLayoutManager().scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+                    }
+                    mViewModel.findDevicesWithPattern(
+                            AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
+                            AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
+                            new String[]{""});
+
+                }
                 return false;
             }
 

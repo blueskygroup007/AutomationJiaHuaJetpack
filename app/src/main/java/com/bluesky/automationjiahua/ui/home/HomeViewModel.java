@@ -15,6 +15,8 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Integer> mRange;
     //当前搜索范围
     private MutableLiveData<Integer> mSearch;
+    //当前搜索关键字
+    private String mSearchWords="";
     //关键字
     private MutableLiveData<String[]> mKeyWord;
     //历史关键字
@@ -28,6 +30,13 @@ public class HomeViewModel extends ViewModel {
     }
 
 
+    public String getSearchWords() {
+        return mSearchWords;
+    }
+
+    public void setSearchWords(String searchWords) {
+        mSearchWords = searchWords;
+    }
 
     public List<String> getHistory() {
         if (mHistory == null) {
