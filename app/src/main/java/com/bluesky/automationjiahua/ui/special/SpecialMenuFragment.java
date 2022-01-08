@@ -2,6 +2,7 @@ package com.bluesky.automationjiahua.ui.special;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class SpecialMenuFragment extends Fragment {
 
             mBinding.llContainerMenu.addView(treeView.getView());
         }
+        mBinding.tvInfo.setMovementMethod(ScrollingMovementMethod.getInstance());
 
     }
 
@@ -130,7 +132,11 @@ public class SpecialMenuFragment extends Fragment {
                 "通入高点标气:\n标气流量为2.0~3.0 L/min;Enter键确认开始标定\n锆池电压:\n波动不超过±0.5mV为稳定;6分钟不稳定标定失败(Cal.fault)\n如果锆池常数超出正常范围,不保存数据,报常数错误(Const error)")).setViewHolder(new MenuTreeHolder(context));
         TreeNode child04_12_02_02 = new TreeNode(new MenuTreeHolder.IconTreeItem(R.drawable.ic_baseline_menu_24,
                 "InputGas  2.00%",
-                "通入低点标气:\n标气流量为2.0~3.0 L/min;Enter键确认开始标定\n锆池电压:\n波动不超过±0.5mV为稳定;6分钟不稳定标定失败(Cal.fault)\n如果锆池常数超出正常范围,不保存数据,报常数错误(Const error)")).setViewHolder(new MenuTreeHolder(context));
+                "通入低点标气:\n标气流量为2.0~3.0 L/min;Enter键确认开始标定\n锆池电压:\n波动不超过±0.5mV为稳定;6分钟不稳定标定失败(Cal.fault)\n如果锆池常数超出正常范围,不保存数据,报常数错误(Const error)" +
+                        "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+                        + "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+                        + "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+                        + "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")).setViewHolder(new MenuTreeHolder(context));
 
         child04_12_02.addChildren(child04_12_02_01, child04_12_02_02);
         child04_12_01.addChild(child04_12_01_01);

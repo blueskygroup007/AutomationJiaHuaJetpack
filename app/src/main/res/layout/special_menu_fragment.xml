@@ -10,24 +10,26 @@
     <LinearLayout
         android:id="@+id/ll_container_menu"
         android:layout_width="match_parent"
-        android:layout_margin="4dp"
-        android:background="@drawable/bg_rect_corner_4dp"
         android:layout_height="0dp"
+        android:layout_margin="4dp"
         android:layout_weight="0.8"
+        android:background="@drawable/bg_rect_corner_4dp"
         android:orientation="vertical">
 
     </LinearLayout>
 
 
-
-    <TextView
-        android:id="@+id/tv_info"
-        android:layout_margin="4dp"
-        android:background="@drawable/bg_rect_corner_4dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:paddingHorizontal="8dp"
-        android:layout_weight="0.2" />
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        android:layout_weight="0.2"
+        android:background="@drawable/bg_rect_corner_4dp"
+        android:paddingHorizontal="8dp">
 
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 </LinearLayout>
