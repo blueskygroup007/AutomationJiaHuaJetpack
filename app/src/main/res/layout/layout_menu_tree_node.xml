@@ -15,14 +15,29 @@
         android:scaleType="centerInside"
         tools:src="@drawable/ic_baseline_arrow_right_24" />
 
-    <TextView
-        android:id="@+id/tv_node_text"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_rect_corner_4dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        android:paddingHorizontal="4dp"
-        tools:text="Main Menu" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
+        <ImageView
+
+            android:id="@+id/iv_node_icon_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+
+            tools:src="@drawable/ic_arrow_menu" />
+
+        <TextView
+            android:id="@+id/tv_node_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            tools:text="Main Menu" />
+    </LinearLayout>
 </LinearLayout>

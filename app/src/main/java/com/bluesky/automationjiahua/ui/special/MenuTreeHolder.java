@@ -28,6 +28,7 @@ public class MenuTreeHolder extends TreeNode.BaseNodeViewHolder<MenuTreeHolder.I
         final View view = inflater.inflate(R.layout.layout_menu_tree_node, null, false);
         arrowView = view.findViewById(R.id.iv_node_icon);
         TextView tvText = view.findViewById(R.id.tv_node_text);
+
         arrowView.setImageResource(R.drawable.ic_baseline_arrow_right_24);
         tvText.setText(value.text);
         if (node.isLeaf()) {

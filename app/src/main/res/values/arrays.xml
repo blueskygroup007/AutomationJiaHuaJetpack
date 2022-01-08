@@ -21,6 +21,7 @@
 
     <string-array name="spinner_domain_interlock">
         <item>全部</item>
+        <item>焦炉</item>
         <item>煤气柜</item>
         <item>干熄焦</item>
         <item>鼓风机</item>
@@ -43,6 +44,7 @@
 
     <string-array name="spinner_query_domain_interlock">
         <item> </item>
+        <item>焦炉</item>
         <item>煤气柜</item>
         <item>干熄焦</item>
         <item>鼓风机</item>
