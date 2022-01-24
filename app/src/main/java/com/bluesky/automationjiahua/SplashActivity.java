@@ -2,10 +2,13 @@ package com.bluesky.automationjiahua;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.EnvironmentCompat;
 
 import com.bluesky.automationjiahua.base.App;
 import com.bluesky.automationjiahua.databinding.ActivitySplashBinding;
@@ -16,6 +19,7 @@ import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -49,9 +53,10 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initData() {
         String path_huachan = getDatabasePath(App.HUACHAN_DEVICE_DATA_BASE_NAME).getAbsolutePath();
-        String path_interlock = getDatabasePath(App.INTER_LOCK_DATA_BASE_NAME).getAbsolutePath();
+//        String path_interlock = getDatabasePath(App.INTER_LOCK_DATA_BASE_NAME).getAbsolutePath();
+
         AssetsCopyUtils.copyAssetsFile2Phone(this, App.HUACHAN_DEVICE_DATA_BASE_NAME, path_huachan);
-        AssetsCopyUtils.copyAssetsFile2Phone(this, App.INTER_LOCK_DATA_BASE_NAME, path_interlock);
+//        AssetsCopyUtils.copyAssetsFile2Phone(this, App.INTER_LOCK_DATA_BASE_NAME, path_interlock);
 
         binding.btnEnter.setVisibility(View.VISIBLE);
     }

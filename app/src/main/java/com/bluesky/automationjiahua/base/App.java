@@ -19,9 +19,10 @@ public class App extends Application {
     public static boolean DETAIL_PAGE_SIMPLIFY = false;
     public static String TAG;
 
-    public static Map<String, String> DOMAIN_DISPLAY ;
+    public static Map<String, String> DOMAIN_DISPLAY;
+
     {
-        DOMAIN_DISPLAY=new HashMap<>();
+        DOMAIN_DISPLAY = new HashMap<>();
         DOMAIN_DISPLAY.put("chuleng", "初冷");
         DOMAIN_DISPLAY.put("cubenzhengliu", "粗苯蒸馏");
         DOMAIN_DISPLAY.put("dianbujiaoyou", "电捕焦油");
@@ -37,6 +38,16 @@ public class App extends Application {
         DOMAIN_DISPLAY.put("jinghua", "净化");
         DOMAIN_DISPLAY.put("zhuanhua", "转化");
         DOMAIN_DISPLAY.put("ganxiweixi", "干吸尾吸");
+        DOMAIN_DISPLAY.put("ganxijiaobenti_1", "1#干熄焦");
+        DOMAIN_DISPLAY.put("ganxijiaobenti_2", "2#干熄焦");
+        DOMAIN_DISPLAY.put("ganxijiaobenti_3", "3#干熄焦");
+        DOMAIN_DISPLAY.put("ganxijiaochuchen", "干熄焦除尘");
+        DOMAIN_DISPLAY.put("ganxijiaoguolu_1", "1#干熄焦锅炉");
+        DOMAIN_DISPLAY.put("ganxijiaoguolu_2", "2#干熄焦锅炉");
+        DOMAIN_DISPLAY.put("ganxijiaoguolu_3", "3#干熄焦锅炉");
+        DOMAIN_DISPLAY.put("guolugeishui", "锅炉给水");
+        DOMAIN_DISPLAY.put("jiaolu_1_2", "1#2#焦炉");
+        DOMAIN_DISPLAY.put("qilunfadian", "汽轮发电");
 
     }
 

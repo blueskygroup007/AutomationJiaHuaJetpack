@@ -10,17 +10,17 @@ public class HomeViewModel extends ViewModel {
     //todo 每次返回fragment都会调用oncreate方法的解决
     //todo 可能:不在viewmodel中保存本页面所需的数据,那么viewmodel,或者livedata,就会失效.那么就会重新create.甚至整个app重新启动
     //当前列表的位置
-    private MutableLiveData<Integer> mCurrentItem;
+    private int mCurrentItem;
     //当前区域
-    private MutableLiveData<Integer> mRange;
+    private int mRange;
     //当前搜索范围
-    private MutableLiveData<Integer> mSearch;
+    private int mSearch;
     //当前搜索关键字
     private String mSearchWords="";
     //关键字
-    private MutableLiveData<String[]> mKeyWord;
+    private String mKeyWord="";
     //历史关键字
-    private List<String> mHistory;
+    private List<String> mHistory=new ArrayList<>();
     //过滤后的列表数据
 //    private LiveData<List<Device>> mFilteredDevices = new MutableLiveData<>();
 
@@ -38,42 +38,35 @@ public class HomeViewModel extends ViewModel {
         mSearchWords = searchWords;
     }
 
-    public List<String> getHistory() {
-        if (mHistory == null) {
-            mHistory = new ArrayList<>();
-        }
-        return mHistory;
-    }
-
-    public void setHistory(List<String> history) {
-        mHistory = history;
-    }
-
-    public MutableLiveData<Integer> getmCurrentItem() {
-        if (mCurrentItem == null) {
-            mCurrentItem = new MutableLiveData<>(0);
-        }
+    public int getCurrentItem() {
         return mCurrentItem;
     }
 
-    public MutableLiveData<Integer> getmRange() {
-        if (mRange == null) {
-            mRange = new MutableLiveData<>(0);
-        }
+    public void setCurrentItem(int currentItem) {
+        mCurrentItem = currentItem;
+    }
+
+    public int getRange() {
         return mRange;
     }
 
-    public MutableLiveData<Integer> getmSearch() {
-        if (mSearch == null) {
-            mSearch = new MutableLiveData<>(0);
-        }
+    public void setRange(int range) {
+        mRange = range;
+    }
+
+    public int getSearch() {
         return mSearch;
     }
 
-    public MutableLiveData<String[]> getmKeyWord() {
-        if (mKeyWord == null) {
-            mKeyWord = new MutableLiveData<>();
-        }
+    public void setSearch(int search) {
+        mSearch = search;
+    }
+
+    public String getKeyWord() {
         return mKeyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        mKeyWord = keyWord;
     }
 }

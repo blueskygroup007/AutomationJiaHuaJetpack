@@ -37,7 +37,7 @@
 
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_query_sqlite"
         android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:text="查询sqlite数据库"
@@ -50,7 +50,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_format_translate_table"
         android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -58,17 +58,17 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_query_sqlite_table" />
 
     <Button
-        android:id="@+id/btn_format_and_insert"
+        android:id="@+id/btn_format_translate_table_interlock"
         android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="37dp"
         android:text="格式化sqlite联锁表"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_format_translate_table" />
 
     <Button
         android:id="@+id/btn_query_sqlite_interlock"
@@ -77,8 +77,8 @@
         android:layout_marginStart="2dp"
         android:text="查询sqlite联锁表"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_format_and_insert"
-        app:layout_constraintTop_toTopOf="@+id/btn_format_and_insert" />
+        app:layout_constraintStart_toEndOf="@+id/btn_format_translate_table_interlock"
+        app:layout_constraintTop_toTopOf="@+id/btn_format_translate_table_interlock" />
 
     <Button
         android:id="@+id/btn_query_room_interlock"
@@ -87,7 +87,7 @@
         android:text="查询room联锁表"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btn_format_and_insert"
+        app:layout_constraintStart_toEndOf="@+id/btn_format_translate_table_interlock"
         app:layout_constraintTop_toBottomOf="@+id/btn_query_sqlite_interlock" />
 
     <Button
@@ -99,39 +99,39 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_format_and_insert" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_format_translate_table_interlock" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btn_delete_room_table"
         android:layout_width="204dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="1dp"
         android:text="删除room某个表"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintStart_toEndOf="@+id/btn_query_sqlite"
         app:layout_constraintTop_toBottomOf="@+id/et_table_name" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/btn_query_sqlite_table"
         android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="2dp"
         android:text="查询sqlite某个表"
-        app:layout_constraintEnd_toStartOf="@+id/button9"
+        app:layout_constraintEnd_toStartOf="@+id/btn_query_room_table"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button1" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_query_sqlite" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/btn_query_room_table"
         android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="查询room某个表"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button8"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintStart_toEndOf="@+id/btn_query_sqlite_table"
+        app:layout_constraintTop_toBottomOf="@+id/btn_delete_room_table" />
 
     <EditText
         android:id="@+id/et_table_name"

@@ -179,11 +179,13 @@ public class DeviceRepository {
 
     public void findDeviceByPattern(String domain, String column, String[] keyWords) {
         StringBuilder pattern = new StringBuilder();
+        //如果domain为空,直接跳过该条件.
         if (!domain.isEmpty()) {
             pattern.append("domain='" + domain);
             pattern.append("' and ");
 
         }
+        //
         if (keyWords != null && keyWords.length > 0) {
             pattern.append(column + " like '");
             for (String keyWord : keyWords

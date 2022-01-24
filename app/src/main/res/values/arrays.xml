@@ -2,21 +2,31 @@
 <resources>
     <string-array name="spinner_query_domain">
         <item>全部</item>
-        <item>初冷</item>
-        <item>粗苯蒸馏</item>
-        <item>电捕焦油</item>
-        <item>鼓风机</item>
-        <item>焦油氨水</item>
-        <item>硫铵</item>
-        <item>脱硫</item>
-        <item>油库</item>
-        <item>蒸氨</item>
-        <item>终冷洗苯</item>
-        <item>预处理</item>
-        <item>焚烧</item>
-        <item>净化</item>
-        <item>转化</item>
-        <item>干吸尾吸</item>
+        <item>[412]初冷</item>
+        <item>[443]粗苯蒸馏</item>
+        <item>[413]电捕焦油</item>
+        <item>[415]鼓风机</item>
+        <item>[414]焦油氨水</item>
+        <item>[423]硫铵</item>
+        <item>[433]脱硫</item>
+        <item>[012]油库</item>
+        <item>[424]蒸氨</item>
+        <item>[442]终冷洗苯</item>
+        <item>[4350]预处理</item>
+        <item>[4351]焚烧</item>
+        <item>[4352]净化</item>
+        <item>[4354]转化</item>
+        <item>[4353,5]干吸尾吸</item>
+        <item>[315,6,7,8]1#干熄焦</item>
+        <item>[325,6,7,8]2#干熄焦</item>
+        <item>[335,6,7,8]3#干熄焦</item>
+        <item>[31,2,3]干熄焦除尘</item>
+        <item>[351]1#干熄焦锅炉</item>
+        <item>[361]2#干熄焦锅炉</item>
+        <item>[371]3#干熄焦锅炉</item>
+        <item>[352]锅炉给水</item>
+        <item>[211,221]1#2#焦炉</item>
+        <item>[381]汽轮发电</item>
     </string-array>
 
     <string-array name="spinner_domain_interlock">
@@ -95,6 +105,16 @@
         <item>jinghua</item>
         <item>zhuanhua</item>
         <item>ganxiweixi</item>
+        <item>ganxijiaobenti_1</item>
+        <item>ganxijiaobenti_2</item>
+        <item>ganxijiaobenti_3</item>
+        <item>ganxijiaochuchen</item>
+        <item>ganxijiaoguolu_1</item>
+        <item>ganxijiaoguolu_2</item>
+        <item>ganxijiaoguolu_3</item>
+        <item>guolugeishui</item>
+        <item>jiaolu_1_2</item>
+        <item>qilunfadian</item>
     </string-array>
 
     <string-array name="spinner_query_column_database">

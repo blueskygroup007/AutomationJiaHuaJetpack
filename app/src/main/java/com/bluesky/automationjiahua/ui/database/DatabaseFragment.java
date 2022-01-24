@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -31,7 +30,8 @@ import com.bluesky.automationjiahua.database.InterLock;
 import com.bluesky.automationjiahua.databinding.FragmentDatabaseBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,6 +41,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
     private DatabaseViewModel mViewModel;
     private FragmentDatabaseBinding binding;
     private DeviceRepository mDeviceRepository;
+    private static final String SQLITE_DATABASE_FILE_NAME = "new_huachan_ganxijiao.db";
 
     public static DatabaseFragment newInstance() {
         return new DatabaseFragment();
@@ -55,14 +56,14 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
 
         //return inflater.inflate(R.layout.fragment_database, container, false);
 
-        binding.button1.setOnClickListener(this);
-        binding.button4.setOnClickListener(this);
-        binding.button7.setOnClickListener(this);
-        binding.button8.setOnClickListener(this);
-        binding.button9.setOnClickListener(this);
+        binding.btnDeleteRoomTable.setOnClickListener(this);
+        binding.btnQuerySqlite.setOnClickListener(this);
+        binding.btnFormatTranslateTable.setOnClickListener(this);
+        binding.btnQueryRoomTable.setOnClickListener(this);
+        binding.btnQuerySqliteTable.setOnClickListener(this);
 
         binding.btnDeleteRoomInterlock.setOnClickListener(this);
-        binding.btnFormatAndInsert.setOnClickListener(this);
+        binding.btnFormatTranslateTableInterlock.setOnClickListener(this);
         binding.btnQueryRoomInterlock.setOnClickListener(this);
         binding.btnQuerySqliteInterlock.setOnClickListener(this);
         return binding.getRoot();
@@ -134,30 +135,30 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button1:
+            case R.id.btn_query_sqlite:
                 //检查整个sqlite数据库,并列出所有表包含的记录数量
                 checkSqlite();
                 break;
-            case R.id.button4:
+            case R.id.btn_format_translate_table:
                 //格式化sqlite某表所有记录
                 formatSqliteTableToRoom();
                 break;
-            case R.id.button7:
+            case R.id.btn_delete_room_table:
                 //删除room某表
                 deleteRoom();
                 break;
-            case R.id.button8:
+            case R.id.btn_query_sqlite_table:
                 //查询sqlite某表
                 listSqlite();
                 break;
-            case R.id.button9:
+            case R.id.btn_query_room_table:
                 //查询room某表
                 listRoomFromTable();
                 break;
             case R.id.btn_delete_room_interlock:
                 deleteRoomInterlock();
                 break;
-            case R.id.btn_format_and_insert:
+            case R.id.btn_format_translate_table_interlock:
                 formatInterlockAndInsert();
                 break;
             case R.id.btn_query_room_interlock:
@@ -297,7 +298,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         Log.e("begin list Room::", "开始列出sqlite表。。。");
 
         String table = binding.etTableName.getText().toString();
-        DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
+        DBHelper dbHelper = new DBHelper(requireActivity(), SQLITE_DATABASE_FILE_NAME, null, 1);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + table, null);
         if (cursor.getCount() != 0) {
@@ -321,6 +322,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
                 Log.e("listSqlite:", device.toString());
             }
         }
+        Log.e("查询sqlite某个表:", table + "表共有:" + cursor.getCount() + "个");
         cursor.close();
         db.close();
     }
@@ -345,10 +347,11 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         Log.e("begin format to Room:", "开始格式化并转换到room表。。。");
 
         String table = binding.etTableName.getText().toString();
-        DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
+        DBHelper dbHelper = new DBHelper(requireActivity(), SQLITE_DATABASE_FILE_NAME, null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query(table, null, null, null, null, null, null);
         if (cursor.getCount() != 0) {
+            List<Device> temp = new ArrayList<>();
             while (cursor.moveToNext()) {
                 Device device = new Device(cursor.getString(0)
                         , cursor.getString(1)
@@ -371,9 +374,12 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
                     Log.e("listSqlite_formated:", device.getTag() + "   to   " + formated_tag);
                     //添加到room中,调试时,先检查格式化是否正确再执行下面两行代码做插入.
                     device.setTag(formated_tag);
-                    mDeviceRepository.insertDevices(device);
+                    temp.add(device);
                 }
             }
+            //等全部格式化完成后,将list转换为array,再一次性写入到room
+            Device[] array = temp.toArray(new Device[temp.size()]);
+            mDeviceRepository.insertDevices(array);
         }
         cursor.close();
         db.close();
@@ -383,7 +389,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         Log.e("begin translate Room:", "开始转换至room表。。。");
 
         String table = binding.etTableName.getText().toString();
-        DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
+        DBHelper dbHelper = new DBHelper(requireActivity(), SQLITE_DATABASE_FILE_NAME, null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from " + table, null);
 
@@ -419,7 +425,7 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
     private void checkSqlite() {
         Log.e("begin check sqlite:", "开始检查sqlite。。。");
 
-        DBHelper dbHelper = new DBHelper(requireActivity(), "total_new_source.db", null, 1);
+        DBHelper dbHelper = new DBHelper(requireActivity(), SQLITE_DATABASE_FILE_NAME, null, 1);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         StringBuilder builder = new StringBuilder("sqlite数据库包含:\n");

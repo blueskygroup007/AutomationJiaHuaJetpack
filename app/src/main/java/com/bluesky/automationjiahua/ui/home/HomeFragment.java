@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment {
                         //lastOffset=topView.getTop();
                         //得到该view的数组位置
                         int lastPosition = layoutManager.getPosition(topView);
-                        homeViewModel.getmCurrentItem().setValue(lastPosition);
+                        homeViewModel.setCurrentItem(lastPosition);
                     }
                 }
             }
@@ -114,18 +115,18 @@ public class HomeFragment extends Fragment {
 
 
         //恢复下拉列表框选择项
-        binding.spinnerQuerySearch.setSelection(homeViewModel.getmSearch().getValue());
-        binding.spinnerQueryDomain.setSelection(homeViewModel.getmRange().getValue());
+        binding.spinnerQuerySearch.setSelection(homeViewModel.getSearch());
+        binding.spinnerQueryDomain.setSelection(homeViewModel.getRange());
 
         //区域下拉列表
         binding.spinnerQueryDomain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                homeViewModel.getmRange().setValue(i);
+                homeViewModel.setRange(i);
                 mViewModel.findDevicesWithPattern(
-                        AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
-                        AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
-                        homeViewModel.getmKeyWord().getValue());
+                        AppConstant.DOMAIN[homeViewModel.getRange()],
+                        AppConstant.SEARCH[homeViewModel.getSearch()],
+                        homeViewModel.getKeyWord().split(" "));
             }
 
             @Override
@@ -137,11 +138,11 @@ public class HomeFragment extends Fragment {
         binding.spinnerQuerySearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                homeViewModel.getmSearch().setValue(i);
+                homeViewModel.setSearch(i);
                 mViewModel.findDevicesWithPattern(
-                        AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
-                        AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
-                        homeViewModel.getmKeyWord().getValue());
+                        AppConstant.DOMAIN[homeViewModel.getRange()],
+                        AppConstant.SEARCH[homeViewModel.getSearch()],
+                        homeViewModel.getKeyWord().split(" "));
             }
 
             @Override
@@ -154,11 +155,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("begin onResume:", "当前列表项保存值=" + homeViewModel.getmCurrentItem().getValue());
+        Log.e("begin onResume:", "当前列表项保存值=" + homeViewModel.getCurrentItem());
 
         //TODO 恢复列表位置,只有用scrollToPositionWithOffset才能方便的将该位置置顶
-        if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() != null) {
-            ((LinearLayoutManager) binding.rvList.getLayoutManager()).scrollToPositionWithOffset(homeViewModel.getmCurrentItem().getValue(), 0);
+        if (binding.rvList.getLayoutManager() != null) {
+            ((LinearLayoutManager) binding.rvList.getLayoutManager()).scrollToPositionWithOffset(homeViewModel.getCurrentItem(), 0);
         }
 
     }
@@ -204,19 +205,41 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                homeViewModel.setKeyWord("");
+
+                return false;
+            }
+        });
+
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                if (" ".equals(s)) {
-                    Log.e("onQueryTextSubmit:", "输入的是空格.");
-                }
-                homeViewModel.setSearchWords(s);
+
                 //一旦查询,列表位置的记录便清零
-                homeViewModel.getmCurrentItem().setValue(0);
-                if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() != null) {
-                    binding.rvList.getLayoutManager().scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+                homeViewModel.setCurrentItem(0);
+/*                if (binding.rvList.getLayoutManager() != null) {
+                    binding.rvList.getLayoutManager().scrollToPosition(homeViewModel.getCurrentItem());
+                }*/
+
+                //每当搜索内容变化，更新HomeViewModel，并更新列表
+                String keyWord = s.trim();
+                homeViewModel.setKeyWord(keyWord);
+                if (!keyWord.isEmpty()) {
+                    String[] keyWords = keyWord.split(" ");
+
+                    mViewModel.findDevicesWithPattern(
+                            AppConstant.DOMAIN[homeViewModel.getRange()],
+                            AppConstant.SEARCH[homeViewModel.getSearch()],
+                            keyWords);
+                } else {
+                    Toast.makeText(requireActivity(), "关键字不能为空!", Toast.LENGTH_SHORT).show();
+                    Log.e("onQueryTextSubmit", "关键字不能为空!");
                 }
+                return false;
 
                 //------------------------历史搜索实现-------------------------------
 /*                //历史中是否已经包含
@@ -238,36 +261,30 @@ public class HomeFragment extends Fragment {
                 mHistoryAdapter.notifyDataSetChanged();*/
                 //-------------------------------------------------------
 
-                //每当搜索内容变化，更新HomeViewModel，并更新列表
-                String keyWord = s.trim();
-                String[] keyWords = keyWord.split(" ");
-                homeViewModel.getmKeyWord().postValue(keyWords);
 
-                mViewModel.findDevicesWithPattern(
-                        AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
-                        AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
-                        keyWords);
-
-                return false;
             }
 
             /*不采用即时输入即时搜索*/
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (mSearchView.getQuery().length() == 0) {
+                //当查询的关键字长度为0(即点了叉)时,查询当前域名,当前字段下的当前关键字(空字串)
+                //但当domain=""(即全部区域),就会列出所有记录.浪费性能.
+
+
+/*                if (mSearchView.getQuery().length() == 0) {
                     homeViewModel.setSearchWords("");
 
                     Log.e("onQueryTextChange:", "输入的是空格.");
-                    homeViewModel.getmCurrentItem().setValue(0);
-                    if (binding.rvList.getLayoutManager() != null && homeViewModel.getmCurrentItem().getValue() != null) {
-                        binding.rvList.getLayoutManager().scrollToPosition(homeViewModel.getmCurrentItem().getValue());
+                    homeViewModel.setCurrentItem(0);
+                    if (binding.rvList.getLayoutManager() != null) {
+                        binding.rvList.getLayoutManager().scrollToPosition(homeViewModel.getCurrentItem());
                     }
                     mViewModel.findDevicesWithPattern(
-                            AppConstant.DOMAIN[homeViewModel.getmRange().getValue()],
-                            AppConstant.SEARCH[homeViewModel.getmSearch().getValue()],
+                            AppConstant.DOMAIN[homeViewModel.getRange()],
+                            AppConstant.SEARCH[homeViewModel.getSearch()],
                             new String[]{""});
 
-                }
+                }*/
                 return false;
             }
 

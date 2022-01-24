@@ -8,7 +8,7 @@ import java.util.Map;
  * @date 2021/7/3
  * Description:全局常量
  */
-public  class AppConstant {
+public class AppConstant {
     //sharedpreference常量
     public static final String SP_NAME = "device_sp";
     //详情页的简化参数:default="false" 和 "true"
@@ -34,7 +34,18 @@ public  class AppConstant {
             "fenshao",
             "jinghua",
             "zhuanhua",
-            "ganxiweixi"};
+            "ganxiweixi",
+            "ganxijiaobenti_1",
+            "ganxijiaobenti_2",
+            "ganxijiaobenti_3",
+            "ganxijiaochuchen",
+            "ganxijiaoguolu_1",
+            "ganxijiaoguolu_2",
+            "ganxijiaoguolu_3",
+            "guolugeishui",
+            "jiaolu_1_2",
+            "qilunfadian"
+    };
 
     /*用作room数据库的区域*/
     public static final String[] DOMAIN = new String[]{
@@ -53,7 +64,18 @@ public  class AppConstant {
             "fenshao",
             "jinghua",
             "zhuanhua",
-            "ganxiweixi"};
+            "ganxiweixi",
+            "ganxijiaobenti_1",
+            "ganxijiaobenti_2",
+            "ganxijiaobenti_3",
+            "ganxijiaochuchen",
+            "ganxijiaoguolu_1",
+            "ganxijiaoguolu_2",
+            "ganxijiaoguolu_3",
+            "guolugeishui",
+            "jiaolu_1_2",
+            "qilunfadian"
+    };
 
     public static final String[] COLUMN = new String[]{"tag", "affect", "parameter",
             "name", "range", "standard", "mode", "pipe", "type", "count", "install",
