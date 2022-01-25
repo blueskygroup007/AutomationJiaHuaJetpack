@@ -29,19 +29,20 @@ public class SpecialFragment extends Fragment implements RadioGroup.OnCheckedCha
                              @Nullable Bundle savedInstanceState) {
 
         mBinding = FragmentSpecialBinding.inflate(inflater, container, false);
-        //return inflater.inflate(R.layout.fragment_special, container, false);
+
         return mBinding.getRoot();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SpecialViewModel.class);
         // TODO: Use the ViewModel
         initView();
         initData();
         initEvent();
     }
+
 
     private void initView() {
         mGridAdapter = new GridSpecialAdapter(mBinding.rvSpecialDevices, mViewModel.getSpecialHuaChan().getValue());

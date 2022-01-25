@@ -7,7 +7,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.RawQuery;
-import androidx.room.Transaction;
 import androidx.room.Update;
 import androidx.sqlite.db.SupportSQLiteQuery;
 
@@ -83,8 +82,8 @@ public interface DeviceDao {
      * For @RawQuery, you should specify the list of tables to be observed via the observedEntities field.
      * RawQuery 可以返回observable类型， 但是你需要指定在查询中访问的表所对应的实体类
      *
-     * @param query
-     * @return
+     * @param query 查询
+     * @return 返回list
      */
     @RawQuery(observedEntities = Device.class)
     List<Device> rawQueryDevicesByPattern(SupportSQLiteQuery query);

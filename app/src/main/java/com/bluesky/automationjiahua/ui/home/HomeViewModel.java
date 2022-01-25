@@ -1,10 +1,6 @@
 package com.bluesky.automationjiahua.ui.home;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeViewModel extends ViewModel {
     //todo 每次返回fragment都会调用oncreate方法的解决
@@ -19,10 +15,6 @@ public class HomeViewModel extends ViewModel {
     private String mSearchWords="";
     //关键字
     private String mKeyWord="";
-    //历史关键字
-    private List<String> mHistory=new ArrayList<>();
-    //过滤后的列表数据
-//    private LiveData<List<Device>> mFilteredDevices = new MutableLiveData<>();
 
 
     public HomeViewModel() {

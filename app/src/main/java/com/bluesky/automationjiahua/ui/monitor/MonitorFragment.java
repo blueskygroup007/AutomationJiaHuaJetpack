@@ -32,9 +32,8 @@ public class MonitorFragment extends Fragment implements RadioGroup.OnCheckedCha
                 new ViewModelProvider(this).get(MonitorViewModel.class);
 
         binding = FragmentMonitorBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        return root;
+        return binding.getRoot();
     }
 
     @Override
@@ -55,6 +54,13 @@ public class MonitorFragment extends Fragment implements RadioGroup.OnCheckedCha
     }
 
 
+    /**
+     * 该方法已经过时,官方建议使用Activity Results API
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
