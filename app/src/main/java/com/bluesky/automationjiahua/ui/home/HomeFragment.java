@@ -209,6 +209,11 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onClose() {
                 homeViewModel.setKeyWord("");
+                mViewModel.findDevicesWithPattern(
+                        AppConstant.DOMAIN[homeViewModel.getRange()],
+                        AppConstant.SEARCH[homeViewModel.getSearch()],
+                        new String[]{""});
+                Log.e("setOnCloseListener", "搜索框关闭了!");
 
                 return false;
             }
@@ -221,9 +226,7 @@ public class HomeFragment extends Fragment {
 
                 //一旦查询,列表位置的记录便清零
                 homeViewModel.setCurrentItem(0);
-/*                if (binding.rvList.getLayoutManager() != null) {
-                    binding.rvList.getLayoutManager().scrollToPosition(homeViewModel.getCurrentItem());
-                }*/
+
 
                 //每当搜索内容变化，更新HomeViewModel，并更新列表
                 String keyWord = s.trim();
@@ -235,9 +238,6 @@ public class HomeFragment extends Fragment {
                             AppConstant.DOMAIN[homeViewModel.getRange()],
                             AppConstant.SEARCH[homeViewModel.getSearch()],
                             keyWords);
-                } else {
-                    Toast.makeText(requireActivity(), "关键字不能为空!", Toast.LENGTH_SHORT).show();
-                    Log.e("onQueryTextSubmit", "关键字不能为空!");
                 }
                 return false;
 
