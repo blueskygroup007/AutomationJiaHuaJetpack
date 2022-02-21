@@ -80,10 +80,10 @@ public class AssetsCopyUtils {
                 fos.flush();//刷新缓存区
                 inputStream.close();
                 fos.close();
-                //Toast.makeText(activity, "模型文件复制完毕", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "模型文件复制完毕", Toast.LENGTH_SHORT).show();
                 //Snackbar.make(activity.getWindow().getDecorView(), "数据库复制完毕", BaseTransientBottomBar.LENGTH_SHORT).show();
             } else {
-                //Toast.makeText(activity, "模型文件已存在，无需复制", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "模型文件已存在，无需复制", Toast.LENGTH_SHORT).show();
                 //Snackbar.make(activity.getWindow().getDecorView(), "数据库已存在，无需复制", BaseTransientBottomBar.LENGTH_SHORT).show();
 
             }

@@ -37,7 +37,10 @@ public class SplashActivity extends AppCompatActivity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
-        requestPermissions();
+        //requestPermissions();
+        //initData();
+        binding.btnEnter.setVisibility(View.VISIBLE);
+
     }
 
     private void initView() {
@@ -53,6 +56,8 @@ public class SplashActivity extends AppCompatActivity {
 
     private void initData() {
         String path_huachan = getDatabasePath(App.HUACHAN_DEVICE_DATA_BASE_NAME).getAbsolutePath();
+        toast("数据库目录=" + path_huachan);
+        Log.e("复制数据库文件,目录=", path_huachan);
 //        String path_interlock = getDatabasePath(App.INTER_LOCK_DATA_BASE_NAME).getAbsolutePath();
 
         AssetsCopyUtils.copyAssetsFile2Phone(this, App.HUACHAN_DEVICE_DATA_BASE_NAME, path_huachan);
@@ -75,8 +80,8 @@ public class SplashActivity extends AppCompatActivity {
                 //.permission(Permission.RECORD_AUDIO)
                 // 申请多个权限
                 //.permission(Permission.Group.CALENDAR)
-                //.permission(Permission.Group.STORAGE)
-                .permission(Permission.MANAGE_EXTERNAL_STORAGE)
+                .permission(Permission.Group.STORAGE)
+                //.permission(Permission.MANAGE_EXTERNAL_STORAGE)
                 .request(new OnPermissionCallback() {
 
                     @Override

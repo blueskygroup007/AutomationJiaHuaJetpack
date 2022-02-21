@@ -66,7 +66,7 @@ public abstract class DeviceDataBase extends RoomDatabase {
             };
 
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), DeviceDataBase.class, App.HUACHAN_DEVICE_DATA_BASE_NAME)
-                    //.createFromAsset(DATABASE_ASSETS_PATH)
+                    .createFromAsset("huachan.db")
                     .addMigrations(migration_1_2)
                     //.fallbackToDestructiveMigration()
                     //.allowMainThreadQueries()//强制主线程查询
