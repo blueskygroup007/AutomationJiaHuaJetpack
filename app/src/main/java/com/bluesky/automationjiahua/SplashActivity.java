@@ -81,6 +81,7 @@ public class SplashActivity extends AppCompatActivity {
                 // 申请多个权限
                 //.permission(Permission.Group.CALENDAR)
                 .permission(Permission.Group.STORAGE)
+                .permission(Permission.CALL_PHONE)
                 //.permission(Permission.MANAGE_EXTERNAL_STORAGE)
                 .request(new OnPermissionCallback() {
 

@@ -21,6 +21,11 @@
             android:icon="@drawable/ic_baseline_lock_24"
             android:title="@string/menu_interlock" />
         <item
+            android:id="@+id/nav_phone"
+            android:icon="@drawable/ic_baseline_phone_24"
+            android:title="@string/menu_phone"
+            />
+        <item
             android:id="@+id/nav_database"
             android:icon="@drawable/ic_baseline_data_usage_24"
             android:title="@string/menu_database" />

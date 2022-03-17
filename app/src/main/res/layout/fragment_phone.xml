@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/rectangle"
+    tools:context=".ui.phone.PhoneFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <TextView
+        android:id="@+id/tv_detail_changdiao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813766  5813788"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="5813766  5813788" />
+
+    <TextView
+        android:id="@+id/tv_column_changdiao"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="厂调"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_changdiao"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="厂调" />
+
+
+    <TextView
+        android:id="@+id/tv_detail_beimei"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813754  5813755"
+
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_changdiao"
+        tools:text="5813754  5813755" />
+
+    <TextView
+        android:id="@+id/tv_column_beimei"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="备煤"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_beimei"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_beimei"
+        tools:text="备煤" />
+
+    <TextView
+        android:id="@+id/tv_detail_jiaolu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813757  5813758"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_beimei"
+        tools:text="5813757  5813758" />
+
+    <TextView
+        android:id="@+id/tv_column_jiaolu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="焦炉"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_jiaolu"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_jiaolu"
+        tools:text="焦炉" />
+
+    <TextView
+        android:id="@+id/tv_detail_huishou"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813760  5813761"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_jiaolu"
+        tools:text="5813760  5813761" />
+
+    <TextView
+        android:id="@+id/tv_column_huishou"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="回收"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_huishou"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_huishou"
+        tools:text="回收" />
+
+    <TextView
+        android:id="@+id/tv_detail_shaijiao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813753  5813767"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_huishou"
+        tools:text="5813753  5813767" />
+
+    <TextView
+        android:id="@+id/tv_column_shaijiao"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="筛焦"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_shaijiao"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_shaijiao"
+        tools:text="筛焦" />
+
+    <TextView
+        android:id="@+id/tv_detail_jikong"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813878"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_shaijiao"
+        tools:text="5813878" />
+
+    <TextView
+        android:id="@+id/tv_column_jikong"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="集控"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_jikong"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_jikong"
+        tools:text="集控" />
+
+    <TextView
+        android:id="@+id/tv_detail_ganxijiao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813879"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_jikong"
+        tools:text="5813879" />
+
+    <TextView
+        android:id="@+id/tv_column_ganxijiao"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="干熄焦"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_ganxijiao"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_ganxijiao"
+        tools:text="干熄焦" />
+
+    <TextView
+        android:id="@+id/tv_detail_qilunji"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813896"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_ganxijiao"
+        tools:text="5813896" />
+
+    <TextView
+        android:id="@+id/tv_column_qilunji"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="汽轮机"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_qilunji"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_qilunji"
+        tools:text="汽轮机" />
+
+    <TextView
+        android:id="@+id/tv_detail_xunhuanshui"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5813912"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_qilunji"
+        tools:text="5813912" />
+
+    <TextView
+        android:id="@+id/tv_column_xunhuanshui"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="循环水"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_xunhuanshui"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_xunhuanshui"
+        tools:text="循环水" />
+
+    <TextView
+        android:id="@+id/tv_detail_wuliu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5811643  5811644"
+        android:theme="@style/text_detail_phone_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_divider"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_xunhuanshui"
+        tools:text="5811643  5811644" />
+
+    <TextView
+        android:id="@+id/tv_column_wuliu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="物流"
+        android:theme="@style/text_column_style"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_wuliu"
+        app:layout_constraintEnd_toStartOf="@id/gl_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_wuliu"
+        tools:text="物流" />
+</androidx.constraintlayout.widget.ConstraintLayout>

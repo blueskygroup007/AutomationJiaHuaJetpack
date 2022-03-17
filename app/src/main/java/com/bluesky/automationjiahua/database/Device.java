@@ -15,9 +15,6 @@ import java.io.Serializable;
 @Entity
 public class Device implements Serializable {
 
-
-    /*    @ColumnInfo(name = "serial")
-        public int serial;*/
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "tag")

@@ -56,23 +56,18 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        //TODO 回退至home页面时，因为Navigation的原理，导致Fragment的重建，所以要保存上次查询结果到HomeViewModel中。
-        //TODO 并在onViewCreate中加载。（当mFilteredDevices不为空时）
-        //TODO "区域"和"搜索项"为什么没有回到初始位置呢？也强制回到初始位置吧。(在HomeViewModel中保存)
-        //TODO 回退后，当前浏览位置也要恢复。
-
         //初始化FragmentViewModel
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         //初始化DeviceViewModel
         mViewModel = new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication()).create(DeviceViewModel.class);
-
+        //初始化列表适配器
         mAdapter = new DeviceRecyclerViewAdapter(binding.rvList, homeViewModel);
         binding.rvList.setLayoutManager(new LinearLayoutManager(getContext()));
-        //(优化)确定Item的改变不会影响RecyclerView的宽高
+        //确定Item的改变不会影响RecyclerView的宽高
         binding.rvList.setHasFixedSize(true);
+        //设置适配器给列表
         binding.rvList.setAdapter(mAdapter);
         //设置列表的监听,以获取当前第一项的item的计数
         binding.rvList.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -94,20 +89,14 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
-
+        //当前查询结果的监听
         mViewModel.getLiveDataDevices().observe(getViewLifecycleOwner(), devices -> {
             binding.tvColumnTipDisplay.setText(String.valueOf(devices.size()));
             mAdapter.setData(devices);
         });
-
-        //---恢复界面元素---
-
-
         //恢复下拉列表框选择项
         binding.spinnerQuerySearch.setSelection(homeViewModel.getSearch());
         binding.spinnerQueryDomain.setSelection(homeViewModel.getRange());
-
         //区域下拉列表
         binding.spinnerQueryDomain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -160,8 +149,6 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu_fragment_home_search, menu);
         MenuItem item = menu.findItem(R.id.menu_item_search);
         SearchView mSearchView = (SearchView) item.getActionView();
-
-
         //设置是否显示搜索框展开时的提交按钮
         mSearchView.setSubmitButtonEnabled(true);
         //键盘上显示放大镜图标(默认)
@@ -174,7 +161,7 @@ public class HomeFragment extends Fragment {
             completeTextView.setText(homeViewModel.getSearchWords());
             completeTextView.setSelection(homeViewModel.getSearchWords().length());
         });
-
+        //搜索栏关闭事件的监听处理
         mSearchView.setOnCloseListener(() -> {
             homeViewModel.setKeyWord("");
             mViewModel.findDevicesWithPattern(
@@ -186,7 +173,7 @@ public class HomeFragment extends Fragment {
             return false;
         });
 
-
+        //搜索栏查询事件的监听处理
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

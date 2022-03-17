@@ -45,4 +45,6 @@
     <string name="label_activity_activity">主页面</string>
     <string name="str_menu_tab_jiaolu">焦炉</string>
     <string name="str_menu_tab_monitor_ganxijiao">干熄焦</string>
+    <string name="menu_phone">联系电话</string>
+    <string name="label_phone">联系电话</string>
 </resources>

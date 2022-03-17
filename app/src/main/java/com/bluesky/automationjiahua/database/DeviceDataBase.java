@@ -35,21 +35,6 @@ public abstract class DeviceDataBase extends RoomDatabase {
                 @Override
                 public void migrate(@NotNull SupportSQLiteDatabase database) {
                     //增加新表的迁移策略
-                    /*database.execSQL("CREATE TABLE IF NOT EXISTS interlock (orderId INTEGER NOT NULL, title TEXT, " +
-
-                            "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");*/
-
-                    /*database.execSQL("CREATE TABLE `interlock` (`number` INTEGER not null , "
-                            + "`domain` TEXT, "
-                            +"`device_name` TEXT, "
-                            +"`tag` TEXT, "
-                            +"`control_value` TEXT, "
-                            +"`interlock_device_name` TEXT, "
-                            +"`interlock_device_tag` TEXT, "
-                            +"`action_type` TEXT, "
-                            +"`remark` TEXT, "
-                            +"PRIMARY KEY(`number`))");*/
-
                     database.execSQL("CREATE TABLE interlock (" +
                             "number INTEGER PRIMARY KEY NOT NULL," +
                             "domain TEXT," +
@@ -61,14 +46,14 @@ public abstract class DeviceDataBase extends RoomDatabase {
                             "action_type TEXT," +
                             "remark TEXT )");
                     //增加字段的迁移策略
-//                    database.execSQL("ALTER TABLE word ADD COLUMN sw_chinese_visiable INTEGER NOT NULL");
+                    //database.execSQL("ALTER TABLE word ADD COLUMN sw_chinese_visiable INTEGER NOT NULL");
                 }
             };
 
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), DeviceDataBase.class, App.HUACHAN_DEVICE_DATA_BASE_NAME)
                     .createFromAsset("huachan.db")
                     .addMigrations(migration_1_2)
-                    //.fallbackToDestructiveMigration()
+                    //.fallbackToDestructiveMigration()//回滚
                     //.allowMainThreadQueries()//强制主线程查询
                     .build();
 
