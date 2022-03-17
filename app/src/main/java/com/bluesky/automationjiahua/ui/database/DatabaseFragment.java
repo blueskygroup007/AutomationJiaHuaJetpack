@@ -28,6 +28,7 @@ import com.bluesky.automationjiahua.database.Device;
 import com.bluesky.automationjiahua.database.DeviceRepository;
 import com.bluesky.automationjiahua.database.InterLock;
 import com.bluesky.automationjiahua.databinding.FragmentDatabaseBinding;
+import com.bluesky.automationjiahua.utils.AppExecutors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -66,6 +67,8 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
         binding.btnFormatTranslateTableInterlock.setOnClickListener(this);
         binding.btnQueryRoomInterlock.setOnClickListener(this);
         binding.btnQuerySqliteInterlock.setOnClickListener(this);
+
+        binding.btnTemp.setOnClickListener(this);
         return binding.getRoot();
     }
 
@@ -167,8 +170,27 @@ public class DatabaseFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_query_sqlite_interlock:
                 querySqliteInterLock();
                 break;
+            case R.id.btn_temp:
+                //修改联锁的区域名称以便区分脱硫和脱硫脱硝
+                modifyInterLockDomain();
+                break;
             default:
         }
+    }
+
+    private void modifyInterLockDomain() {
+        AppExecutors mExecutors = new AppExecutors();
+        mExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<InterLock> tuoliu = DeviceRepository.getInstance().getInterLockDao().queryInterLocksByDomain("脱硫");
+                for (InterLock interLock :
+                        tuoliu) {
+                    interLock.setDomain("化产脱硫");
+                }
+                DeviceRepository.getInstance().getInterLockDao().updateInterLock(tuoliu.toArray(new InterLock[0]));
+            }
+        });
     }
 
     /**

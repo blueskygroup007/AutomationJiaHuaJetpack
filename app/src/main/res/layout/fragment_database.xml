@@ -155,4 +155,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_50" />
 
+    <Button
+        android:id="@+id/btn_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="临时功能按钮"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_delete_room_interlock" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,7 +45,7 @@ public interface InterLockDao {
     @Query("SELECT * FROM interlock WHERE domain LIKE :domain")
     List<InterLock> queryInterLocksByDomain(String domain);*/
 
-    /*根据domain过滤查询*/
+    /*根据domain过滤查询,这里谨慎使用Like关键字,因为domain中有类似"脱硫"和"脱硫脱硝"*/
     @Query("SELECT * FROM interlock WHERE domain LIKE :domain")
     List<InterLock> queryInterLocksByDomain(String domain);
 }
