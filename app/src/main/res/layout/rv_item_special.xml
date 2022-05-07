@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
 
         android:scaleType="centerInside"
-        tools:src="@mipmap/ic_device_tools" />
+        tools:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tv_item_picture_name"
